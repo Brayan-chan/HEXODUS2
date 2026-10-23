@@ -71,15 +71,14 @@ button {
   gap: 32px;
   background: linear-gradient(90deg, var(--ink), #091c41);
   color: #fff;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 50;
   transition:
     height 0.4s var(--ease),
     background 0.4s;
 }
 .site-header.is-scrolled {
-  position: fixed;
-  inset: 0 0 auto;
   height: 76px;
   background: rgba(8, 10, 15, 0.92);
   backdrop-filter: blur(14px);
@@ -380,13 +379,39 @@ button {
   height: 3px;
   background: var(--red);
 }
-.benefits__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.benefits__viewport {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+}
+.benefits__track {
+  display: flex;
+  width: max-content;
+  animation: benefits-marquee 28s linear infinite;
+  will-change: transform;
+}
+.benefits__group {
+  display: flex;
+  flex-shrink: 0;
   gap: 28px;
+  padding-right: 28px;
 }
 .benefits article {
   display: flex;
+  flex: 0 0 288px;
   align-items: center;
   gap: 16px;
 }
@@ -411,6 +436,18 @@ button {
 }
 .benefits span {
   font-size: 12px;
+}
+@keyframes benefits-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.benefits:hover .benefits__track,
+.benefits:focus-within .benefits__track {
+  animation-play-state: paused;
 }
 .section {
   position: relative;
@@ -1210,17 +1247,36 @@ footer {
 }
 .plan {
   transition:
-    transform 0.45s var(--ease),
+    transform 0.5s var(--ease),
     border-color 0.35s,
-    background 0.35s;
+    background 0.35s,
+    box-shadow 0.5s var(--ease);
 }
-.plan:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255, 255, 255, 0.42);
-  background: rgba(255, 255, 255, 0.035);
-}
-.plan--featured:hover {
-  transform: translateY(-15px);
+@media (hover: hover) and (pointer: fine) {
+  .plan:hover {
+    z-index: 2;
+    transform: translateY(-16px) scale(1.018);
+    border-color: rgba(73, 139, 255, 0.78);
+    background: linear-gradient(
+      145deg,
+      rgba(0, 71, 186, 0.12),
+      rgba(255, 255, 255, 0.025)
+    );
+    box-shadow:
+      0 28px 70px rgba(0, 0, 0, 0.38),
+      0 0 0 1px rgba(0, 71, 186, 0.22);
+  }
+  .plan--featured:hover {
+    border-color: var(--red);
+    box-shadow:
+      0 30px 75px rgba(0, 0, 0, 0.42),
+      0 0 32px rgba(234, 0, 41, 0.14);
+  }
+  .plan:hover .button {
+    border-color: var(--red);
+    background: var(--red);
+    color: var(--white);
+  }
 }
 .privacy-dialog {
   width: min(620px, calc(100% - 32px));
@@ -1407,9 +1463,6 @@ footer {
     flex-direction: column;
     gap: 6px;
   }
-  .benefits__grid {
-    grid-template-columns: 1fr 1fr;
-  }
   .section-head,
   .community__grid,
   .faq-grid {
@@ -1424,6 +1477,27 @@ footer {
   }
   .plan--featured {
     transform: none;
+  }
+  .plan.is-scroll-active {
+    z-index: 2;
+    transform: translateY(-10px) scale(1.012);
+    border-color: rgba(73, 139, 255, 0.88);
+    background: linear-gradient(
+      145deg,
+      rgba(0, 71, 186, 0.16),
+      rgba(255, 255, 255, 0.03)
+    );
+    box-shadow:
+      0 24px 55px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(0, 71, 186, 0.24);
+  }
+  .plan.is-scroll-active .button {
+    border-color: var(--red);
+    background: var(--red);
+    color: var(--white);
+  }
+  .plan--featured:not(.is-scroll-active) {
+    border-color: rgba(255, 255, 255, 0.16);
   }
   .split,
   .team-grid,
@@ -1507,13 +1581,15 @@ footer {
   .benefits {
     padding: 25px 0;
   }
-  .benefits__grid {
-    grid-template-columns: 1fr;
+  .benefits__track {
+    animation-duration: 20s;
+  }
+  .benefits__group {
     gap: 18px;
+    padding-right: 18px;
   }
   .benefits article {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-    padding-bottom: 16px;
+    flex-basis: 245px;
   }
   .section-head {
     margin-top: 30px;
@@ -1654,6 +1730,9 @@ footer {
     scroll-behavior: auto;
   }
   .promo__track {
+    animation: none;
+  }
+  .benefits__track {
     animation: none;
   }
   .reveal,
