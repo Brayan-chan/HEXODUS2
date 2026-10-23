@@ -21,11 +21,27 @@ document
   .querySelectorAll("[data-menu] a")
   .forEach((link) => link.addEventListener("click", closeMenu));
 
+let headerIsCompact = window.scrollY > 112;
+let headerFrame = 0;
+
 const updateHeader = () => {
-  header?.classList.toggle("is-scrolled", window.scrollY > 24);
+  headerFrame = 0;
+  const scrollTop = window.scrollY;
+
+  // Distintos umbrales de entrada y salida evitan que el header oscile
+  // cuando cambia de altura cerca de la parte superior de la página.
+  if (!headerIsCompact && scrollTop > 112) headerIsCompact = true;
+  if (headerIsCompact && scrollTop < 32) headerIsCompact = false;
+
+  header?.classList.toggle("is-scrolled", headerIsCompact);
 };
+
+const requestHeaderUpdate = () => {
+  if (!headerFrame) headerFrame = requestAnimationFrame(updateHeader);
+};
+
 updateHeader();
-window.addEventListener("scroll", updateHeader, { passive: true });
+window.addEventListener("scroll", requestHeaderUpdate, { passive: true });
 
 if (!reduceMotion) {
   requestAnimationFrame(() => document.body.classList.add("is-ready"));
@@ -193,4 +209,48 @@ if (facilityGallery) {
       selectImage(next);
     });
   });
+}
+
+const membershipCards = [...document.querySelectorAll(".plans .plan")];
+if (membershipCards.length) {
+  const mobileCards = matchMedia("(max-width: 900px)");
+  let cardFrame = 0;
+
+  const highlightClosestCard = () => {
+    cardFrame = 0;
+    if (!mobileCards.matches) {
+      membershipCards.forEach((card) =>
+        card.classList.remove("is-scroll-active"),
+      );
+      return;
+    }
+
+    const viewportCenter = innerHeight * 0.52;
+    let closestCard = null;
+    let closestDistance = Infinity;
+
+    membershipCards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+      const visible =
+        rect.bottom > innerHeight * 0.12 && rect.top < innerHeight * 0.88;
+      if (visible && distance < closestDistance) {
+        closestDistance = distance;
+        closestCard = card;
+      }
+    });
+
+    membershipCards.forEach((card) =>
+      card.classList.toggle("is-scroll-active", card === closestCard),
+    );
+  };
+
+  const requestCardHighlight = () => {
+    if (!cardFrame) cardFrame = requestAnimationFrame(highlightClosestCard);
+  };
+
+  highlightClosestCard();
+  window.addEventListener("scroll", requestCardHighlight, { passive: true });
+  window.addEventListener("resize", requestCardHighlight);
+  mobileCards.addEventListener?.("change", requestCardHighlight);
 }
