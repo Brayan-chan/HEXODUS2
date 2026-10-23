@@ -254,3 +254,44 @@ if (membershipCards.length) {
   window.addEventListener("resize", requestCardHighlight);
   mobileCards.addEventListener?.("change", requestCardHighlight);
 }
+
+const benefitsTrack = document.querySelector(".benefits__track");
+if (benefitsTrack && !reduceMotion) {
+  const carouselAnimation = benefitsTrack.getAnimations()[0];
+
+  if (carouselAnimation) {
+    let previousScrollY = window.scrollY;
+    let currentRate = 1;
+    let targetRate = 1;
+    let carouselFrame = 0;
+
+    const settleCarousel = () => {
+      currentRate += (targetRate - currentRate) * 0.18;
+      targetRate += (1 - targetRate) * 0.075;
+      carouselAnimation.updatePlaybackRate(currentRate);
+
+      if (Math.abs(currentRate - 1) < 0.01 && Math.abs(targetRate - 1) < 0.01) {
+        carouselAnimation.updatePlaybackRate(1);
+        carouselFrame = 0;
+        return;
+      }
+
+      carouselFrame = requestAnimationFrame(settleCarousel);
+    };
+
+    const reactCarouselToScroll = () => {
+      const scrollY = window.scrollY;
+      const delta = scrollY - previousScrollY;
+      previousScrollY = scrollY;
+
+      if (Math.abs(delta) < 1) return;
+
+      const impulse = Math.min(Math.abs(delta) / 18, 1.6);
+      targetRate = delta > 0 ? 1.15 + impulse : -(0.35 + impulse);
+
+      if (!carouselFrame) carouselFrame = requestAnimationFrame(settleCarousel);
+    };
+
+    window.addEventListener("scroll", reactCarouselToScroll, { passive: true });
+  }
+}
