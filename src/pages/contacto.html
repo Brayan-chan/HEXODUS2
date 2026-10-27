@@ -1,0 +1,64 @@
+{% extends "layouts/base.html" %}
+{% block pageStyles %}
+    <link rel="stylesheet" href="/src/styles/pages/contact.css" />
+{% endblock %}
+{% block content %}
+<section class="contact-page__hero dark">
+  <div class="wrap">
+    <p class="eyebrow">Contacto · {{ site.city }}</p>
+    <h1>Hablemos de<br /><em>tu próxima meta.</em></h1>
+    <p>¿Tienes dudas o quieres conocer el gimnasio? Escríbenos o visítanos en Campeche.</p>
+  </div>
+</section>
+
+<section class="section contact" id="contacto">
+  <div class="wrap">
+    <div class="section-index"><span>01</span> Aquí empieza la conversación</div>
+    <div class="section-head">
+      <h2>Cuéntanos<br /><em>qué buscas.</em></h2>
+      <p>Resuelve tus dudas sobre membresías, horarios y servicios. Te ayudamos a preparar tu primera visita.</p>
+    </div>
+    <div class="contact-grid">
+      <figure class="contact-photo">
+        <picture>
+          <source media="(max-width: 600px)" srcset="/assets/location-900.webp" />
+          <img src="/assets/location-1800.webp" alt="Instalaciones de Hexodus en Campeche" width="1800" height="1171" decoding="async" />
+        </picture>
+        <figcaption><b>{{ site.name }}</b><span>{{ site.landmark }}</span></figcaption>
+      </figure>
+      <div class="contact-data">
+        <article>
+          <b>WhatsApp</b>
+          <a class="phone" href="{{ site.whatsappUrl }}">{{ site.phoneDisplay }}</a>
+          <p>Consulta directamente con el equipo de Hexodus.</p>
+          <a class="button button--dark" href="{{ site.whatsappUrl }}" target="_blank" rel="noopener noreferrer">Escribir por WhatsApp <span>↗</span></a>
+        </article>
+        <article>
+          <b>Horarios</b>
+          <dl>
+            <div><dt>Lunes a viernes</dt><dd>{{ site.hours.weekdays.display }}</dd></div>
+            <div><dt>Sábados</dt><dd>{{ site.hours.saturday.display }}</dd></div>
+            <div><dt>Domingos</dt><dd>{{ site.hours.sunday.display }}</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact-page__map">
+  <div class="wrap">
+    <div class="section-index"><span>02</span> Visítanos en Campeche</div>
+    <div class="section-head">
+      <h2>Tu espacio<br /><em>para entrenar.</em></h2>
+      <div class="contact-page__address">
+        <strong>{{ site.name }}</strong>
+        <address>{% for line in site.addressLines %}{{ line }}{% if not loop.last %}<br />{% endif %}{% endfor %}</address>
+        <p>{{ site.landmark }}</p>
+        <a class="button button--dark" href="{{ site.mapsUrl }}" target="_blank" rel="noopener noreferrer">Cómo llegar <span>↗</span></a>
+      </div>
+    </div>
+    <iframe class="contact-page__map-frame" src="{{ site.mapsEmbedUrl }}" title="Mapa de ubicación de {{ site.name }} en Campeche" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,8 @@
+<article class="plan{% if plan.featured %} plan--featured{% endif %} reveal">
+  {% if plan.tag %}<div class="plan__tag">{{ plan.tag }}</div>{% endif %}
+  <p class="eyebrow">{{ plan.name }}</p>
+  <div class="price"><sup>$</sup>{{ plan.amount | number }}</div>
+  <small>{{ plan.unit }}</small>
+  <ul>{% for feature in plan.features %}<li>{{ feature }}</li>{% endfor %}</ul>
+  <a class="button {% if plan.featured %}button--primary{% else %}button--outline{% endif %}" href="{% if plan.whatsappUrl %}{{ plan.whatsappUrl }}{% else %}{{ site.whatsappUrl }}{% endif %}" target="_blank" rel="noopener noreferrer">{{ plan.action }} <span>↗</span></a>
+</article>

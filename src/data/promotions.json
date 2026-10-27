@@ -1,0 +1,8 @@
+{
+  "enrollment": {
+    "label": "Inscripción",
+    "amount": 0,
+    "confirmed": false,
+    "termsConfirmed": false
+  }
+}

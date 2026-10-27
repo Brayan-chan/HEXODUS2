@@ -1,0 +1,20 @@
+:root {
+  --ink: #080a0f;
+  --navy: #071b3c;
+  --blue: #0047ba;
+  --blue2: #003381;
+  --blue-neon: #0066ff;
+  --blue-electric: #00d2ff;
+  --blue-glow: rgba(0, 102, 255, 0.35);
+  --cyan-glow: rgba(0, 210, 255, 0.2);
+  --red: #ea0029;
+  --red-neon: #ff1744;
+  --red-glow: rgba(234, 0, 41, 0.35);
+  --white: #fff;
+  --paper: #f5f6f7;
+  --gray: #525b68;
+  --muted: #a4adba;
+  --line: #dde0e5;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --wrap: min(1264px, calc(100% - 48px));
+}

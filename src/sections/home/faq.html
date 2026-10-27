@@ -1,0 +1,26 @@
+      <section class="section faq">
+        <div class="wrap faq-grid">
+          <div>
+            <div class="section-index reveal">
+              <span>07</span> Antes de empezar
+            </div>
+            <h2 class="reveal reveal--clip">Dudas<br /><em>rápidas.</em></h2>
+            <p class="reveal">Estamos para ayudarte a dar el primer paso.</p>
+            <a
+              class="button button--dark reveal"
+              href="{{ site.whatsappUrl }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Habla con Hexodus <span>↗</span></a
+            >
+          </div>
+          <div class="accordion" data-accordion>
+            {% for item in faqs %}
+              <details class="faq-item"{% if loop.first %} open{% endif %}>
+                <summary><span>{{ item.question }}</span><b aria-hidden="true">+</b></summary>
+                <div><p>{{ item.answer }}</p></div>
+              </details>
+            {% endfor %}
+          </div>
+        </div>
+      </section>

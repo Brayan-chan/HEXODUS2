@@ -1,0 +1,147 @@
+{% extends "layouts/base.html" %}
+{% block pageStyles %}
+    <link rel="stylesheet" href="/src/styles/pages/galeria.css" />
+{% endblock %}
+{% block content %}
+<section class="gallery-hero dark">
+  <div class="gallery-hero__bg" data-parallax="15"></div>
+  <div class="gallery-hero__veil"></div>
+  <div class="wrap gallery-hero__content">
+    <div class="gallery-hero__badge">
+      <span class="accent-slash">//</span> NUESTRAS INSTALACIONES
+    </div>
+    <h1 class="gallery-hero__title">
+      Hexodus se vive<br /><em>en cada espacio.</em>
+    </h1>
+    <p class="gallery-hero__subtitle">
+      Conoce el ambiente donde comenzarás tu transformación. Instalaciones 100% climatizadas, equipo completo de peso libre e integrado y espacio diseñado para entrenar con propósito.
+    </p>
+    <div class="gallery-hero__chips">
+      <span class="gallery-chip"><b>29</b> Fotografías</span>
+      <span class="gallery-chip"><b>100%</b> Clima Controlado</span>
+      <span class="gallery-chip"><b>4</b> Zonas de Entrenamiento</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gallery-section" id="galeria">
+  <div class="wrap">
+    <!-- Barra de Filtros interactivos estilo Pinterest -->
+    <div class="gallery-filters" role="tablist" aria-label="Filtrar fotos de la galería">
+      <button class="gallery-filter is-active" type="button" data-filter="all" role="tab" aria-selected="true">
+        Todas <span class="gallery-filter__count">({{ gallery.length }})</span>
+      </button>
+      <button class="gallery-filter" type="button" data-filter="fuerza" role="tab" aria-selected="false">
+        Pesas y Fuerza
+      </button>
+      <button class="gallery-filter" type="button" data-filter="maquinas" role="tab" aria-selected="false">
+        Máquinas
+      </button>
+      <button class="gallery-filter" type="button" data-filter="cardio" role="tab" aria-selected="false">
+        Cardio
+      </button>
+      <button class="gallery-filter" type="button" data-filter="instalaciones" role="tab" aria-selected="false">
+        Instalaciones
+      </button>
+      <button class="gallery-filter" type="button" data-filter="comunidad" role="tab" aria-selected="false">
+        Comunidad
+      </button>
+    </div>
+
+    <!-- Masonry Grid estilo Pinterest (Solo fotos sin descripción) -->
+    <div class="masonry-grid" data-masonry-gallery>
+      {% for photo in gallery %}
+      <article
+        class="masonry-item"
+        data-category="{{ photo.category }}"
+        data-id="{{ photo.id }}"
+        tabindex="0"
+        role="button"
+        aria-label="Ver imagen ampliada: {{ photo.alt }}"
+      >
+        <div class="masonry-card">
+          <img
+            src="{{ photo.src }}"
+            alt="{{ photo.alt }}"
+            width="{{ photo.width }}"
+            height="{{ photo.height }}"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="masonry-overlay">
+            <span class="masonry-zoom" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox Modal Fullscreen -->
+<div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de fotografía">
+  <div class="lightbox-backdrop" data-lightbox-close></div>
+  <div class="lightbox-dialog">
+    <button class="lightbox-close" type="button" aria-label="Cerrar visor" data-lightbox-close>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <button class="lightbox-nav lightbox-nav--prev" type="button" aria-label="Foto anterior" data-lightbox-prev>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="lightbox-nav lightbox-nav--next" type="button" aria-label="Siguiente foto" data-lightbox-next>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-image" src="" alt="" data-lightbox-img />
+      <figcaption class="lightbox-counter" data-lightbox-counter></figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- CTA Cierre Panorámico -->
+<section class="gallery-cta">
+  <div class="wrap gallery-cta__wrap">
+    <div class="gallery-cta__card">
+      <div class="gallery-cta__bg" data-parallax="18"></div>
+      <div class="gallery-cta__veil"></div>
+      <div class="gallery-cta__content">
+        <span class="gallery-cta__eyebrow"><b class="accent-slash">//</b> Tu espacio</span>
+        <h2 class="gallery-cta__title">
+          Tu próxima rutina<br /><em>puede empezar aquí.</em>
+        </h2>
+        <p class="gallery-cta__copy">
+          Recorre nuestras instalaciones, conoce al equipo y encuentra el espacio donde vas a construir tu mejor versión.
+        </p>
+        <div class="gallery-cta__actions">
+          <a
+            class="button button--primary gallery-cta__btn-wa"
+            href="{{ site.whatsappUrl }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Escríbenos por WhatsApp <span>→</span></a
+          >
+          <a
+            class="button button--outline gallery-cta__btn-plans"
+            href="/#membresias"
+            >Ver membresías <span>↓</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,77 @@
+.contact-page__hero {
+  min-height: 390px;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(8, 10, 15, 0.97), rgba(0, 71, 186, 0.68)),
+    url("/assets/location-1800.webp") center/cover;
+}
+
+.contact-page__hero .wrap {
+  padding-block: 72px;
+}
+
+.contact-page__hero h1 {
+  max-width: 820px;
+  margin: 18px 0;
+  font:
+    800 clamp(56px, 7vw, 102px)/0.94 "Barlow Condensed",
+    sans-serif;
+  text-transform: uppercase;
+}
+
+.contact-page__hero h1 em {
+  color: var(--red);
+  font-style: normal;
+}
+
+.contact-page__hero p:last-child {
+  max-width: 560px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.contact-page__map {
+  background: var(--paper);
+}
+
+.contact-page__address strong,
+.contact-page__address p {
+  display: block;
+  margin-block: 0 12px;
+  font-size: 14px;
+}
+
+.contact-page__address address {
+  color: var(--gray);
+  font-size: 14px;
+  font-style: normal;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.contact-page__address .button {
+  margin-top: 12px;
+}
+
+.contact-page__map-frame {
+  display: block;
+  width: 100%;
+  height: min(58vw, 520px);
+  min-height: 360px;
+  border: 0;
+  margin-top: 40px;
+  background: #dde3ea;
+}
+
+@media (max-width: 600px) {
+  .contact-page__hero {
+    min-height: 360px;
+  }
+  .contact-page__hero h1 {
+    font-size: 58px;
+  }
+  .contact-page__map-frame {
+    min-height: 340px;
+  }
+}

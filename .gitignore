@@ -1,0 +1,13 @@
+node_modules/
+.generated/
+dist/
+.env
+.env.*
+!*.example
+test-results/
+docs/
+hexodus-codex/
+AGENTS.md
+PROMPT-INICIAL.md
+Gallerya/
+.DS_Store

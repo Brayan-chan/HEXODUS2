@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ seo.title }}</title>
+    <meta name="description" content="{{ seo.description }}" />
+    <link rel="canonical" href="{{ canonical }}" />
+    <meta name="robots" content="{{ robots }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="{{ seo.title }}" />
+    <meta property="og:description" content="{{ seo.description }}" />
+    <meta property="og:url" content="{{ canonical }}" />
+    <meta property="og:image" content="{{ socialImage }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+    {% block pageStyles %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" data-font-stylesheet />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ExerciseGym",
+      "name": "{{ site.name }}",
+      "description": "{{ seo.description }}",
+      "url": "{{ canonical }}",
+      "image": "{{ socialImage }}",
+      "telephone": "{{ site.phoneE164 }}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Francisco de Campeche",
+        "addressRegion": "Campeche",
+        "addressCountry": "MX"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "05:00",
+          "closes": "23:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
+          "opens": "07:00",
+          "closes": "15:00"
+        }
+      ],
+      "priceRange": "$$"
+    }
+    </script>
+    <script type="module" src="/{{ route.entry }}"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    {% include "components/header.html" %}
+    {% include "components/promo.html" %}
+    <main id="contenido">{% block content %}{% endblock %}</main>
+    {% include "components/footer.html" %}
+  </body>
+</html>

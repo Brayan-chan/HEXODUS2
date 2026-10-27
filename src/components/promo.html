@@ -1,0 +1,10 @@
+<div class="promo" aria-label="Información de membresías" tabindex="0">
+  <div class="promo__track">
+    <span>{{ promotions.enrollment.label | upper }} ${{ promotions.enrollment.amount }}*</span><i></i>
+    <span>{{ memberships.plans[0].name | upper }} ${{ memberships.plans[0].amount | number }}</span><i></i>
+    <span>{{ memberships.plans[1].name | upper }} ${{ memberships.plans[1].amount | number }} ENTRE DOS</span><i></i>
+    <span>{{ site.city | upper }}</span><i></i>
+    <span aria-hidden="true">{{ promotions.enrollment.label | upper }} ${{ promotions.enrollment.amount }}*</span><i></i>
+    <span aria-hidden="true">{{ memberships.plans[0].name | upper }} ${{ memberships.plans[0].amount | number }}</span><i></i>
+  </div>
+</div>

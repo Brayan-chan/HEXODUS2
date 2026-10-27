@@ -1,0 +1,4 @@
+.wrap {
+  width: var(--wrap);
+  margin-inline: auto;
+}

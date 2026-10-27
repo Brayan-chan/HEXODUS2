@@ -1,0 +1,26 @@
+      <section class="section memberships dark" id="membresias">
+        <div class="watermark" aria-hidden="true">H</div>
+        <div class="wrap">
+          <div class="section-index reveal"><span>02</span> Membresías</div>
+          <div class="section-head">
+            <h2 class="reveal reveal--clip">
+              Elige tu<br /><em>ritmo.</em>
+            </h2>
+            <p class="reveal">
+              Entrena por tu cuenta, en pareja o con precio de estudiante.
+              Consulta los planes y encuentra cómo empezar.
+            </p>
+          </div>
+          <div class="plans">
+            {% for plan in memberships.plans %}
+              {% include "components/plan-card.html" %}
+            {% endfor %}
+          </div>
+          <div class="short-passes reveal">
+            <p>¿Vienes por unos días? <strong>Elige tu ritmo.</strong></p>
+            <div>
+              {% for pass in memberships.passes %}<span>{{ pass.name }} <b>${{ pass.amount }}</b></span>{% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>

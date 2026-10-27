@@ -1,0 +1,17 @@
+{
+  "home": {
+    "title": "Gimnasio en Campeche | {name}",
+    "description": "Entrena fuerza, pesas libres y cardio en {name}, Campeche. Instalaciones climatizadas, coaches profesionales y membresías a tu medida.",
+    "image": "/assets/hero-gym-1800.webp"
+  },
+  "contacto": {
+    "title": "Ubicación y horarios en Campeche | {name}",
+    "description": "Encuentra {name} en la colonia Minas, Campeche. Consulta horarios, ubicación y contacto por WhatsApp.",
+    "image": "/assets/location-1800.webp"
+  },
+  "galeria": {
+    "title": "Galería de Instalaciones en Campeche | {name}",
+    "description": "Explora las instalaciones climatizadas, pesas libres y máquinas de {name} en Campeche. Ambiente motivador para tu entrenamiento.",
+    "image": "/assets/gallery-main-1800.webp"
+  }
+}

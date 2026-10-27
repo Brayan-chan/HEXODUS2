@@ -1,0 +1,263 @@
+[
+  {
+    "id": "gallery-01",
+    "src": "/assets/gallery/59f6fa16-fb44-46ef-8073-4081ab548681.jpg",
+    "alt": "Área de pesas libres y mancuernas en Hexodus Fitness Center",
+    "category": "fuerza",
+    "tag": "Pesas Libres",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "id": "gallery-02",
+    "src": "/assets/gallery/HEXODUS-1.jpg",
+    "alt": "Zona de entrenamiento con barras olímpicas y discos",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-03",
+    "src": "/assets/gallery/856ac2c7-6f88-4c8c-ac0f-d89ec521af79.jpg",
+    "alt": "Máquinas de fuerza y peso integrado de última generación",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "id": "gallery-04",
+    "src": "/assets/gallery/HEXODUS-12.jpg",
+    "alt": "Equipo biomecánico para entrenamiento de pierna y tren inferior",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-05",
+    "src": "/assets/gallery/4472af03-70ea-4d00-8f53-0d9f0d20f4ec.jpg",
+    "alt": "Instalaciones amplias y climatizadas de Hexodus Campeche",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
+    "width": 1368,
+    "height": 912
+  },
+  {
+    "id": "gallery-06",
+    "src": "/assets/gallery/HEXODUS-14.jpg",
+    "alt": "Espacio limpio, ordenado y equipado para alto rendimiento",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-07",
+    "src": "/assets/gallery/896c8b4a-1311-421a-ad34-10b340f57a2f.jpg",
+    "alt": "Zona de cardio climatizada con caminadoras profesionales",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1368,
+    "height": 912
+  },
+  {
+    "id": "gallery-08",
+    "src": "/assets/gallery/HEXODUS-13.jpg",
+    "alt": "Equipo cardiovascular para resistencia y quema calórica",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-09",
+    "src": "/assets/gallery/e3ea457e-7c47-431a-bde3-0edba911ee0c.jpg",
+    "alt": "Comunidad de atletas y acompañamiento de coaches en Hexodus",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "id": "gallery-10",
+    "src": "/assets/gallery/HEXODUS-15.jpg",
+    "alt": "Entrenamiento supervisado y motivación en equipo",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-11",
+    "src": "/assets/gallery/HEXODUS-4.jpg",
+    "alt": "Racks de sentadilla y levantamiento de potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-12",
+    "src": "/assets/gallery/HEXODUS-10.jpg",
+    "alt": "Mancuernas de uso rudo y bancos profesionales ajustables",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-13",
+    "src": "/assets/gallery/HEXODUS-17.jpg",
+    "alt": "Prensa de piernas y poleas dobles en sala principal",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-14",
+    "src": "/assets/gallery/dd3b4f22-8e47-4402-aada-b29f838e4154.jpg",
+    "alt": "Pasillo central e iluminación nocturna en el gimnasio",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
+    "width": 1368,
+    "height": 912
+  },
+  {
+    "id": "gallery-15",
+    "src": "/assets/gallery/HEXODUS-19.jpg",
+    "alt": "Detalle de instalaciones y diseño industrial de alto nivel",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-16",
+    "src": "/assets/gallery/HEXODUS-18.jpg",
+    "alt": "Caminadoras y elípticas con vista panorámica interior",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-17",
+    "src": "/assets/gallery/HEXODUS-20.jpg",
+    "alt": "Ambiente de entrenamiento enfocado y constante",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-18",
+    "src": "/assets/gallery/HEXODUS-16.jpg",
+    "alt": "Zona de peso libre con suelo de caucho amortiguado",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-19",
+    "src": "/assets/gallery/HEXODUS-21.jpg",
+    "alt": "Barra Z, discos olímpicos y accesorios de fuerza",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-20",
+    "src": "/assets/gallery/HEXODUS-22.jpg",
+    "alt": "Estaciones de poleas cruzadas y dorsales",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-21",
+    "src": "/assets/gallery/HEXODUS-26.jpg",
+    "alt": "Área de hidratación y lockers seguros en Hexodus",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-22",
+    "src": "/assets/gallery/HEXODUS-23.jpg",
+    "alt": "Máquinas de cardio con control de frecuencia cardíaca",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-23",
+    "src": "/assets/gallery/HEXODUS-25.jpg",
+    "alt": "Entrenamiento de pecho y hombro en banco olímpico",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-24",
+    "src": "/assets/gallery/HEXODUS-27.jpg",
+    "alt": "Máquina Smith y multipower para entrenar con seguridad",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-25",
+    "src": "/assets/gallery/HEXODUS-30.jpg",
+    "alt": "Bicicletas estáticas y de spinning para resistencia",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-26",
+    "src": "/assets/gallery/HEXODUS-31.jpg",
+    "alt": "Entrada principal y recepción de Hexodus Fitness Center",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-27",
+    "src": "/assets/gallery/HEXODUS-32.jpg",
+    "alt": "Compañerismo y energía positiva entre miembros del gym",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-28",
+    "src": "/assets/gallery/HEXODUS-6.jpg",
+    "alt": "Máquinas de femoral y extensión de cuádriceps",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1024,
+    "height": 1536
+  },
+  {
+    "id": "gallery-29",
+    "src": "/assets/gallery/HEXODUS-9.jpg",
+    "alt": "Área de calentamiento y cardio integral",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1024,
+    "height": 1536
+  }
+]

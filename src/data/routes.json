@@ -1,0 +1,23 @@
+[
+  {
+    "id": "home",
+    "path": "/",
+    "template": "pages/home.html",
+    "entry": "src/js/pages/home.js",
+    "published": true
+  },
+  {
+    "id": "contacto",
+    "path": "/contacto/",
+    "template": "pages/contacto.html",
+    "entry": "src/js/pages/contact.js",
+    "published": true
+  },
+  {
+    "id": "galeria",
+    "path": "/galeria/",
+    "template": "pages/galeria.html",
+    "entry": "src/js/pages/galeria.js",
+    "published": true
+  }
+]
