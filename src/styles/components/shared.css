@@ -1,3 +1,7 @@
+.has-deep-link {
+  scroll-behavior: auto;
+}
+
 .site-header {
   height: 96px;
   padding: 0 max(24px, calc((100vw - 1264px) / 2));
@@ -15,6 +19,12 @@
     background 0.4s;
 }
 .site-header.is-scrolled {
+  height: 76px;
+  background: rgba(8, 10, 15, 0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px rgba(255, 255, 255, 0.08);
+}
+.has-deep-link .site-header {
   height: 76px;
   background: rgba(8, 10, 15, 0.92);
   backdrop-filter: blur(14px);
@@ -57,12 +67,18 @@
 }
 .desktop-nav a:hover,
 .desktop-nav a:focus,
-.desktop-nav a.is-active {
+.desktop-nav a.is-active,
+.desktop-nav a[aria-current="page"] {
   color: #fff;
 }
 .desktop-nav a:hover:after,
-.desktop-nav a.is-active:after {
+.desktop-nav a.is-active:after,
+.desktop-nav a[aria-current="page"]:after {
   right: 0;
+}
+.mobile-menu a[aria-current],
+.mobile-menu a.is-active {
+  color: var(--red);
 }
 .button {
   --mx: 0px;

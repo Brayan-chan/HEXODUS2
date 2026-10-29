@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      document.documentElement.classList.add("has-js");
+      if (location.hash && location.hash !== "#inicio") {
+        document.documentElement.classList.add("has-deep-link");
+      }
+    </script>
     <title>{{ seo.title }}</title>
     <meta name="description" content="{{ seo.description }}" />
     <link rel="canonical" href="{{ canonical }}" />

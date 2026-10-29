@@ -1,13 +1,8 @@
 import { initShared } from "../main.js";
-import { initActiveNavigation } from "../components/active-navigation.js";
 import { initExistingEffects } from "../animations/existing-effects.js";
 
 const root = document;
-const cleanups = [
-  initShared(root),
-  initActiveNavigation(root),
-  initExistingEffects(root),
-];
+const cleanups = [initShared(root), initExistingEffects(root)];
 
 // 1. Filtrado de Galería estilo Pinterest
 function initGalleryFilters() {

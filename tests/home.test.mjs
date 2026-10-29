@@ -60,6 +60,40 @@ test("contact details and map are on their own page", async () => {
   await page.close();
 });
 
+test("subpage navigation preserves its active state and deep-links home", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+
+  await page.goto(new URL("galeria/", url).href);
+  const galleryLink = page.locator('.desktop-nav a[href="/galeria/"]');
+  assert.equal(await galleryLink.getAttribute("aria-current"), "page");
+  assert.equal(
+    await galleryLink.evaluate((link) => link.classList.contains("is-active")),
+    true,
+  );
+
+  await page.locator('.desktop-nav a[href="/#membresias"]').click();
+  await page.waitForURL(/\/#membresias$/);
+  assert.equal(new URL(page.url()).pathname, "/");
+  assert.equal(await page.locator("#membresias").isVisible(), true);
+  assert.equal(
+    await page
+      .locator("#membresias")
+      .evaluate((section) => section.getBoundingClientRect().top < innerHeight),
+    true,
+  );
+
+  await page.goto(new URL("contacto/", url).href);
+  assert.equal(
+    await page
+      .locator('.desktop-nav a[href="/contacto/"]')
+      .getAttribute("aria-current"),
+    "page",
+  );
+  await page.close();
+});
+
 test("development HTML loads its stylesheet before JavaScript", async () => {
   const dev = await createServer({
     configFile: "vite.config.js",
