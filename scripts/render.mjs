@@ -217,8 +217,6 @@ export async function render({ clean = true } = {}) {
 
   if (clean) await rm(generated, { recursive: true, force: true });
   await mkdir(join(generated, "src"), { recursive: true });
-  const publicDir = join(root, "public");
-  if (clean) await cp(publicDir, generated, { recursive: true });
   for (const folder of ["js", "styles"]) {
     const from = join(source, folder);
     const to = join(generated, "src", folder);
