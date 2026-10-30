@@ -1309,13 +1309,6 @@ footer .wrap {
     border-bottom: 1px solid rgba(255, 255, 255, 0.13);
     padding: 8px 0 16px;
   }
-  .promo__track {
-    justify-content: flex-start;
-    padding-left: 24px;
-  }
-  .promo {
-    overflow-x: auto;
-  }
   .hero {
     height: 720px;
   }
@@ -1646,17 +1639,9 @@ footer .wrap {
     font-size: 64px;
   }
 }
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .promo__track {
-    animation: none;
   }
   .benefits__track {
     animation: none;

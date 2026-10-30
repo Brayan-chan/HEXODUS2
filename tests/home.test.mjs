@@ -37,6 +37,23 @@ test("HTML works without JavaScript on mobile", async () => {
   await page.close();
 });
 
+test("mobile promotion strip is an infinite marquee, not manual scrolling", async () => {
+  const page = await browser.newPage({viewport: {width: 390, height: 844}});
+  await page.goto(url);
+  const promo = page.locator(".promo");
+  const track = page.locator(".promo__track");
+  assert.equal(await page.locator(".promo__group").count(), 2);
+  assert.equal(
+    await track.evaluate((element) => getComputedStyle(element).animationName),
+    "promo-marquee",
+  );
+  assert.equal(
+    await promo.evaluate((element) => getComputedStyle(element).overflowX),
+    "hidden",
+  );
+  await page.close();
+});
+
 test("contact details and map are on their own page", async () => {
   const page = await browser.newPage({
     viewport: { width: 390, height: 844 },

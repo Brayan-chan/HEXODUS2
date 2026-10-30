@@ -225,21 +225,60 @@
   overflow: hidden;
 }
 .promo__track {
-  min-width: max-content;
+  width: max-content;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  animation: promo-marquee 24s linear infinite;
+  will-change: transform;
+}
+.promo__group {
+  height: 100%;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
   gap: 24px;
+  padding-right: 24px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.14em;
+}
+.promo__group span {
+  white-space: nowrap;
 }
 .promo i {
   width: 4px;
   height: 4px;
   background: var(--red);
   transform: rotate(45deg);
+}
+@keyframes promo-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .promo:hover .promo__track {
+    animation-play-state: paused;
+  }
+}
+.promo:focus-visible .promo__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .promo {
+    overflow-x: auto;
+  }
+  .promo__track {
+    animation: none;
+    will-change: auto;
+  }
+  .promo__group[aria-hidden="true"] {
+    display: none;
+  }
 }
 footer {
   background: #020409;
