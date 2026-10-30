@@ -1,43 +1,43 @@
 [
   {
     "id": "gallery-01",
-    "src": "/assets/gallery/59f6fa16-fb44-46ef-8073-4081ab548681.jpg",
+    "src": "/assets/gallery/Hexodus1.webp",
     "alt": "Área de pesas libres y mancuernas en Hexodus Fitness Center",
-    "category": "fuerza",
-    "tag": "Pesas Libres",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
     "width": 1600,
-    "height": 1066
+    "height": 968
   },
   {
     "id": "gallery-02",
-    "src": "/assets/gallery/HEXODUS-1.jpg",
+    "src": "/assets/gallery/Hexodus2.webp",
     "alt": "Zona de entrenamiento con barras olímpicas y discos",
-    "category": "fuerza",
-    "tag": "Fuerza",
-    "width": 1024,
-    "height": 1536
+    "category": "maquinas",
+    "tag": "",
+    "width": 1067,
+    "height": 1600
   },
   {
     "id": "gallery-03",
-    "src": "/assets/gallery/856ac2c7-6f88-4c8c-ac0f-d89ec521af79.jpg",
+    "src": "/assets/gallery/856ac2c7-6f88-4c8c-ac0f-d89ec521af79.webp",
     "alt": "Máquinas de fuerza y peso integrado de última generación",
-    "category": "maquinas",
-    "tag": "Máquinas",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
     "width": 1600,
     "height": 1066
   },
   {
     "id": "gallery-04",
-    "src": "/assets/gallery/HEXODUS-12.jpg",
+    "src": "/assets/gallery/Hexodus4.webp",
     "alt": "Equipo biomecánico para entrenamiento de pierna y tren inferior",
     "category": "maquinas",
     "tag": "Máquinas",
-    "width": 1024,
-    "height": 1536
+    "width": 1014,
+    "height": 1600
   },
   {
     "id": "gallery-05",
-    "src": "/assets/gallery/4472af03-70ea-4d00-8f53-0d9f0d20f4ec.jpg",
+    "src": "/assets/gallery/4472af03-70ea-4d00-8f53-0d9f0d20f4ec.webp",
     "alt": "Instalaciones amplias y climatizadas de Hexodus Campeche",
     "category": "instalaciones",
     "tag": "Instalaciones",
@@ -46,16 +46,16 @@
   },
   {
     "id": "gallery-06",
-    "src": "/assets/gallery/HEXODUS-14.jpg",
+    "src": "/assets/gallery/HEXODUS-14.webp",
     "alt": "Espacio limpio, ordenado y equipado para alto rendimiento",
-    "category": "instalaciones",
-    "tag": "Instalaciones",
+    "category": "comunidad",
+    "tag": "Comunidad",
     "width": 1024,
     "height": 1536
   },
   {
     "id": "gallery-07",
-    "src": "/assets/gallery/896c8b4a-1311-421a-ad34-10b340f57a2f.jpg",
+    "src": "/assets/gallery/896c8b4a-1311-421a-ad34-10b340f57a2f.webp",
     "alt": "Zona de cardio climatizada con caminadoras profesionales",
     "category": "cardio",
     "tag": "Cardio",
@@ -64,34 +64,35 @@
   },
   {
     "id": "gallery-08",
-    "src": "/assets/gallery/HEXODUS-13.jpg",
+    "src": "/assets/gallery/Hexodus8.mp4",
+    "poster": "/assets/gallery/Hexodus8-poster.webp",
     "alt": "Equipo cardiovascular para resistencia y quema calórica",
     "category": "cardio",
     "tag": "Cardio",
-    "width": 1024,
-    "height": 1536
+    "width": 1080,
+    "height": 1920
   },
   {
     "id": "gallery-09",
-    "src": "/assets/gallery/e3ea457e-7c47-431a-bde3-0edba911ee0c.jpg",
+    "src": "/assets/gallery/e3ea457e-7c47-431a-bde3-0edba911ee0c.webp",
     "alt": "Comunidad de atletas y acompañamiento de coaches en Hexodus",
-    "category": "comunidad",
-    "tag": "Comunidad",
+    "category": "instalaciones",
+    "tag": "Instalaciones",
     "width": 1600,
     "height": 1066
   },
   {
     "id": "gallery-10",
-    "src": "/assets/gallery/HEXODUS-15.jpg",
+    "src": "/assets/gallery/Hexodus10.1.webp",
     "alt": "Entrenamiento supervisado y motivación en equipo",
     "category": "comunidad",
     "tag": "Comunidad",
-    "width": 1024,
-    "height": 1536
+    "width": 1067,
+    "height": 1600
   },
   {
     "id": "gallery-11",
-    "src": "/assets/gallery/HEXODUS-4.jpg",
+    "src": "/assets/gallery/HEXODUS-4.webp",
     "alt": "Racks de sentadilla y levantamiento de potencia",
     "category": "fuerza",
     "tag": "Fuerza",
@@ -100,25 +101,25 @@
   },
   {
     "id": "gallery-12",
-    "src": "/assets/gallery/HEXODUS-10.jpg",
+    "src": "/assets/gallery/Hexodus12.webp",
     "alt": "Mancuernas de uso rudo y bancos profesionales ajustables",
     "category": "fuerza",
     "tag": "Fuerza",
-    "width": 1024,
-    "height": 1536
+    "width": 1067,
+    "height": 1600
   },
   {
     "id": "gallery-13",
-    "src": "/assets/gallery/HEXODUS-17.jpg",
+    "src": "/assets/gallery/Hexodus13.webp",
     "alt": "Prensa de piernas y poleas dobles en sala principal",
-    "category": "maquinas",
-    "tag": "Máquinas",
-    "width": 1024,
-    "height": 1536
+    "category": "cardio",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
   },
   {
     "id": "gallery-14",
-    "src": "/assets/gallery/dd3b4f22-8e47-4402-aada-b29f838e4154.jpg",
+    "src": "/assets/gallery/dd3b4f22-8e47-4402-aada-b29f838e4154.webp",
     "alt": "Pasillo central e iluminación nocturna en el gimnasio",
     "category": "instalaciones",
     "tag": "Instalaciones",
@@ -127,34 +128,35 @@
   },
   {
     "id": "gallery-15",
-    "src": "/assets/gallery/HEXODUS-19.jpg",
+    "src": "/assets/gallery/HEXODUS-19.webp",
     "alt": "Detalle de instalaciones y diseño industrial de alto nivel",
-    "category": "instalaciones",
-    "tag": "Instalaciones",
+    "category": "fuerza",
+    "tag": "Fuerza",
     "width": 1024,
     "height": 1536
   },
   {
     "id": "gallery-16",
-    "src": "/assets/gallery/HEXODUS-18.jpg",
+    "src": "/assets/gallery/Video7.mp4",
+    "poster": "/assets/gallery/Video7-poster.webp",
     "alt": "Caminadoras y elípticas con vista panorámica interior",
     "category": "cardio",
     "tag": "Cardio",
-    "width": 1024,
-    "height": 1536
+    "width": 1080,
+    "height": 1920
   },
   {
     "id": "gallery-17",
-    "src": "/assets/gallery/HEXODUS-20.jpg",
+    "src": "/assets/gallery/Hexodus17.webp",
     "alt": "Ambiente de entrenamiento enfocado y constante",
     "category": "comunidad",
     "tag": "Comunidad",
-    "width": 1024,
-    "height": 1536
+    "width": 1067,
+    "height": 1600
   },
   {
     "id": "gallery-18",
-    "src": "/assets/gallery/HEXODUS-16.jpg",
+    "src": "/assets/gallery/HEXODUS-16.webp",
     "alt": "Zona de peso libre con suelo de caucho amortiguado",
     "category": "fuerza",
     "tag": "Fuerza",
@@ -163,7 +165,7 @@
   },
   {
     "id": "gallery-19",
-    "src": "/assets/gallery/HEXODUS-21.jpg",
+    "src": "/assets/gallery/HEXODUS-21.webp",
     "alt": "Barra Z, discos olímpicos y accesorios de fuerza",
     "category": "fuerza",
     "tag": "Fuerza",
@@ -172,34 +174,34 @@
   },
   {
     "id": "gallery-20",
-    "src": "/assets/gallery/HEXODUS-22.jpg",
+    "src": "/assets/gallery/Hexodus20.webp",
     "alt": "Estaciones de poleas cruzadas y dorsales",
     "category": "maquinas",
     "tag": "Máquinas",
-    "width": 1024,
-    "height": 1536
+    "width": 1600,
+    "height": 1067
   },
   {
     "id": "gallery-21",
-    "src": "/assets/gallery/HEXODUS-26.jpg",
+    "src": "/assets/gallery/HEXODUS-26.webp",
     "alt": "Área de hidratación y lockers seguros en Hexodus",
-    "category": "instalaciones",
-    "tag": "Instalaciones",
+    "category": "comunidad",
+    "tag": "Comunidad",
     "width": 1024,
     "height": 1536
   },
   {
     "id": "gallery-22",
-    "src": "/assets/gallery/HEXODUS-23.jpg",
+    "src": "/assets/gallery/Hexodus22.webp",
     "alt": "Máquinas de cardio con control de frecuencia cardíaca",
     "category": "cardio",
     "tag": "Cardio",
-    "width": 1024,
-    "height": 1536
+    "width": 1067,
+    "height": 1600
   },
   {
     "id": "gallery-23",
-    "src": "/assets/gallery/HEXODUS-25.jpg",
+    "src": "/assets/gallery/HEXODUS-25.webp",
     "alt": "Entrenamiento de pecho y hombro en banco olímpico",
     "category": "fuerza",
     "tag": "Fuerza",
@@ -208,16 +210,17 @@
   },
   {
     "id": "gallery-24",
-    "src": "/assets/gallery/HEXODUS-27.jpg",
+    "src": "/assets/gallery/Video6.mp4",
     "alt": "Máquina Smith y multipower para entrenar con seguridad",
     "category": "maquinas",
     "tag": "Máquinas",
-    "width": 1024,
-    "height": 1536
+    "width": 1080,
+    "height": 1920,
+    "poster": "/assets/gallery/Video6-poster.webp"
   },
   {
     "id": "gallery-25",
-    "src": "/assets/gallery/HEXODUS-30.jpg",
+    "src": "/assets/gallery/HEXODUS-30.webp",
     "alt": "Bicicletas estáticas y de spinning para resistencia",
     "category": "cardio",
     "tag": "Cardio",
@@ -226,16 +229,16 @@
   },
   {
     "id": "gallery-26",
-    "src": "/assets/gallery/HEXODUS-31.jpg",
+    "src": "/assets/gallery/HEXODUS-31.webp",
     "alt": "Entrada principal y recepción de Hexodus Fitness Center",
-    "category": "instalaciones",
-    "tag": "Instalaciones",
+    "category": "comunidad",
+    "tag": "Comunidad",
     "width": 1024,
     "height": 1536
   },
   {
     "id": "gallery-27",
-    "src": "/assets/gallery/HEXODUS-32.jpg",
+    "src": "/assets/gallery/HEXODUS-32.webp",
     "alt": "Compañerismo y energía positiva entre miembros del gym",
     "category": "comunidad",
     "tag": "Comunidad",
@@ -244,7 +247,7 @@
   },
   {
     "id": "gallery-28",
-    "src": "/assets/gallery/HEXODUS-6.jpg",
+    "src": "/assets/gallery/HEXODUS-6.webp",
     "alt": "Máquinas de femoral y extensión de cuádriceps",
     "category": "maquinas",
     "tag": "Máquinas",
@@ -253,11 +256,645 @@
   },
   {
     "id": "gallery-29",
-    "src": "/assets/gallery/HEXODUS-9.jpg",
+    "src": "/assets/gallery/Hexodus29.webp",
     "alt": "Área de calentamiento y cardio integral",
     "category": "cardio",
     "tag": "Cardio",
-    "width": 1024,
-    "height": 1536
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-30",
+    "src": "/assets/gallery/Hexodus30.webp",
+    "alt": "Comunidad de atletas y entrenamiento en equipo en Hexodus",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-31",
+    "src": "/assets/gallery/Hexodus31.webp",
+    "alt": "Área de estiramiento y recuperación muscular",
+    "category": "fest",
+    "tag": "Fest",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-32",
+    "src": "/assets/gallery/Hexodus32.webp",
+    "alt": "Zona de entrenamiento de alta intensidad y resistencia",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-33",
+    "src": "/assets/gallery/Hexodus33.webp",
+    "alt": "Área de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-34",
+    "src": "/assets/gallery/Hexodus34.webp",
+    "alt": "Zona de entrenamiento de resistencia y cardio",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-35",
+    "src": "/assets/gallery/Hexodus35.webp",
+    "alt": "Compañerismo, disciplina y motivación en el gimnasio",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-36",
+    "src": "/assets/gallery/Hexodus36.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-37",
+    "src": "/assets/gallery/Hexodus37.webp",
+    "alt": "Área de entrenamiento de resistencia y cardio",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-38",
+    "src": "/assets/gallery/Hexodus38.webp",
+    "alt": "Celebración de la comunidad fitness en el evento Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-39",
+    "src": "/assets/gallery/Hexodus39.webp",
+    "alt": "Área de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-40",
+    "src": "/assets/gallery/Hexodus40.webp",
+    "alt": "Atletas participando en los retos y dinámicas de Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-41",
+    "src": "/assets/gallery/Hexodus41.webp",
+    "alt": "Competencia de fuerza y motivación en Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-42",
+    "src": "/assets/gallery/Hexodus42.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-43",
+    "src": "/assets/gallery/Hexodus43.webp",
+    "alt": "Momentos destacados y compañerismo en Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-44",
+    "src": "/assets/gallery/Hexodus44.webp",
+    "alt": "Energía y comunidad reunida durante Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-45",
+    "src": "/assets/gallery/Hexodus45.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-46",
+    "src": "/assets/gallery/Hexodus46.webp",
+    "alt": "Retos de fuerza y convivencia deportiva en Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-47",
+    "src": "/assets/gallery/Hexodus47.webp",
+    "alt": "Celebración de la comunidad fitness en el evento Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-48",
+    "src": "/assets/gallery/Hexodus48.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-49",
+    "src": "/assets/gallery/Hexodus49.webp",
+    "alt": "Atletas participando en los retos y dinámicas de Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-50",
+    "src": "/assets/gallery/Hexodus50.webp",
+    "alt": "Competencia de fuerza y motivación en Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-51",
+    "src": "/assets/gallery/Hexodus51.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1056,
+    "height": 1600
+  },
+  {
+    "id": "gallery-52",
+    "src": "/assets/gallery/Hexodus52.webp",
+    "alt": "Momentos destacados y compañerismo en Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-53",
+    "src": "/assets/gallery/Hexodus53.webp",
+    "alt": "Energía y comunidad reunida durante Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-54",
+    "src": "/assets/gallery/Hexodus54.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-55",
+    "src": "/assets/gallery/Hexodus55.webp",
+    "alt": "Retos de fuerza y convivencia deportiva en Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-56",
+    "src": "/assets/gallery/Video2.mp4",
+    "alt": "Celebración de la comunidad fitness en el evento Hexodus Fest",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1080,
+    "height": 1920,
+    "poster": "/assets/gallery/Video2-poster.webp"
+  },
+  {
+    "id": "gallery-57",
+    "src": "/assets/gallery/Video5.mp4",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fest",
+    "tag": "Hexodus Fest",
+    "width": 1080,
+    "height": 1920,
+    "poster": "/assets/gallery/Video5-poster.webp"
+  },
+  {
+    "id": "gallery-58",
+    "src": "/assets/gallery/Hexodus58.webp",
+    "alt": "Atletas entrenando en el ambiente enfocado de Hexodus",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1042,
+    "height": 1600
+  },
+  {
+    "id": "gallery-59",
+    "src": "/assets/gallery/Hexodus59.webp",
+    "alt": "Motivación y constancia entre miembros de Hexodus Fitness",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-60",
+    "src": "/assets/gallery/Hexodus60.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-61",
+    "src": "/assets/gallery/Hexodus61.webp",
+    "alt": "Comunidad de atletas y entrenamiento en equipo en Hexodus",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 949,
+    "height": 1600
+  },
+  {
+    "id": "gallery-62",
+    "src": "/assets/gallery/Hexodus62.webp",
+    "alt": "Compañerismo, disciplina y motivación en el gimnasio",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-63",
+    "src": "/assets/gallery/Hexodus63.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-64",
+    "src": "/assets/gallery/Hexodus64.webp",
+    "alt": "Zona de pesas libres, mancuernas y entrenamiento de fuerza",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-65",
+    "src": "/assets/gallery/Hexodus65.webp",
+    "alt": "Área de peso libre con barras olímpicas y discos",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-66",
+    "src": "/assets/gallery/Hexodus66.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-67",
+    "src": "/assets/gallery/Hexodus67.webp",
+    "alt": "Máquinas biomecánicas para entrenamiento muscular guiado",
+    "category": "maquinas",
+    "tag": "Maquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-68",
+    "src": "/assets/gallery/Hexodus68.webp",
+    "alt": "Estaciones de poleas y maquinaria de fuerza en Hexodus",
+    "category": "maquinas",
+    "tag": "Maquinas",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-69",
+    "src": "/assets/gallery/Hexodus69.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "maquinas",
+    "tag": "Maquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-70",
+    "src": "/assets/gallery/Hexodus70.webp",
+    "alt": "Equipo biomecánico para trabajo muscular y fuerza",
+    "category": "maquinas",
+    "tag": "Maquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-71",
+    "src": "/assets/gallery/Hexodus71.webp",
+    "alt": "Máquinas de peso integrado para desarrollo muscular",
+    "category": "maquinas",
+    "tag": "Maquinas",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-72",
+    "src": "/assets/gallery/Hexodus72.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-73",
+    "src": "/assets/gallery/Hexodus73.webp",
+    "alt": "Entrenamiento de fuerza y levantamiento con mancuernas",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-74",
+    "src": "/assets/gallery/Hexodus74.webp",
+    "alt": "Bancos profesionales para ejercicios de fuerza y musculación",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-75",
+    "src": "/assets/gallery/Hexodus75.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-76",
+    "src": "/assets/gallery/Hexodus76.webp",
+    "alt": "Zona de pesas y racks para entrenamiento de fuerza",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-77",
+    "src": "/assets/gallery/Hexodus77.webp",
+    "alt": "Atletas entrenando en el ambiente enfocado de Hexodus",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-78",
+    "src": "/assets/gallery/Hexodus78.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "comunidad",
+    "tag": "Comunidad",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-79",
+    "src": "/assets/gallery/Hexodus79.webp",
+    "alt": "Motivación y constancia entre miembros de Hexodus Fitness",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-80",
+    "src": "/assets/gallery/Hexodus80.webp",
+    "alt": "Ejercicios de fuerza y desarrollo muscular en Hexodus",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-81",
+    "src": "/assets/gallery/Hexodus81.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-82",
+    "src": "/assets/gallery/Hexodus82.webp",
+    "alt": "Entrenamiento de fuerza muscular con barras y pesas",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-83",
+    "src": "/assets/gallery/Hexodus83.webp",
+    "alt": "Área de musculación y levantamiento de peso libre",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-84",
+    "src": "/assets/gallery/Hexodus84.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-85",
+    "src": "/assets/gallery/Hexodus85.webp",
+    "alt": "Estaciones biomecánicas de entrenamiento muscular",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-86",
+    "src": "/assets/gallery/Hexodus86.webp",
+    "alt": "Zona de pesas libres, mancuernas y entrenamiento de fuerza",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-87",
+    "src": "/assets/gallery/Hexodus87.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-88",
+    "src": "/assets/gallery/Hexodus88.webp",
+    "alt": "Máquinas biomecánicas para entrenamiento muscular guiado",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-89",
+    "src": "/assets/gallery/Hexodus89.webp",
+    "alt": "Estaciones de poleas y maquinaria de fuerza en Hexodus",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-90",
+    "src": "/assets/gallery/Hexodus90.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-91",
+    "src": "/assets/gallery/Hexodus91.webp",
+    "alt": "Equipo biomecánico para trabajo muscular y fuerza",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-92",
+    "src": "/assets/gallery/Hexodus92.webp",
+    "alt": "Máquinas de peso integrado para desarrollo muscular",
+    "category": "maquinas",
+    "tag": "Máquinas",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-93",
+    "src": "/assets/gallery/Hexodus93.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "cardio",
+    "tag": "Cardio",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-94",
+    "src": "/assets/gallery/Hexodus94.webp",
+    "alt": "Área de peso libre con barras olímpicas y discos",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-95",
+    "src": "/assets/gallery/Hexodus95.webp",
+    "alt": "Entrenamiento de fuerza y levantamiento con mancuernas",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-96",
+    "src": "/assets/gallery/Hexodus96.webp",
+    "alt": "Zona de entrenamiento de fuerza y potencia",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "id": "gallery-97",
+    "src": "/assets/gallery/Hexodus97.webp",
+    "alt": "Bancos profesionales para ejercicios de fuerza y musculación",
+    "category": "fuerza",
+    "tag": "Fuerza",
+    "width": 1067,
+    "height": 1600
+  },
+  {
+    "id": "gallery-98",
+    "src": "/assets/gallery/Video3.mp4",
+    "poster": "/assets/gallery/Video3-poster.webp",
+    "alt": "Entrenamiento de fuerza y acondicionamiento con pesas",
+    "category": "fuerza",
+    "tag": "Video",
+    "width": 1080,
+    "height": 1920
+  },
+  {
+    "id": "gallery-99",
+    "src": "/assets/gallery/Video4.mp4",
+    "poster": "/assets/gallery/Video4-poster.webp",
+    "alt": "Rutina de ejercicios de fuerza y musculación en el gimnasio",
+    "category": "fuerza",
+    "tag": "Video",
+    "width": 1080,
+    "height": 1920
   }
 ]

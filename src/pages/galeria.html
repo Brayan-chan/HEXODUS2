@@ -1,6 +1,15 @@
 {% extends "layouts/base.html" %}
 {% block pageStyles %}
     <link rel="stylesheet" href="/src/styles/pages/galeria.css" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Galería de Instalaciones - Hexodus Fitness Center Campeche",
+      "description": "Recorrido fotográfico de las instalaciones climatizadas, pesas libres, máquinas y área de cardio de Hexodus Fitness Center en Campeche.",
+      "url": "{{ canonical }}"
+    }
+    </script>
 {% endblock %}
 {% block content %}
 <section class="gallery-hero dark">
@@ -8,24 +17,43 @@
   <div class="gallery-hero__veil"></div>
   <div class="wrap gallery-hero__content">
     <div class="gallery-hero__badge">
-      <span class="accent-slash">//</span> NUESTRAS INSTALACIONES
+      <span class="accent-slash">//</span> GALERÍA &middot; INSTALACIONES EN CAMPECHE
     </div>
     <h1 class="gallery-hero__title">
-      Hexodus se vive<br /><em>en cada espacio.</em>
+      <span class="gallery-hero__title-mask">
+        <span class="gallery-hero__title-line">Nuestras Instalaciones</span>
+      </span>
+      <span class="gallery-hero__title-mask">
+        <span class="gallery-hero__title-line"><em>Hexodus se vive en cada espacio.</em></span>
+      </span>
     </h1>
     <p class="gallery-hero__subtitle">
-      Conoce el ambiente donde comenzarás tu transformación. Instalaciones 100% climatizadas, equipo completo de peso libre e integrado y espacio diseñado para entrenar con propósito.
+      Conoce el ambiente donde comenzarás tu transformación. Instalaciones 100% climatizadas, equipo completo de peso libre, máquinas biomecánicas y espacio diseñado para entrenar con propósito.
+    </p>
+    <p class="gallery-hero__lateral">
+      Desde el área de pesas hasta cardio y zonas de entrenamiento, cada rincón está pensado para que entrenes cómodo, enfocado y con todo lo que necesitas.
     </p>
     <div class="gallery-hero__chips">
-      <span class="gallery-chip"><b>29</b> Fotografías</span>
+      <span class="gallery-chip"><b>{{ gallery.length }}</b> Fotografías y Videos</span>
       <span class="gallery-chip"><b>100%</b> Clima Controlado</span>
       <span class="gallery-chip"><b>4</b> Zonas de Entrenamiento</span>
+      <span class="gallery-chip"><b>Equipo</b> Biomecánico y Peso Libre</span>
     </div>
   </div>
 </section>
 
 <section class="section gallery-section" id="galeria">
-  <div class="wrap">
+  <div class="gallery-fluid-wrap">
+    <div class="gallery-section__head">
+      <span class="gallery-section__eyebrow"><b class="accent-slash">//</b> Conoce el gym de cerca</span>
+      <h2 class="gallery-section__title">
+        Explora cada área <em>a tu propio ritmo.</em>
+      </h2>
+      <p class="gallery-section__copy">
+        Una selección de espacios clave en Hexodus: pesas libres, maquinaria biomecánica, área de cardio y ambiente preparado para que entrenes con comodidad todos los días.
+      </p>
+    </div>
+
     <!-- Barra de Filtros interactivos estilo Pinterest -->
     <div class="gallery-filters" role="tablist" aria-label="Filtrar fotos de la galería">
       <button class="gallery-filter is-active" type="button" data-filter="all" role="tab" aria-selected="true">
@@ -46,29 +74,64 @@
       <button class="gallery-filter" type="button" data-filter="comunidad" role="tab" aria-selected="false">
         Comunidad
       </button>
+      <button class="gallery-filter" type="button" data-filter="fest" role="tab" aria-selected="false">
+        HEXODUS FEST
+      </button>
+      <button class="gallery-filter" type="button" data-filter="video" role="tab" aria-selected="false">
+        Videos ▶
+      </button>
     </div>
 
-    <!-- Masonry Grid estilo Pinterest (Solo fotos sin descripción) -->
+    <!-- Masonry Grid estilo Pinterest (Fotos y Videos) -->
     <div class="masonry-grid" data-masonry-gallery>
       {% for photo in gallery %}
+      {% set isVid = photo.type == 'video' or photo.type == 'youtube' or (photo.src and ('.mov' in photo.src or '.mp4' in photo.src or '.webm' in photo.src)) %}
       <article
-        class="masonry-item"
+        class="masonry-item{% if isVid %} is-video{% endif %}"
         data-category="{{ photo.category }}"
         data-id="{{ photo.id }}"
+        data-type="{% if photo.type == 'youtube' %}youtube{% elif isVid %}video{% else %}image{% endif %}"
+        {% if photo.youtubeId %}data-youtube-id="{{ photo.youtubeId }}"{% elif isVid %}data-video-src="{{ (photo.videoSrc | default(photo.src)).replace('.mov', '.mp4') }}"{% endif %}
         tabindex="0"
         role="button"
-        aria-label="Ver imagen ampliada: {{ photo.alt }}"
+        aria-label="{% if isVid %}Reproducir video: {{ photo.alt }}{% else %}Ver imagen ampliada: {{ photo.alt }}{% endif %}"
       >
         <div class="masonry-card">
+          {% if isVid %}
+          <video
+            class="masonry-video-preview"
+            src="{{ (photo.videoSrc | default(photo.src)).replace('.mov', '.mp4') }}"
+            {% if photo.poster %}poster="{{ photo.poster }}"{% endif %}
+            muted
+            loop
+            playsinline
+            preload="none"
+          ></video>
+          {% else %}
           <img
-            src="{{ photo.src }}"
+            src="{{ photo.poster | default(photo.src) }}"
             alt="{{ photo.alt }}"
-            width="{{ photo.width }}"
-            height="{{ photo.height }}"
+            width="{{ photo.width | default(1024) }}"
+            height="{{ photo.height | default(1536) }}"
+            {% if loop.index <= 6 %}
+            loading="eager"
+            fetchpriority="{% if loop.index <= 3 %}high{% else %}auto{% endif %}"
+            {% else %}
             loading="lazy"
             decoding="async"
+            {% endif %}
+            onerror="if(!this.dataset.retried){this.dataset.retried='1';this.src='../'+this.getAttribute('src').replace(/^\//,'');}"
           />
+          {% endif %}
           <div class="masonry-overlay">
+            {% if isVid %}
+            <span class="masonry-play" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="6 3 20 12 6 21 6 3"></polygon>
+              </svg>
+            </span>
+            <span class="masonry-badge-video">VIDEO</span>
+            {% else %}
             <span class="masonry-zoom" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
@@ -77,6 +140,7 @@
                 <line x1="8" y1="11" x2="14" y2="11"></line>
               </svg>
             </span>
+            {% endif %}
           </div>
         </div>
       </article>
@@ -86,7 +150,7 @@
 </section>
 
 <!-- Lightbox Modal Fullscreen -->
-<div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de fotografía">
+<div class="gallery-lightbox" id="gallery-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de medios">
   <div class="lightbox-backdrop" data-lightbox-close></div>
   <div class="lightbox-dialog">
     <button class="lightbox-close" type="button" aria-label="Cerrar visor" data-lightbox-close>
@@ -107,6 +171,8 @@
     </button>
     <figure class="lightbox-figure">
       <img class="lightbox-image" src="" alt="" data-lightbox-img />
+      <video class="lightbox-video" controls playsinline data-lightbox-video style="display: none;"></video>
+      <div class="lightbox-embed" data-lightbox-embed style="display: none;"></div>
       <figcaption class="lightbox-counter" data-lightbox-counter></figcaption>
     </figure>
   </div>
@@ -124,7 +190,7 @@
           Tu próxima rutina<br /><em>puede empezar aquí.</em>
         </h2>
         <p class="gallery-cta__copy">
-          Recorre nuestras instalaciones, conoce al equipo y encuentra el espacio donde vas a construir tu mejor versión.
+          Conoce Hexodus, recorre nuestras instalaciones y encuentra el espacio donde vas a construir tu siguiente nivel.
         </p>
         <div class="gallery-cta__actions">
           <a
