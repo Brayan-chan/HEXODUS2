@@ -2,6 +2,49 @@
   scroll-behavior: auto;
 }
 
+/* Cross-document navigation: a short cross-fade keeps context without
+   competing with the section-level GSAP animations. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  .site-header {
+    view-transition-name: site-header;
+  }
+
+  .promo {
+    view-transition-name: promo-bar;
+  }
+
+  ::view-transition-group(root),
+  ::view-transition-group(site-header),
+  ::view-transition-group(promo-bar) {
+    animation-duration: 0.24s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation-name: hexodus-page-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: hexodus-page-in;
+  }
+}
+
+@keyframes hexodus-page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes hexodus-page-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .site-header {
   height: 96px;
   padding: 0 max(24px, calc((100vw - 1264px) / 2));
@@ -53,28 +96,39 @@
 .desktop-nav a {
   position: relative;
   color: var(--muted);
-  transition: color 0.25s;
+  transition: color 0.2s ease;
 }
 .desktop-nav a:after {
   content: "";
   position: absolute;
   left: 0;
-  right: 100%;
+  right: 0;
   bottom: -10px;
   height: 2px;
   background: var(--red);
-  transition: right 0.35s var(--ease);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.3s var(--ease);
 }
-.desktop-nav a:hover,
-.desktop-nav a:focus,
+.desktop-nav a:focus-visible,
 .desktop-nav a.is-active,
 .desktop-nav a[aria-current="page"] {
   color: #fff;
 }
-.desktop-nav a:hover:after,
+.desktop-nav a:focus-visible:after,
 .desktop-nav a.is-active:after,
 .desktop-nav a[aria-current="page"]:after {
-  right: 0;
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+@media (hover: hover) and (pointer: fine) {
+  .desktop-nav a:hover {
+    color: #fff;
+  }
+  .desktop-nav a:hover:after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
 }
 .mobile-menu a[aria-current],
 .mobile-menu a.is-active {
@@ -102,28 +156,28 @@
     color 0.3s,
     border-color 0.3s;
 }
-.button:hover {
+.button:focus-visible {
   transform: translate(var(--mx), calc(var(--my) - 3px));
 }
 .button span {
   font-size: 18px;
   transition: transform 0.3s;
 }
-.button:hover span {
+.button:focus-visible span {
   transform: translate(3px, -2px);
 }
 .button--primary {
   background: var(--red);
   color: #fff;
 }
-.button--primary:hover {
+.button--primary:focus-visible {
   background: #ff1239;
 }
 .button--outline {
   border-color: rgba(255, 255, 255, 0.45);
   color: #fff;
 }
-.button--outline:hover {
+.button--outline:focus-visible {
   border-color: #fff;
   background: #fff;
   color: var(--ink);
@@ -132,9 +186,30 @@
   border-color: var(--ink);
   color: var(--ink);
 }
-.button--dark:hover {
+.button--dark:focus-visible {
   background: var(--ink);
   color: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: translate(var(--mx), calc(var(--my) - 3px));
+  }
+  .button:hover span {
+    transform: translate(3px, -2px);
+  }
+  .button--primary:hover {
+    background: #ff1239;
+  }
+  .button--outline:hover {
+    border-color: #fff;
+    background: #fff;
+    color: var(--ink);
+  }
+  .button--dark:hover {
+    background: var(--ink);
+    color: #fff;
+  }
 }
 .header-cta {
   width: 214px;
