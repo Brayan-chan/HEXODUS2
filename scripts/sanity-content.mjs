@@ -18,7 +18,11 @@ const query = `{
   "memberships": *[_type == "membershipPlan" && status == "active"]|order(order asc),
   "promotions": *[_type == "promotion" && active == true],
   "coaches": *[_type == "coach" && status == "active"]|order(order asc){...,photo{...,"url":asset->url}},
-  "facilities": *[_type == "facility" && status == "active"]|order(order asc){...,image{...,"url":asset->url,"dimensions":asset->metadata.dimensions}}
+  "facilities": *[_type == "facility" && status == "active"]|order(order asc){...,
+    image{...,"url":asset->url,"dimensions":asset->metadata.dimensions},
+    "videoUrl":video.asset->url,
+    poster{...,"url":asset->url,"dimensions":asset->metadata.dimensions}
+  }
 }`;
 
 const whatsappUrl = (phone, message = "") =>
@@ -59,10 +63,16 @@ function mapResult(result, local) {
   const passes = result.memberships.filter((item) => item.kind === "pass").map((item) => ({
     id: item.sourceKey.current, name: item.name, amount: item.amount,
   }));
-  const gallery = result.facilities.filter((item) => item.placements?.includes("gallery")).map((item) => ({
-    id: item.sourceKey.current, src: item.image.url, alt: item.image.alt, category: item.category,
-    tag: item.tag, width: item.image.dimensions?.width || 1200, height: item.image.dimensions?.height || 1200,
-  }));
+  const gallery = result.facilities.filter((item) => item.placements?.includes("gallery")).map((item) => {
+    const isVideo = item.mediaType === "video";
+    const visual = isVideo ? item.poster : item.image;
+    return {
+      id: item.sourceKey.current, type: isVideo ? "video" : "image",
+      src: isVideo ? item.videoUrl : item.image.url, poster: isVideo ? item.poster?.url : undefined,
+      alt: visual?.alt || item.title, category: item.category, tag: item.tag,
+      width: visual?.dimensions?.width || 1200, height: visual?.dimensions?.height || 1200,
+    };
+  });
   const homeFacilities = result.facilities.filter((item) => item.placements?.includes("home")).map((item) => ({
     id: item.sourceKey.current, title: item.title, src: item.image.url, alt: item.image.alt,
     category: item.category, tag: item.tag,
