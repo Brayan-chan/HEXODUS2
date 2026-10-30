@@ -19,24 +19,19 @@
               />
             </figure>
             <div class="coach-list">
-              <article class="reveal">
-                <span>01</span>
-                <h3>Walter</h3>
-                <b>Nutriólogo y entrenador personalizado</b>
-                <p>
-                  Entrenamiento y nutrición con un plan adaptado a tus
-                  objetivos.
-                </p>
-              </article>
-              <article class="reveal">
-                <span>02</span>
-                <h3>David</h3>
-                <b>Entrenador personalizado</b>
-                <p>
-                  Fuerza, hipertrofia y acondicionamiento con técnica y
-                  progresión.
-                </p>
-              </article>
+              {% if content.coaches %}
+                {% for coach in content.coaches %}
+                  <article class="reveal">
+                    <span>0{{ loop.index }}</span>
+                    <h3>{{ coach.name }}</h3>
+                    <b>{{ coach.role }}</b>
+                    <p>{{ coach.bio }}</p>
+                  </article>
+                {% endfor %}
+              {% else %}
+                <article class="reveal"><span>01</span><h3>Walter</h3><b>Nutriólogo y entrenador personalizado</b><p>Entrenamiento y nutrición con un plan adaptado a tus objetivos.</p></article>
+                <article class="reveal"><span>02</span><h3>David</h3><b>Entrenador personalizado</b><p>Fuerza, hipertrofia y acondicionamiento con técnica y progresión.</p></article>
+              {% endif %}
               <a
                 class="button button--primary reveal"
                 href="{{ site.whatsappUrl }}"
