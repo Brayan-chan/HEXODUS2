@@ -2,21 +2,21 @@
   "name": "Hexodus Fitness Center",
   "city": "Campeche, México",
   "phoneE164": "+529811787040",
-  "phoneConfirmed": false,
+  "phoneConfirmed": true,
   "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=Hexodus+Fitness+Center%2C+Calle+Zafiro%2C+Mza.+1%2C+Lote+8%2C+entre+Calle+Plata+y+Brillante%2C+Colonia+Minas%2C+Campeche%2C+Campeche",
   "mapsEmbedUrl": "https://maps.google.com/maps?iwloc=near&output=embed&q=Hexodus+Fitness+Center%2C+Calle+Zafiro%2C+Mza.+1%2C+Lote+8%2C+entre+Calle+Plata+y+Brillante%2C+Colonia+Minas%2C+Campeche%2C+Campeche&t=m&z=16",
-  "mapsUrlConfirmed": false,
+  "mapsUrlConfirmed": true,
   "landmark": "Frente a Soriana CTM",
   "addressLines": [
     "Calle Zafiro, Mza. 1, Lote 8.",
     "Entre Calle Plata y Brillante.",
     "Colonia Minas, Campeche, Campeche."
   ],
-  "addressConfirmed": false,
+  "addressConfirmed": true,
   "hours": {
-    "weekdays": { "display": "5:00 a. m. – 11:00 p. m.", "confirmed": false },
-    "saturday": { "display": "7:00 a. m. – 3:00 p. m.", "confirmed": false },
-    "sunday": { "display": "Cerrado", "confirmed": false }
+    "weekdays": { "display": "5:00 a. m. – 11:00 p. m.", "confirmed": true },
+    "saturday": { "display": "7:00 a. m. – 3:00 p. m.", "confirmed": true },
+    "sunday": { "display": "Cerrado", "confirmed": true }
   },
   "navigation": [
     { "label": "Inicio", "anchor": "inicio" },
