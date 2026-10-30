@@ -10,6 +10,7 @@ import {
 import { resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import nunjucks from "nunjucks";
+import { loadSanityContent } from "./sanity-content.mjs";
 
 const root = resolve(".");
 const source = join(root, "src");
@@ -81,11 +82,12 @@ function validate({ site, memberships, promotions, routes, seo }, production) {
         seo[route.id]?.image,
       `Missing SEO: ${route.id}`,
     );
-    assert(
-      seo[route.id].title.includes("{name}") &&
-        seo[route.id].description.includes("{name}"),
-      `SEO must reference the shared business name: ${route.id}`,
-    );
+    if (dataSourceIsLocal(site)) {
+      assert(
+        seo[route.id].title.includes("{name}") && seo[route.id].description.includes("{name}"),
+        `SEO must reference the shared business name: ${route.id}`,
+      );
+    }
     ids.add(route.id);
     paths.add(route.path);
   }
@@ -185,11 +187,16 @@ function validate({ site, memberships, promotions, routes, seo }, production) {
   }
 }
 
+function dataSourceIsLocal(site) {
+  return !site._id;
+}
+
 export async function render({ clean = true } = {}) {
   const entries = await Promise.all(dataNames.map(readData));
-  const data = Object.fromEntries(
+  const localData = Object.fromEntries(
     dataNames.map((name, index) => [name, entries[index]]),
   );
+  const data = await loadSanityContent(localData);
   const production = process.env.SITE_ENV === "production";
   validate(data, production);
   const localNumber = data.site.phoneE164.slice(3);
@@ -197,11 +204,9 @@ export async function render({ clean = true } = {}) {
   data.site.whatsappUrl = `https://wa.me/${data.site.phoneE164.slice(1)}`;
   for (const route of data.routes) {
     const image = data.seo[route.id].image;
-    assert(
-      /^\/assets\/[a-z0-9-]+\.(?:webp|png|jpe?g)$/.test(image),
-      `Invalid social image: ${image}`,
-    );
-    await stat(join(root, "public", image.slice(1)));
+    const remoteImage = /^https:\/\/cdn\.sanity\.io\/images\//.test(image);
+    assert(remoteImage || /^\/assets\/[a-z0-9-]+\.(?:webp|png|jpe?g)$/.test(image), `Invalid social image: ${image}`);
+    if (!remoteImage) await stat(join(root, "public", image.slice(1)));
   }
   const siteUrl = process.env.SITE_URL ?? "http://localhost:4173/";
   const origin = new URL(siteUrl);
@@ -285,7 +290,7 @@ export async function render({ clean = true } = {}) {
       seo: pageSeo,
       route,
       canonical,
-      socialImage: new URL(data.seo[route.id].image, origin).href,
+      socialImage: remoteImageUrl(data.seo[route.id].image, origin),
       robots: production ? "index, follow" : "noindex, follow",
       year: new Date().getFullYear(),
       faqs,
@@ -301,6 +306,10 @@ export async function render({ clean = true } = {}) {
     production,
     origin,
   };
+}
+
+function remoteImageUrl(image, origin) {
+  return image.startsWith("https://") ? image : new URL(image, origin).href;
 }
 
 if (
