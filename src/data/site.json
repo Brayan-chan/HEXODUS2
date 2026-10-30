@@ -20,8 +20,8 @@
   },
   "navigation": [
     { "label": "Inicio", "anchor": "inicio" },
-    { "label": "Nosotros", "anchor": "nosotros" },
     { "label": "Membresías", "anchor": "membresias" },
+    { "label": "Nosotros", "anchor": "nosotros" },
     { "label": "Galería", "path": "/galeria/" },
     { "label": "Contacto", "path": "/contacto/" }
   ]
