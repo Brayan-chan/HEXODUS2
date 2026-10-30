@@ -1,6 +1,6 @@
 {
   "currency": "MXN",
-  "confirmed": false,
+  "confirmed": true,
   "plans": [
     {
       "id": "individual",
