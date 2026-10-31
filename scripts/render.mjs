@@ -84,7 +84,8 @@ function validate({ site, memberships, promotions, routes, seo }, production) {
     );
     if (dataSourceIsLocal(site)) {
       assert(
-        seo[route.id].title.includes("{name}") && seo[route.id].description.includes("{name}"),
+        seo[route.id].title.includes("{name}") &&
+          seo[route.id].description.includes("{name}"),
         `SEO must reference the shared business name: ${route.id}`,
       );
     }
@@ -205,7 +206,10 @@ export async function render({ clean = true } = {}) {
   for (const route of data.routes) {
     const image = data.seo[route.id].image;
     const remoteImage = /^https:\/\/cdn\.sanity\.io\/images\//.test(image);
-    assert(remoteImage || /^\/assets\/[a-z0-9-]+\.(?:webp|png|jpe?g)$/.test(image), `Invalid social image: ${image}`);
+    assert(
+      remoteImage || /^\/assets\/[a-z0-9-]+\.(?:webp|png|jpe?g)$/.test(image),
+      `Invalid social image: ${image}`,
+    );
     if (!remoteImage) await stat(join(root, "public", image.slice(1)));
   }
   const siteUrl = process.env.SITE_URL ?? "http://localhost:4173/";

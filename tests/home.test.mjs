@@ -38,7 +38,7 @@ test("HTML works without JavaScript on mobile", async () => {
 });
 
 test("mobile promotion strip is an infinite marquee, not manual scrolling", async () => {
-  const page = await browser.newPage({viewport: {width: 390, height: 844}});
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.goto(url);
   const promo = page.locator(".promo");
   const track = page.locator(".promo__track");
