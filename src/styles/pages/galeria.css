@@ -258,9 +258,21 @@ body:has(.gallery-section) {
   cursor: pointer;
   display: block;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
   transition:
     opacity 0.35s ease,
     transform 0.35s ease;
+}
+.masonry-item:focus {
+  outline: none;
+}
+.masonry-item:focus-visible {
+  outline: 2px solid var(--blue-electric);
+  outline-offset: 4px;
 }
 .masonry-item.is-hidden {
   display: none !important;
@@ -275,6 +287,11 @@ body:has(.gallery-section) {
   background: #0a0e18;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   transform: translateZ(0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
   transition:
     transform 0.35s var(--ease),
     box-shadow 0.35s;
@@ -300,6 +317,12 @@ body:has(.gallery-section) {
   object-fit: cover;
   transform: translateZ(0);
   backface-visibility: hidden;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: auto;
   transition: transform 0.4s var(--ease);
 }
 .masonry-overlay {
@@ -463,6 +486,11 @@ body:has(.gallery-section) {
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
   transition:
     opacity 0.35s cubic-bezier(0.32, 0.72, 0, 1),
     visibility 0.35s;
@@ -478,6 +506,8 @@ body:has(.gallery-section) {
   background: rgba(3, 5, 12, 0.94);
   backdrop-filter: blur(16px);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 .lightbox-dialog {
   position: relative;
@@ -487,12 +517,22 @@ body:has(.gallery-section) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.lightbox-dialog:focus {
+  outline: none;
 }
 .lightbox-figure {
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .lightbox-image {
   max-width: 86vw;
@@ -505,6 +545,15 @@ body:has(.gallery-section) {
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.85),
     0 0 45px var(--blue-glow);
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.lightbox-image:focus {
+  outline: none;
 }
 @supports not (view-transition-name: test) {
   .gallery-lightbox.is-open .lightbox-image {
@@ -815,10 +864,18 @@ html.is-gallery-transition::view-transition-new(root) {
   border-radius: 18px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
   z-index: 10000;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 ::view-transition-image-pair(gallery-active-media) {
   isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 ::view-transition-old(gallery-active-media),
@@ -830,6 +887,17 @@ html.is-gallery-transition::view-transition-new(root) {
   mix-blend-mode: normal;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Evitar caja azul de selección de texto o elementos en galería */
+.gallery-section ::selection,
+.gallery-lightbox ::selection {
+  background: transparent !important;
 }
 
 /* Apertura: el nuevo estado (lightbox) se mantiene completamente sólido */

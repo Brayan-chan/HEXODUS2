@@ -373,6 +373,15 @@ function initGalleryLightbox() {
 
   const onItemClick = (event) => {
     const item = event.currentTarget;
+    if (
+      document.activeElement &&
+      typeof document.activeElement.blur === "function"
+    ) {
+      document.activeElement.blur();
+    }
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+    }
     openLightbox(item);
   };
 
@@ -384,9 +393,14 @@ function initGalleryLightbox() {
   };
 
   items.forEach((item) => {
+    item.addEventListener("dragstart", (e) => e.preventDefault());
     item.addEventListener("click", onItemClick);
     item.addEventListener("keydown", onItemKeyDown);
   });
+
+  if (lightbox) {
+    lightbox.addEventListener("dragstart", (e) => e.preventDefault());
+  }
 
   closeBtns.forEach((btn) => btn.addEventListener("click", closeLightbox));
 
