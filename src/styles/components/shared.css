@@ -17,11 +17,14 @@
     view-transition-name: promo-bar;
   }
 
-  ::view-transition-group(root),
-  ::view-transition-group(site-header),
-  ::view-transition-group(promo-bar) {
+  ::view-transition-group(root) {
     animation-duration: 0.24s;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::view-transition-group(site-header),
+  ::view-transition-group(promo-bar) {
+    animation-duration: 0s;
   }
 
   ::view-transition-old(root) {
@@ -45,33 +48,34 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .has-js:not(.hero-ready) .hero-line b,
+  .has-js:not(.hero-ready) .about-hero__line b,
+  .has-js:not(.hero-ready) .memberships-hero__line b,
+  .has-js:not(.hero-ready) .contact-hero__line b,
+  .has-js:not(.hero-ready) .gallery-hero__title-line {
+    transform: translateY(110%);
+  }
+}
+
 .site-header {
-  height: 96px;
+  height: 76px;
   padding: 0 max(24px, calc((100vw - 1264px) / 2));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  background: linear-gradient(90deg, var(--ink), #091c41);
+  background: rgba(8, 10, 15, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   color: #fff;
+  font-family: system-ui, sans-serif;
   position: sticky;
   top: 0;
   z-index: 50;
-  transition:
-    height 0.4s var(--ease),
-    background 0.4s;
-}
-.site-header.is-scrolled {
-  height: 76px;
-  background: rgba(8, 10, 15, 0.92);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 1px rgba(255, 255, 255, 0.08);
-}
-.has-deep-link .site-header {
-  height: 76px;
-  background: rgba(8, 10, 15, 0.92);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 1px rgba(255, 255, 255, 0.08);
+  contain: layout;
 }
 .brand {
   display: flex;
@@ -80,7 +84,9 @@
 }
 .brand img {
   width: 218px;
+  height: 34px;
   max-height: 34px;
+  aspect-ratio: 218 / 34;
   object-fit: contain;
   object-position: left;
 }
@@ -120,12 +126,13 @@
 .desktop-nav a[aria-current="page"]:after {
   transform: scaleX(1);
   transform-origin: left center;
+  transition: none;
 }
 @media (hover: hover) and (pointer: fine) {
-  .desktop-nav a:hover {
+  .desktop-nav a:not(.is-active):hover {
     color: #fff;
   }
-  .desktop-nav a:hover:after {
+  .desktop-nav a:not(.is-active):hover:after {
     transform: scaleX(1);
     transform-origin: left center;
   }
@@ -214,14 +221,26 @@
 .header-cta {
   width: 214px;
 }
+.header-cta:focus-visible,
+.header-cta:hover {
+  transform: none;
+}
+.header-cta:focus-visible span,
+.header-cta:hover span {
+  transform: none;
+}
 .menu-toggle,
 .mobile-menu {
   display: none;
 }
 .promo {
+  position: sticky;
+  top: 76px;
+  z-index: 49;
   height: 36px;
   background: var(--blue);
   color: #fff;
+  font-family: system-ui, sans-serif;
   overflow: hidden;
 }
 .promo__track {
@@ -230,6 +249,7 @@
   display: flex;
   align-items: center;
   animation: promo-marquee 24s linear infinite;
+  animation-delay: var(--promo-delay, 0ms);
   will-change: transform;
 }
 .promo__group {

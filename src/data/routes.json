@@ -7,6 +7,20 @@
     "published": true
   },
   {
+    "id": "membresias",
+    "path": "/membresias/",
+    "template": "pages/membresias.html",
+    "entry": "src/js/pages/membresias.js",
+    "published": true
+  },
+  {
+    "id": "nosotros",
+    "path": "/nosotros/",
+    "template": "pages/nosotros.html",
+    "entry": "src/js/pages/nosotros.js",
+    "published": true
+  },
+  {
     "id": "contacto",
     "path": "/contacto/",
     "template": "pages/contacto.html",

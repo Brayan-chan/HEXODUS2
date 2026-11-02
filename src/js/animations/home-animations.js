@@ -1,14 +1,17 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 export async function initHomeAnimations(root) {
   if (!root) return () => {};
   try {
-    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-      import("gsap"),
-      import("gsap/ScrollTrigger"),
-    ]);
     gsap.registerPlugin(ScrollTrigger);
 
     const media = gsap.matchMedia();
     const tweens = [];
+
+    media.add("(prefers-reduced-motion: reduce)", () => {
+      document.documentElement.classList.add("hero-ready");
+    });
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
       // 1. Hero Entrance Timeline (Immediate on page load)
@@ -21,7 +24,12 @@ export async function initHomeAnimations(root) {
         const signature = hero.querySelector(".hero__signature");
         const watermark = hero.querySelector(".watermark--hero");
 
-        const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const heroTl = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          onComplete: () => {
+            document.documentElement.classList.add("hero-ready");
+          },
+        });
 
         if (eyebrow) {
           heroTl.fromTo(
@@ -34,8 +42,8 @@ export async function initHomeAnimations(root) {
         if (lines.length) {
           heroTl.fromTo(
             lines,
-            { yPercent: 110 },
-            { yPercent: 0, duration: 0.85, stagger: 0.12 },
+            { y: 0, yPercent: 110 },
+            { y: 0, yPercent: 0, duration: 0.85, stagger: 0.12 },
             0.2,
           );
         }
@@ -100,9 +108,10 @@ export async function initHomeAnimations(root) {
         const watermark = expSection.querySelector(".watermark");
         const cards = expSection.querySelectorAll(".media-card");
 
-        if (index || head) {
+        const headItems = [index, head].filter(Boolean);
+        if (headItems.length) {
           tweens.push(
-            gsap.from([index, head].filter(Boolean), {
+            gsap.from(headItems, {
               scrollTrigger: {
                 trigger: expSection,
                 start: "top 85%",
@@ -163,9 +172,10 @@ export async function initHomeAnimations(root) {
         const plans = memberships.querySelectorAll(".plans .plan");
         const passes = memberships.querySelectorAll(".short-passes");
 
-        if (index || head) {
+        const headItems = [index, head].filter(Boolean);
+        if (headItems.length) {
           tweens.push(
-            gsap.from([index, head].filter(Boolean), {
+            gsap.from(headItems, {
               scrollTrigger: {
                 trigger: memberships,
                 start: "top 85%",
@@ -271,9 +281,10 @@ export async function initHomeAnimations(root) {
           ".coach-list article, .coach-list .button",
         );
 
-        if (index || head) {
+        const headItems = [index, head].filter(Boolean);
+        if (headItems.length) {
           tweens.push(
-            gsap.from([index, head].filter(Boolean), {
+            gsap.from(headItems, {
               scrollTrigger: {
                 trigger: team,
                 start: "top 85%",
@@ -333,9 +344,10 @@ export async function initHomeAnimations(root) {
         const stage = gallery.querySelector(".facility-stage");
         const thumbs = gallery.querySelectorAll(".facility-thumb");
 
-        if (index || head) {
+        const headItems = [index, head].filter(Boolean);
+        if (headItems.length) {
           tweens.push(
-            gsap.from([index, head].filter(Boolean), {
+            gsap.from(headItems, {
               scrollTrigger: {
                 trigger: gallery,
                 start: "top 85%",
