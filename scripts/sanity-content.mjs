@@ -71,24 +71,45 @@ function mapResult(result, local) {
   const phone = result.site.phoneE164;
   const monthly = result.memberships
     .filter((item) => item.kind === "monthly")
-    .map((item) => ({
-      id: item.sourceKey.current,
-      name: item.name,
-      amount: item.amount,
-      unit: item.unit,
-      tag: item.tag,
-      features: item.features || [],
-      action: item.actionLabel,
-      whatsappUrl: whatsappUrl(phone, item.whatsappMessage),
-      featured: item.featured,
-    }));
+    .map((item) => {
+      const localPlan = local.memberships.plans.find(
+        (p) => p.id === item.sourceKey.current,
+      );
+      return {
+        id: item.sourceKey.current,
+        name: item.name,
+        amount: item.amount,
+        unit: item.unit,
+        tag: item.tag || localPlan?.tag,
+        eyebrow: item.eyebrow || localPlan?.eyebrow || "PLAN MENSUAL",
+        features: item.features || localPlan?.features || [],
+        action: item.actionLabel || localPlan?.action || "Quiero este plan",
+        whatsappUrl: whatsappUrl(phone, item.whatsappMessage),
+        featured: item.featured,
+      };
+    });
   const passes = result.memberships
     .filter((item) => item.kind === "pass")
-    .map((item) => ({
-      id: item.sourceKey.current,
-      name: item.name,
-      amount: item.amount,
-    }));
+    .map((item) => {
+      const localPass = local.memberships.passes.find(
+        (p) => p.id === item.sourceKey.current,
+      );
+      return {
+        id: item.sourceKey.current,
+        name: item.name,
+        amount: item.amount,
+        description:
+          item.description ||
+          localPass?.description ||
+          "Acceso flexible para entrenar en Hexodus.",
+        whatsappUrl:
+          localPass?.whatsappUrl ||
+          whatsappUrl(
+            phone,
+            `Hola, quisiera recibir información sobre el acceso ${item.name} a Hexodus.`,
+          ),
+      };
+    });
   const gallery = result.facilities
     .filter((item) => item.placements?.includes("gallery"))
     .map((item) => {
