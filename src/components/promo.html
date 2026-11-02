@@ -1,3 +1,6 @@
+<script>
+  document.documentElement.style.setProperty("--promo-delay", `-${Date.now() % 24000}ms`);
+</script>
 <div class="promo" aria-label="Información de membresías" tabindex="0">
   <div class="promo__track">
     {% for duplicate in [false, true] %}

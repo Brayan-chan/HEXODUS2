@@ -1,3 +1,5 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { initShared } from "../main.js";
 import { initExistingEffects } from "../animations/existing-effects.js";
 
@@ -504,16 +506,16 @@ cleanups.push(initGalleryLightbox());
 cleanups.push(initPinterestVideoCards());
 
 // 3. Animaciones GSAP para el Hero de Galería y CTA
-async function initGalleryAnimations() {
+function initGalleryAnimations() {
   try {
-    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-      import("gsap"),
-      import("gsap/ScrollTrigger"),
-    ]);
     gsap.registerPlugin(ScrollTrigger);
 
     const media = gsap.matchMedia();
     const tweens = [];
+
+    media.add("(prefers-reduced-motion: reduce)", () => {
+      document.documentElement.classList.add("hero-ready");
+    });
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
       // Hero Entrance Timeline
@@ -527,7 +529,12 @@ async function initGalleryAnimations() {
         const head = root.querySelector(".gallery-section__head");
         const filters = root.querySelector(".gallery-filters");
 
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          onComplete: () => {
+            document.documentElement.classList.add("hero-ready");
+          },
+        });
 
         if (badge) {
           tl.fromTo(
@@ -540,8 +547,8 @@ async function initGalleryAnimations() {
         if (lines.length) {
           tl.fromTo(
             lines,
-            { yPercent: 110, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.85, stagger: 0.14 },
+            { y: 0, yPercent: 110 },
+            { y: 0, yPercent: 0, duration: 0.85, stagger: 0.14 },
             0.2,
           );
         }
@@ -558,7 +565,7 @@ async function initGalleryAnimations() {
             lateral,
             { y: 18, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.65 },
-            0.55,
+            0.6,
           );
         }
         if (chips.length) {
@@ -573,7 +580,7 @@ async function initGalleryAnimations() {
               stagger: 0.08,
               ease: "back.out(1.4)",
             },
-            0.65,
+            0.7,
           );
         }
         if (head) {
@@ -581,7 +588,7 @@ async function initGalleryAnimations() {
             head,
             { y: 20, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.6 },
-            0.8,
+            0.75,
           );
         }
         if (filters) {
@@ -589,10 +596,34 @@ async function initGalleryAnimations() {
             filters,
             { y: 18, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.6 },
-            0.9,
+            0.8,
           );
         }
         tweens.push(tl);
+      }
+
+      // Masonry Items Entrance
+      const masonryGrid = root.querySelector(".masonry-grid");
+      const masonryItems = root.querySelectorAll(
+        ".masonry-item:not(.is-hidden)",
+      );
+      if (masonryGrid && masonryItems.length) {
+        const initialBatch = Array.from(masonryItems).slice(0, 10);
+        tweens.push(
+          gsap.from(initialBatch, {
+            scrollTrigger: {
+              trigger: masonryGrid,
+              start: "top 85%",
+              once: true,
+            },
+            y: 28,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.05,
+            ease: "power3.out",
+            clearProps: "transform,opacity",
+          }),
+        );
       }
 
       // CTA ScrollTrigger Entrance
@@ -657,9 +688,7 @@ async function initGalleryAnimations() {
   }
 }
 
-initGalleryAnimations().then((cleanup) => {
-  if (cleanup) cleanups.push(cleanup);
-});
+cleanups.push(initGalleryAnimations());
 
 if (import.meta.hot) {
   import.meta.hot.dispose(() => cleanups.forEach((cleanup) => cleanup()));

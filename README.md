@@ -2,6 +2,12 @@
 
 Sitio comercial de alto rendimiento para **Hexodus Fitness Center** (San Francisco de Campeche, México), migrado desde WordPress/Elementor a una arquitectura estática moderna en **Vanilla HTML/CSS/JavaScript**, compilado con **Vite** y pre-renderizado con **Nunjucks**.
 
+## Estado actual — 2 de noviembre de 2026
+
+El sitio incluye Inicio, Membresías, Nosotros, Galería y Contacto. Esta entrega incorpora las páginas dedicadas, los ajustes del header y la barra de promociones, las fuentes locales, el patrón de marca de Membresías y la configuración de animaciones restaurada.
+
+El detalle de archivos, comportamiento, verificación de SEO y pruebas está en [CHANGELOG.md](CHANGELOG.md). Las mediciones de rendimiento de la sección 2 corresponden a una versión y un entorno anteriores; no representan una nueva medición de esta entrega.
+
 ---
 
 ## 🚀 1. Resumen de la Migración (WordPress → Vanilla)
@@ -89,7 +95,7 @@ El diseño replica y optimiza la estructura del template original de Elementor (
 2. **Cintillo / Beneficios**: Marquee continuo accesible con pausa en hover/focus (*Campeche • Clima controlado • Coaches certificados...*).
 3. **¿Qué obtienes? (Experiencia)**: 3 pilares de entrenamiento con tarjetas visuales optimizadas.
 4. **Membresías**: Planes Individual, Gym Partners y Estudiantes, con enlaces directos a WhatsApp precargados con mensajes contextuales por tipo de plan.
-5. **Nosotros / Filosofía**: *"La fuerza no se improvisa. Se construye."* con badges de Head Coach y comunidad, enlazado con `data-route="/nosotros/"` apuntando a `#equipo`.
+5. **Nosotros / Filosofía**: *"La fuerza no se improvisa. Se construye."* con badges de Head Coach y comunidad, enlazado directamente con la página `/nosotros/`.
 6. **Tu Equipo / Coaches**: Presentación del equipo técnico y perfil de entrenadores certificados.
 7. **Galería**: Visor interactivo de instalaciones con selección de miniaturas y manejo de fallos en carga de imagen.
 8. **Comunidad / Reseñas**: Voces y testimonios de atletas del team.
@@ -112,11 +118,11 @@ HEXODUS2-main/
 │   ├── js/
 │   │   ├── animations/        # home-animations.js (GSAP), existing-effects.js (parallax/hover)
 │   │   ├── components/        # active-navigation, card-highlight, gallery, header, menu
-│   │   └── pages/             # Controladores independientes por página (home.js, contact.js, galeria.js)
+│   │   └── pages/             # Controladores independientes (home, contact, galeria, membresias, nosotros)
 │   ├── layouts/               # Plantilla base HTML con Schema.org y meta tags
-│   ├── pages/                 # Plantillas Nunjucks de páginas (home.html, contacto.html, galeria.html)
+│   ├── pages/                 # Plantillas Nunjucks (home, contacto, galeria, membresias, nosotros)
 │   ├── sections/home/         # Módulos de sección individuales del home
-│   └── styles/                # tokens.css, base.css, layout.css, components/, pages/ (home, contact, galeria)
+│   └── styles/                # tokens.css, fonts.css, base.css, layout.css, components/, pages/
 ├── scripts/
 │   ├── build.mjs              # Compilador Nunjucks + Vite SSG
 │   ├── check.mjs              # Suite completa de verificación estática, lint, formato y tests
@@ -225,19 +231,23 @@ npm run check
 git add src/pages/contacto.html src/styles/pages/contact.css src/js/pages/contact.js
 git commit -m "feat(contacto): implementar formulario accesible y validacion nativa"
 
-# 5. Fusionar con main
-# Dado que los archivos son independientes por vista, la integración se realiza de forma limpia y automática.
+# 5. Subir la rama y abrir un pull request para revisión
+git push -u origin feature/contacto-formulario
+# La integración se realiza por separado después de revisar el pull request.
 ```
 
 ---
 
 ## 🔍 9. Conexión de Páginas Futuras y Extensibilidad
 
-Para publicar las páginas secundarias (`/nosotros/`, `/planes-y-promociones/`) en fases siguientes:
-1. Crear el template en `src/pages/[nombre].html`.
+Las páginas `/nosotros/` y `/membresias/` ya están publicadas en la configuración de rutas, junto a `/`, `/galeria/` y `/contacto/`.
+
+Para añadir otra página:
+
+1. Crear el template en `src/pages/[nombre].html` y sus módulos de estilo y JavaScript.
 2. Registrar la ruta en `src/data/routes.json` con `"published": true`.
-3. Agregar sus metadatos específicos en `src/data/seo.json`.
-4. El sistema `scripts/build.mjs` y Vite la incluirán automáticamente en el build estático y en el sitemap.
+3. Añadir únicamente la configuración necesaria para la página nueva, conservando los metadatos existentes.
+4. Ejecutar `npm run check`; `scripts/build.mjs` y Vite la incluirán en el sitio estático y en el sitemap de producción.
 
 ---
 

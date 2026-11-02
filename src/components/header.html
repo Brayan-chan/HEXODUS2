@@ -1,6 +1,6 @@
 <header class="site-header" data-header>
   <a class="brand" href="{% if route.id == 'home' %}#inicio{% else %}/{% endif %}" aria-label="{{ site.name }}, inicio">
-    <img src="/assets/hexodus.png" alt="Hexodus" /><small>FITNESS CENTER</small>
+    <img src="/assets/hexodus.png" alt="Hexodus" width="218" height="34" /><small>FITNESS CENTER</small>
   </a>
   <nav class="desktop-nav" aria-label="Navegación principal">
     {% for item in site.navigation %}<a href="{% if item.path %}{{ item.path }}{% elif route.id == 'home' %}#{{ item.anchor }}{% else %}/#{{ item.anchor }}{% endif %}"{% if item.path == route.path %} class="is-active" aria-current="page"{% endif %}>{{ item.label }}</a>{% endfor %}
