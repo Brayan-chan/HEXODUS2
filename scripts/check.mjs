@@ -99,6 +99,24 @@ try {
         `Gallery content missing in ${file}`,
       );
     }
+    if (route.id === "nosotros") {
+      assert(
+        html.includes("TU FUERZA") &&
+          html.includes("Walter") &&
+          html.includes("David"),
+        `Nosotros content missing in ${file}`,
+      );
+    }
+    if (route.id === "membresias") {
+      assert(
+        html.includes("TODOS LOS") &&
+          html.includes("INDIVIDUAL") &&
+          html.includes("GYM PARTNERS") &&
+          html.includes("ESTUDIANTES") &&
+          html.includes("VISITA DIARIA"),
+        `Membresías content missing in ${file}`,
+      );
+    }
     assert(
       !html.includes("hexodus-codex") && !html.includes("WordPress"),
       `Internal text leaked in ${file}`,

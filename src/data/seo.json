@@ -4,6 +4,16 @@
     "description": "Entrena fuerza, pesas libres y cardio en {name}, Campeche. Instalaciones climatizadas, coaches profesionales y membresías a tu medida.",
     "image": "/assets/hero-gym-1800.webp"
   },
+  "membresias": {
+    "title": "Membresías y Precios en Campeche | {name}",
+    "description": "Elige tu plan en {name} en Campeche: mensualidad individual, gym partners en pareja o precio especial para estudiantes. Instalaciones climatizadas.",
+    "image": "/assets/hero-gym-1800.webp"
+  },
+  "nosotros": {
+    "title": "Nosotros | Gimnasio Climatizado en Campeche | {name}",
+    "description": "Conoce {name} en San Francisco de Campeche: instalaciones 100% climatizadas, pesas libres, coaches certificados, nutrición y comunidad frente a Soriana CTM en Minas.",
+    "image": "/assets/hero-gym-1800.webp"
+  },
   "contacto": {
     "title": "Ubicación y horarios en Campeche | {name}",
     "description": "Encuentra {name} en la colonia Minas, Campeche. Consulta horarios, ubicación y contacto por WhatsApp.",

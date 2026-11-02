@@ -54,6 +54,234 @@ test("mobile promotion strip is an infinite marquee, not manual scrolling", asyn
   await page.close();
 });
 
+test("navigation keeps a dark canvas while swapping documents", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+  await page.addInitScript(() => {
+    addEventListener("pageswap", (event) => {
+      sessionStorage.setItem(
+        "usedViewTransition",
+        String(!!event.viewTransition),
+      );
+    });
+  });
+  await page.goto(url);
+  await page.locator('.desktop-nav a[href="/nosotros/"]').click();
+  await page.waitForURL("**/nosotros/");
+  const state = await page.evaluate(() => ({
+    html: getComputedStyle(document.documentElement).backgroundColor,
+    body: getComputedStyle(document.body).backgroundColor,
+    main: getComputedStyle(document.querySelector("main")).backgroundColor,
+    usedViewTransition: sessionStorage.getItem("usedViewTransition"),
+  }));
+  assert.equal(state.html, "rgb(8, 10, 15)");
+  assert.equal(state.body, "rgb(8, 10, 15)");
+  assert.equal(state.main, "rgb(255, 255, 255)");
+  assert.equal(state.usedViewTransition, "true");
+  await page.close();
+});
+
+test("hero titles use the local font and finish their entrance without Google Fonts", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+  await page.route("https://fonts.googleapis.com/**", (route) => route.abort());
+  const routes = [
+    ["", ".hero-line b"],
+    ["membresias/", ".memberships-hero__line b"],
+    ["nosotros/", ".about-hero__line b"],
+    ["contacto/", ".contact-hero__line b"],
+    ["galeria/", ".gallery-hero__title-line"],
+  ];
+  for (const [path, selector] of routes) {
+    await page.goto(new URL(path, url).href);
+    await page.evaluate(() => document.fonts.ready);
+    assert.equal(
+      await page.evaluate(() =>
+        document.fonts.check('700 16px "Barlow Condensed"'),
+      ),
+      true,
+    );
+    await page.waitForTimeout(1400);
+    const lines = await page.locator(selector).evaluateAll((elements) =>
+      elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        const parent = element.parentElement.getBoundingClientRect();
+        return {
+          opacity: Number(getComputedStyle(element).opacity),
+          font: getComputedStyle(element).fontFamily,
+          visibleHeight:
+            Math.min(rect.bottom, parent.bottom) -
+            Math.max(rect.top, parent.top),
+          height: rect.height,
+        };
+      }),
+    );
+    assert.ok(lines.length > 0, `missing title on ${path}`);
+    for (const line of lines) {
+      assert.match(line.font, /Barlow Condensed/);
+      assert.equal(line.opacity, 1, `title hidden on ${path}`);
+      assert.ok(
+        line.visibleHeight >= line.height * 0.7,
+        `title clipped on ${path}`,
+      );
+    }
+  }
+  await page.close();
+});
+
+test("promotion strip stays below the header and keeps its phase across pages", async () => {
+  for (const width of [390, 1440]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 } });
+    for (const path of ["", "nosotros/", "membresias/"]) {
+      await page.goto(new URL(path, url).href);
+      const promo = page.locator(".promo");
+      const phaseDifference = await promo
+        .locator(".promo__track")
+        .evaluate((track) => {
+          const progress = track
+            .getAnimations()[0]
+            .effect.getComputedTiming().progress;
+          const actual = progress * 24000;
+          const expected = Date.now() % 24000;
+          const difference = Math.abs(actual - expected);
+          return Math.min(difference, 24000 - difference);
+        });
+      assert.ok(phaseDifference < 1500, `marquee restarted on ${path}`);
+      await page.evaluate(() =>
+        window.scrollTo({ top: 500, behavior: "instant" }),
+      );
+      const positions = await page.evaluate(() => ({
+        headerBottom: document
+          .querySelector(".site-header")
+          .getBoundingClientRect().bottom,
+        promoTop: document.querySelector(".promo").getBoundingClientRect().top,
+      }));
+      assert.equal(positions.promoTop, positions.headerBottom);
+    }
+    await page.close();
+  }
+});
+
+test("every hero reveals once without resetting during navigation or slow loading", async () => {
+  for (const width of [390, 1440]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 } });
+    await page.route(/\.(?:js|woff2)(?:\?.*)?$/, async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 250));
+      await route.continue();
+    });
+    await page.addInitScript(() => {
+      window.heroFrames = [];
+      const sample = () => {
+        const lines = [
+          ...document.querySelectorAll("h1 b, .gallery-hero__title-line"),
+        ];
+        if (lines.length) {
+          window.heroFrames.push(
+            lines.map((line) => {
+              const rect = line.getBoundingClientRect();
+              const clip = line.parentElement.getBoundingClientRect();
+              const range = document.createRange();
+              range.selectNodeContents(line);
+              return {
+                visible: Math.max(
+                  0,
+                  Math.min(
+                    1,
+                    (Math.min(rect.bottom, clip.bottom) -
+                      Math.max(rect.top, clip.top)) /
+                      rect.height,
+                  ),
+                ),
+                textWidth: range.getBoundingClientRect().width,
+                fontsReady:
+                  document.fonts.check('900 16px "Barlow Condensed"') &&
+                  document.fonts.check("400 16px Inter"),
+              };
+            }),
+          );
+        }
+        requestAnimationFrame(sample);
+      };
+      requestAnimationFrame(sample);
+    });
+    for (const path of [
+      "",
+      "membresias/",
+      "nosotros/",
+      "galeria/",
+      "contacto/",
+    ]) {
+      if (!path) await page.goto(url);
+      else {
+        if (width < 900) await page.locator("[data-menu-toggle]").click();
+        const nav = width < 900 ? ".mobile-menu" : ".desktop-nav";
+        await page.locator(`${nav} a[href="/${path}"]`).click();
+        await page.waitForURL(new URL(path, url).href);
+      }
+      await page.waitForFunction(() =>
+        window.heroFrames?.at(-1)?.every((line) => line.visible > 0.99),
+      );
+      const frames = await page.evaluate(() => window.heroFrames);
+      assert.ok(frames.length > 5, `missing frames: ${width}px ${path}`);
+      for (let index = 0; index < frames.at(-1).length; index++) {
+        const samples = frames.map((frame) => frame[index]).filter(Boolean);
+        assert.ok(
+          samples.some((line) => line.visible < 0.05),
+          `title appeared before entrance: ${width}px ${path}`,
+        );
+        assert.ok(
+          samples.filter((line) => line.visible > 0.05 && line.visible < 0.95)
+            .length >= 3,
+          `entrance skipped: ${width}px ${path}`,
+        );
+        for (let frame = 1; frame < samples.length; frame++) {
+          assert.ok(
+            samples[frame].visible >= samples[frame - 1].visible - 0.03,
+            `title reset during entrance: ${width}px ${path}`,
+          );
+        }
+        const visible = samples.filter((line) => line.visible > 0.1);
+        assert.ok(
+          visible.every((line) => line.fontsReady),
+          `title revealed before fonts: ${width}px ${path}`,
+        );
+        assert.ok(
+          Math.max(...visible.map((line) => line.textWidth)) -
+            Math.min(...visible.map((line) => line.textWidth)) <
+            1,
+          `title changed width: ${width}px ${path}`,
+        );
+      }
+    }
+    await page.close();
+  }
+});
+
+test("membership help button remains readable on hover and keyboard focus", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+  await page.goto(new URL("membresias/", url).href);
+  const button = page.locator(".memberships-help-section__btn-outline");
+  await button.hover();
+  await page.waitForTimeout(350);
+  assert.equal(
+    await button.evaluate((el) => getComputedStyle(el).color),
+    "rgb(8, 10, 15)",
+  );
+  await page.mouse.move(0, 0);
+  await page.keyboard.press("Tab");
+  await button.focus();
+  await page.waitForTimeout(350);
+  assert.equal(
+    await button.evaluate((el) => getComputedStyle(el).color),
+    "rgb(8, 10, 15)",
+  );
+  await page.close();
+});
+
 test("contact details and map are on their own page", async () => {
   const page = await browser.newPage({
     viewport: { width: 390, height: 844 },
@@ -90,13 +318,13 @@ test("subpage navigation preserves its active state and deep-links home", async 
     true,
   );
 
-  await page.locator('.desktop-nav a[href="/#membresias"]').click();
-  await page.waitForURL(/\/#membresias$/);
+  await page.locator('.desktop-nav a[href="/#inicio"]').click();
+  await page.waitForURL(/\/#inicio$/);
   assert.equal(new URL(page.url()).pathname, "/");
-  assert.equal(await page.locator("#membresias").isVisible(), true);
+  assert.equal(await page.locator("#inicio").isVisible(), true);
   assert.equal(
     await page
-      .locator("#membresias")
+      .locator("#inicio")
       .evaluate((section) => section.getBoundingClientRect().top < innerHeight),
     true,
   );
@@ -108,6 +336,134 @@ test("subpage navigation preserves its active state and deep-links home", async 
       .getAttribute("aria-current"),
     "page",
   );
+  await page.close();
+});
+
+test("header stays in place across pages, scroll and button interaction", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+  const measure = () =>
+    page.locator(".site-header").evaluate((header) => {
+      const rect = (element) => {
+        const { x, y, width, height } = element.getBoundingClientRect();
+        return [x, y, width, height];
+      };
+      return {
+        header: rect(header),
+        brand: rect(header.querySelector(".brand")),
+        links: [...header.querySelectorAll(".desktop-nav a")].map(rect),
+        button: rect(header.querySelector(".header-cta")),
+        font: getComputedStyle(header).fontFamily,
+        background: getComputedStyle(header).backgroundColor,
+      };
+    });
+
+  await page.goto(url);
+  await page.evaluate(() => document.fonts.ready);
+  const initial = await measure();
+  assert.equal(initial.font, "system-ui, sans-serif");
+  for (const path of ["membresias/", "nosotros/", "galeria/", "contacto/"]) {
+    await page.goto(new URL(path, url).href);
+    await page.evaluate(() => document.fonts.ready);
+    assert.deepEqual(await measure(), initial, `header moved on ${path}`);
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await page.waitForFunction(() => window.scrollY > 112);
+    assert.deepEqual(
+      await measure(),
+      initial,
+      `header moved on scroll: ${path}`,
+    );
+  }
+  await page.locator(".header-cta").hover();
+  assert.deepEqual(await measure(), initial, "header moved on button hover");
+  await page.close();
+});
+
+test("nosotros page renders all editorial sections and has zero overflow", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+
+  await page.goto(new URL("nosotros/", url).href);
+  const nosotrosLink = page.locator('.desktop-nav a[href="/nosotros/"]');
+  assert.equal(await nosotrosLink.getAttribute("aria-current"), "page");
+  assert.equal(
+    await nosotrosLink.evaluate((link) => link.classList.contains("is-active")),
+    true,
+  );
+
+  assert.equal(await page.locator("h1").isVisible(), true);
+  for (const id of [
+    "nosotros",
+    "entrenar",
+    "experiencia",
+    "esencia",
+    "instalaciones",
+    "equipo",
+    "servicios",
+    "comunidad",
+    "empieza",
+  ]) {
+    assert.equal(
+      await page.locator(`#${id}`).count(),
+      1,
+      `Section #${id} missing`,
+    );
+  }
+
+  for (const width of [320, 360, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 800 });
+    assert.equal(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      true,
+      `nosotros overflow at ${width}px`,
+    );
+  }
+
+  await page.close();
+});
+
+test("membresias page renders all plans and passes with zero overflow", async () => {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+
+  await page.goto(new URL("membresias/", url).href);
+  const membresiasLink = page.locator('.desktop-nav a[href="/membresias/"]');
+  assert.equal(await membresiasLink.getAttribute("aria-current"), "page");
+  assert.equal(
+    await membresiasLink.evaluate((link) =>
+      link.classList.contains("is-active"),
+    ),
+    true,
+  );
+
+  assert.equal(await page.locator("h1").isVisible(), true);
+  for (const id of ["inicio-membresias", "planes", "pases", "asesoria"]) {
+    assert.equal(
+      await page.locator(`#${id}`).count(),
+      1,
+      `Section #${id} missing`,
+    );
+  }
+
+  assert.equal(await page.locator(".hexodus-plan-card").count(), 3);
+  assert.equal(await page.locator(".hx-b3-flex-card").count(), 3);
+
+  for (const width of [320, 360, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 800 });
+    assert.equal(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      true,
+      `membresias overflow at ${width}px`,
+    );
+  }
+
   await page.close();
 });
 
