@@ -5,48 +5,75 @@
     {
       "id": "individual",
       "name": "Individual",
+      "eyebrow": "MENSUALIDAD",
       "amount": 700,
       "unit": "MXN / MES",
       "features": [
-        "Acceso a todas las áreas",
-        "Clima controlado",
-        "Horario completo"
+        "Acceso para 1 persona",
+        "Uso de todas las áreas",
+        "Instalaciones climatizadas",
+        "Horarios amplios",
+        "Coaches certificados"
       ],
-      "action": "Elegir individual",
-      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20la%20membres%C3%ADa%20individual%20de%20Hexodus."
+      "action": "Quiero este plan",
+      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20me%20interesa%20la%20membres%C3%ADa%20Individual%20de%20Hexodus%20%28%24700%20MXN%20al%20mes%29."
     },
     {
       "id": "partners",
       "name": "Gym partners",
+      "eyebrow": "PARA ENTRENAR ACOMPAÑADO",
       "amount": 1200,
-      "unit": "MXN / MES · ENTRE DOS",
-      "tag": "Entrenen juntos",
+      "unit": "MXN / MES · ENTRE LOS DOS",
+      "tag": "Para entrenar acompañado",
       "features": [
-        "Dos membresías",
-        "Acceso a todas las áreas",
-        "Motivación compartida"
+        "Acceso para 2 personas",
+        "Uso de todas las áreas",
+        "Instalaciones climatizadas",
+        "Horarios amplios",
+        "Ahorran $200 al mes entre los dos"
       ],
-      "action": "Elegir partners",
-      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20la%20membres%C3%ADa%20en%20pareja%20de%20Hexodus.",
+      "action": "Quiero este plan",
+      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20me%20interesa%20Gym%20Partners%20de%20Hexodus%20%28%241%2C200%20MXN%20al%20mes%20entre%20los%20dos%29.",
       "featured": true
     },
     {
       "id": "students",
       "name": "Estudiantes",
+      "eyebrow": "PRECIO ESPECIAL",
       "amount": 600,
       "unit": "MXN / MES",
       "features": [
         "Presenta credencial vigente",
-        "Acceso a todas las áreas",
-        "Horario completo"
+        "Uso de todas las áreas",
+        "Instalaciones climatizadas",
+        "Horarios amplios",
+        "Precio especial para estudiantes"
       ],
-      "action": "Elegir estudiante",
-      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20la%20membres%C3%ADa%20de%20estudiantes%20de%20Hexodus."
+      "action": "Quiero este plan",
+      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20me%20interesa%20la%20membres%C3%ADa%20de%20Estudiantes%20de%20Hexodus%20%28%24600%20MXN%20al%20mes%29."
     }
   ],
   "passes": [
-    { "id": "day", "name": "Visita diaria", "amount": 120 },
-    { "id": "week", "name": "Semana", "amount": 350 },
-    { "id": "fortnight", "name": "Quincena", "amount": 450 }
+    {
+      "id": "day",
+      "name": "Visita diaria",
+      "amount": 120,
+      "description": "Una opción para conocer Hexodus o entrenar un día.",
+      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20quisiera%20recibir%20informaci%C3%B3n%20sobre%20el%20acceso%20por%20visita%20diaria%20a%20Hexodus."
+    },
+    {
+      "id": "week",
+      "name": "Semana",
+      "amount": 350,
+      "description": "Mantén tu entrenamiento durante la semana.",
+      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20quisiera%20recibir%20informaci%C3%B3n%20sobre%20el%20acceso%20semanal%20a%20Hexodus."
+    },
+    {
+      "id": "fortnight",
+      "name": "Quincena",
+      "amount": 450,
+      "description": "Organiza tu entrenamiento por quincena.",
+      "whatsappUrl": "https://wa.me/529811787040?text=Hola%2C%20quisiera%20recibir%20informaci%C3%B3n%20sobre%20el%20acceso%20quincenal%20a%20Hexodus."
+    }
   ]
 }

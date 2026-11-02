@@ -1,0 +1,342 @@
+{% extends "layouts/base.html" %}
+
+{% block pageStyles %}
+  <link rel="stylesheet" href="/src/styles/pages/membresias.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemPage",
+    "name": "Membresías y Precios | {{ site.name }}",
+    "description": "{{ seo.description }}",
+    "url": "{{ canonical }}",
+    "mainEntity": {
+      "@type": "OfferCatalog",
+      "name": "Planes y Membresías de {{ site.name }}",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Membresía Individual",
+          "price": "700",
+          "priceCurrency": "MXN",
+          "description": "Acceso individual mensual para entrenar fuerza, pesas libres y cardio en instalaciones 100% climatizadas.",
+          "url": "{{ canonical }}"
+        },
+        {
+          "@type": "Offer",
+          "name": "Gym Partners (Pareja)",
+          "price": "1200",
+          "priceCurrency": "MXN",
+          "description": "Acceso mensual para 2 personas con ahorro de $200 MXN al mes entre los dos.",
+          "url": "{{ canonical }}"
+        },
+        {
+          "@type": "Offer",
+          "name": "Membresía Estudiantes",
+          "price": "600",
+          "priceCurrency": "MXN",
+          "description": "Precio preferencial mensual para estudiantes presentando credencial vigente.",
+          "url": "{{ canonical }}"
+        },
+        {
+          "@type": "Offer",
+          "name": "Pase de Visita Diaria",
+          "price": "120",
+          "priceCurrency": "MXN",
+          "description": "Acceso por un día a todas las áreas de entrenamiento.",
+          "url": "{{ canonical }}"
+        },
+        {
+          "@type": "Offer",
+          "name": "Pase Semanal",
+          "price": "350",
+          "priceCurrency": "MXN",
+          "description": "Acceso durante una semana completa.",
+          "url": "{{ canonical }}"
+        },
+        {
+          "@type": "Offer",
+          "name": "Pase Quincenal",
+          "price": "450",
+          "priceCurrency": "MXN",
+          "description": "Acceso durante quince días continuos.",
+          "url": "{{ canonical }}"
+        }
+      ]
+    }
+  }
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="memberships-page">
+  <!-- 00 · HERO / BANNER PRINCIPAL -->
+  <section class="memberships-hero dark" id="inicio-membresias">
+    <div class="memberships-hero__bg" aria-hidden="true"></div>
+    <div class="memberships-hero__veil" aria-hidden="true"></div>
+    <div class="memberships-hero__glow-blue" aria-hidden="true"></div>
+    <div class="memberships-hero__pattern" aria-hidden="true"></div>
+    <div class="memberships-hero__watermark" aria-hidden="true">H</div>
+
+    <div class="wrap memberships-hero__content">
+      <div class="memberships-hero__badge">
+        <span class="accent-slash">//</span> MEMBRESÍAS · {{ site.name | upper }}
+      </div>
+      <h1 class="memberships-hero__title">
+        <span class="memberships-hero__line"><b>ELIGE EL PLAN QUE</b></span>
+        <span class="memberships-hero__line"><b class="memberships-hero__title-accent">SIGUE TU RITMO.</b></span>
+      </h1>
+      <p class="memberships-hero__subtitle">
+        Planes claros, beneficios reales y opciones para entrenar a tu manera en las instalaciones más completas y climatizadas de Campeche.
+      </p>
+      <div class="memberships-hero__badges">
+        <span class="promo-tag promo-tag--solid">INSCRIPCIÓN $0</span>
+        <span class="promo-tag promo-tag--outline">POR TIEMPO LIMITADO</span>
+        <span class="promo-tag promo-tag--cyan">SIN PLAZOS FORZOSOS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 · PLANES MENSUALES -->
+  <section class="memberships-plans-section" id="planes">
+    <div class="wrap">
+      <div class="section-index">
+        <span>01</span> Planes mensuales
+      </div>
+      <div class="section-head">
+        <h2>
+          TODOS LOS<br /><em>PLANES.</em>
+        </h2>
+        <p>
+          Entrena por tu cuenta, acompañado o con precio especial de estudiante. Todas las membresías incluyen acceso ilimitado a todas las áreas de fuerza, peso libre y cardio.
+        </p>
+      </div>
+
+      <div class="memberships-grid">
+        {% for planItem in memberships.plans %}
+          <article class="hexodus-plan-card{% if planItem.featured %} is-featured{% endif %}">
+            {% if planItem.featured %}
+              <span class="plan-ribbon">MÁS POPULAR</span>
+            {% endif %}
+
+            <div class="hexodus-plan-card__top">
+              <div class="hexodus-plan-card__eyebrow-row">
+                <span class="hexodus-plan-card__eyebrow">{% if planItem.eyebrow %}{{ planItem.eyebrow }}{% else %}{{ planItem.name | upper }}{% endif %}</span>
+                <svg class="hexodus-plan-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12" />
+                </svg>
+              </div>
+
+              <h3 class="hexodus-plan-card__title">{{ planItem.name | upper }}</h3>
+
+              <div class="hexodus-plan-card__price-row">
+                <span class="hexodus-plan-card__amount">${{ planItem.amount | number }}</span>
+                <span class="hexodus-plan-card__unit">{{ planItem.unit }}</span>
+              </div>
+
+              <ul class="hexodus-plan-card__features">
+                {% for feature in planItem.features %}
+                  <li>
+                    <svg class="hexodus-plan-card__check-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>{{ feature }}</span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <a
+              class="hexodus-plan-card__btn {% if planItem.featured %}hexodus-plan-card__btn--primary{% else %}hexodus-plan-card__btn--outline{% endif %}"
+              href="{% if planItem.whatsappUrl %}{{ planItem.whatsappUrl }}{% else %}{{ site.whatsappUrl }}{% endif %}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>{% if planItem.action %}{{ planItem.action | upper }}{% else %}QUIERO ESTE PLAN{% endif %}</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+
+      <p class="memberships-disclaimer">
+        Precios en MXN. Sin plazos forzosos. Consulta requisitos de credencial vigente para estudiantes al inscribirte.
+      </p>
+    </div>
+  </section>
+
+  <!-- 02 · PASES Y ACCESOS FLEXIBLES -->
+  <section class="memberships-passes-section dark" id="pases">
+    <div class="memberships-passes-section__glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-index">
+        <span>02</span> Pases y accesos flexibles
+      </div>
+      <div class="section-head">
+        <h2>
+          TU TIEMPO. <em>TU RITMO.</em>
+        </h2>
+        <p>
+          ¿De visita en Campeche o prefieres entrenar por periodos cortos? Elige entre nuestras opciones flexibles sin contratos ni pagos de inscripción.
+        </p>
+      </div>
+
+      <div class="passes-grid">
+        {% for passItem in memberships.passes %}
+          <article class="hx-b3-flex-card">
+            <div class="hx-b3-flex-card__header">
+              <div>
+                <span class="hx-b3-flex-card__badge">Pase Flexible</span>
+                <h3 class="hx-b3-flex-card__title">{{ passItem.name | upper }}</h3>
+              </div>
+              <div class="hx-b3-flex-card__price">
+                ${{ passItem.amount | number }} <span class="hx-b3-flex-card__currency">MXN</span>
+              </div>
+            </div>
+
+            <p class="hx-b3-flex-card__desc">{% if passItem.description %}{{ passItem.description }}{% else %}Acceso flexible a todas las áreas de entrenamiento.{% endif %}</p>
+
+            <a
+              class="hx-b3-flex-card__btn"
+              href="{% if passItem.whatsappUrl %}{{ passItem.whatsappUrl }}{% else %}{{ site.whatsappUrl }}{% endif %}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>CONSULTAR ACCESO</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · BENEFICIOS INCLUIDOS EN TODAS LAS MEMBRESÍAS -->
+  <section class="memberships-features-section" id="beneficios">
+    <div class="wrap">
+      <div class="section-index">
+        <span>03</span> Instalaciones y Servicios
+      </div>
+      <div class="section-head">
+        <h2>
+          TODO LO QUE <em>INCLUYE TU MEMBRESÍA</em>
+        </h2>
+        <p>
+          Diseñado para que entrenes con intensidad, comodidad y los mejores equipos de la ciudad.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+          <h3 class="feature-item__title">100% Climatizado</h3>
+          <p class="feature-item__desc">
+            Instalaciones completamente climatizadas para entrenar con el máximo confort y rendimiento sin importar el calor de Campeche.
+          </p>
+        </article>
+
+        <article class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12" />
+            </svg>
+          </div>
+          <h3 class="feature-item__title">Área de Peso Libre</h3>
+          <p class="feature-item__desc">
+            Mancuernas de alto gramaje, barras olímpicas, discos de caucho y bancos ajustables para entrenamientos de fuerza sin límites.
+          </p>
+        </article>
+
+        <article class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <h3 class="feature-item__title">Horarios Flexibles</h3>
+          <p class="feature-item__desc">
+            Abierto de lunes a viernes de {{ site.hours.weekdays.display }} y sábados de {{ site.hours.saturday.display }} para adaptarse a tu rutina diaria.
+          </p>
+        </article>
+
+        <article class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3 class="feature-item__title">Coaches en Sala</h3>
+          <p class="feature-item__desc">
+            Entrenadores calificados (David y Walter) disponibles en piso para orientarte en técnica, posturas correctas y uso seguro de equipo.
+          </p>
+        </article>
+
+        <article class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
+          <h3 class="feature-item__title">Vestidores & Lockers</h3>
+          <p class="feature-item__desc">
+            Instalaciones higiénicas con regaderas de agua caliente, vestidores cómodos y casilleros seguros para guardar tus pertenencias.
+          </p>
+        </article>
+
+        <article class="feature-item">
+          <div class="feature-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <h3 class="feature-item__title">Suplementos & Snacks</h3>
+          <p class="feature-item__desc">
+            Barra de suplementos con proteínas, creatinas, pre-entrenos y bebidas hidratantes disponibles para recargar energía al instante.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · ASESORÍA PERSONALIZADA / CTA FINAL -->
+  <section class="memberships-help-section dark" id="asesoria">
+    <div class="memberships-help-section__watermark" aria-hidden="true">H</div>
+    <div class="wrap">
+      <div class="memberships-help-section__inner">
+        <p class="memberships-help-section__eyebrow">
+          <span class="accent-slash">//</span> ASESORÍA PERSONALIZADA
+        </p>
+        <h2 class="memberships-help-section__title">
+          ¿NO SABES QUÉ<br /><em>PLAN ELEGIR?</em>
+        </h2>
+        <p class="memberships-help-section__desc">
+          Escríbenos directamente por WhatsApp y te ayudamos a resolver dudas sobre horarios, tarifas y el plan ideal para tus objetivos.
+        </p>
+        <div class="memberships-help-section__actions">
+          <a
+            class="button button--primary memberships-help-section__btn-primary"
+            href="{{ site.whatsappUrl }}?text=Hola%2C%20quisiera%20asesor%C3%ADa%20para%20elegir%20mi%20membres%C3%ADa%20en%20Hexodus."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            HABLAR CON UN ASESOR <span>↗</span>
+          </a>
+          <a
+            class="button button--outline memberships-help-section__btn-outline"
+            href="/contacto/"
+          >
+            VER UBICACIÓN Y HORARIOS <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
