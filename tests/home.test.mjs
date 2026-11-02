@@ -305,6 +305,101 @@ test("contact details and map are on their own page", async () => {
   await page.close();
 });
 
+test("full videos use consistent accessible controls and useful audio levels", async () => {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+
+  await page.goto(new URL("nosotros/", url).href);
+  const brandVideo = page.locator("#hexodusBrandVideo");
+  assert.equal(await brandVideo.getAttribute("controls"), "");
+  assert.equal(await page.locator(".about-video-box__controls").count(), 0);
+  assert.equal(await brandVideo.evaluate((video) => video.volume), 0.75);
+
+  await page.goto(new URL("galeria/", url).href);
+  const previews = page.locator(".masonry-video-preview");
+  assert.ok((await previews.count()) > 0);
+  assert.equal(
+    await previews.evaluateAll((videos) =>
+      videos.every(
+        (video) => !video.hasAttribute("src") && !!video.dataset.previewSrc,
+      ),
+    ),
+    true,
+  );
+
+  const firstVideoCard = page.locator(".masonry-item.is-video").first();
+  await firstVideoCard.evaluate((card) => card.click());
+  const lightboxVideo = page.locator("[data-lightbox-video]");
+  await page.waitForFunction(() =>
+    document.querySelector("#gallery-lightbox")?.classList.contains("is-open"),
+  );
+  assert.equal(await lightboxVideo.getAttribute("controls"), "");
+  assert.equal(await lightboxVideo.evaluate((video) => video.volume), 0.75);
+  assert.equal(await lightboxVideo.evaluate((video) => video.muted), true);
+  await page.waitForFunction(
+    () =>
+      document.activeElement?.matches("button[data-lightbox-close]") === true,
+  );
+  assert.equal(
+    await page
+      .locator("button[data-lightbox-close]")
+      .evaluate((button) => button === document.activeElement),
+    true,
+  );
+  await page.keyboard.press("Escape");
+  await page.waitForFunction(
+    () =>
+      !document.querySelector("#gallery-lightbox")?.classList.contains("is-open"),
+  );
+  await page.waitForFunction(
+    () => document.activeElement?.matches(".masonry-item.is-video") === true,
+  );
+  assert.equal(
+    await firstVideoCard.evaluate((card) => card === document.activeElement),
+    true,
+  );
+  await page.close();
+});
+
+test("gallery navigation swaps decoded media without a document transition flash", async () => {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await page.addInitScript(() => {
+    window.galleryTransitionCalls = 0;
+    const original = document.startViewTransition?.bind(document);
+    if (original) {
+      document.startViewTransition = (callback) => {
+        window.galleryTransitionCalls += 1;
+        return original(callback);
+      };
+    }
+  });
+  await page.goto(new URL("galeria/", url).href);
+  await page.locator(".masonry-item").first().click();
+  await page.waitForFunction(
+    () => document.activeElement?.matches("button[data-lightbox-close]") === true,
+  );
+
+  const before = await page.evaluate(() => window.galleryTransitionCalls);
+  const counter = page.locator("[data-lightbox-counter]");
+  const previousLabel = await counter.textContent();
+  await page.keyboard.press("ArrowRight");
+  await page.waitForFunction(
+    (label) =>
+      document.querySelector("[data-lightbox-counter]")?.textContent !== label &&
+      !document.querySelector(".lightbox-figure")?.classList.contains("is-switching"),
+    previousLabel,
+  );
+
+  assert.equal(await page.evaluate(() => window.galleryTransitionCalls), before);
+  const activeImage = page.locator("[data-lightbox-img]");
+  assert.equal(
+    await activeImage.evaluate(
+      (image) => image.style.display !== "none" && image.complete && image.naturalWidth > 0,
+    ),
+    true,
+  );
+  await page.close();
+});
+
 test("subpage navigation preserves its active state and deep-links home", async () => {
   const page = await browser.newPage({
     viewport: { width: 1440, height: 900 },
