@@ -63,21 +63,24 @@ function initGalleryLightbox() {
   const items = [...root.querySelectorAll(".masonry-item")];
 
   let currentIndex = -1;
+  let lastTrigger = null;
 
-  // Configuración predeterminada de audio para el visor de video:
-  // Inicia silenciado (muted) con volumen al 10% (0.1).
+  const focusDialog = () => {
+    lightbox.querySelector("button[data-lightbox-close]")?.focus({
+      preventScroll: true,
+    });
+  };
+
+  const restoreFocus = () => {
+    lastTrigger?.focus({ preventScroll: true });
+    lastTrigger = null;
+  };
+
+  // Opening a video is intentional, but sound stays opt-in. If the visitor
+  // enables it, use a clear listening level instead of an inaudible 10%.
   if (video) {
     video.muted = true;
-    video.volume = 0.1;
-    video.addEventListener("volumechange", () => {
-      // Al desmutear por primera vez, asegurar que el volumen inicie en 10%
-      if (!video.muted && video.dataset.hasUserInteracted !== "true") {
-        video.dataset.hasUserInteracted = "true";
-        if (video.volume > 0.15) {
-          video.volume = 0.1;
-        }
-      }
-    });
+    video.volume = 0.75;
   }
 
   let isTransitioning = false;
@@ -113,6 +116,7 @@ function initGalleryLightbox() {
     if (video) {
       video.pause();
       video.removeAttribute("src");
+      video.removeAttribute("poster");
       video.classList.remove("is-horizontal");
       video.style.display = "none";
     }
@@ -128,16 +132,16 @@ function initGalleryLightbox() {
         videoSrc = videoSrc.replace(/\.mov$/, ".mp4");
       }
       if (video && videoSrc) {
+        const preview = currentItem.querySelector("video");
+        const poster = preview?.getAttribute("poster");
+        if (poster) video.poster = poster;
         video.src = videoSrc;
         video.style.display = "block";
         video.muted = true;
-        video.volume = 0.1;
-        video.dataset.hasUserInteracted = "false";
+        video.volume = 0.75;
         video.onloadedmetadata = () => {
           const isHoriz = video.videoWidth > video.videoHeight;
           video.classList.toggle("is-horizontal", isHoriz);
-          video.muted = true;
-          video.volume = 0.1;
         };
         video.play().catch(() => {});
       }
@@ -164,6 +168,7 @@ function initGalleryLightbox() {
     const visible = getVisibleItems();
     const index = visible.indexOf(item);
     if (index === -1) return;
+    lastTrigger = item;
 
     const prefersReducedMotion = matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -177,6 +182,7 @@ function initGalleryLightbox() {
       lightbox.classList.add("is-open");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      focusDialog();
       return;
     }
 
@@ -232,6 +238,7 @@ function initGalleryLightbox() {
         "is-gallery-transition",
         "is-gallery-open",
       );
+      focusDialog();
       isTransitioning = false;
     }
   }
@@ -256,6 +263,7 @@ function initGalleryLightbox() {
       lightbox.classList.remove("is-open");
       lightbox.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      restoreFocus();
       return;
     }
 
@@ -311,6 +319,7 @@ function initGalleryLightbox() {
         "is-gallery-transition",
         "is-gallery-close",
       );
+      restoreFocus();
       isTransitioning = false;
     }
   }
@@ -320,55 +329,61 @@ function initGalleryLightbox() {
     const visible = getVisibleItems();
     if (!visible.length) return;
 
-    const prefersReducedMotion = matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const canUseViewTransition =
-      typeof document.startViewTransition === "function" &&
-      !prefersReducedMotion;
-
-    if (!canUseViewTransition) {
-      showImage(newIndex);
-      return;
-    }
-
     const nextIndexNormalized = (newIndex + visible.length) % visible.length;
     const nextItem = visible[nextIndexNormalized];
-    const nextImageEl = nextItem ? nextItem.querySelector("img") : null;
-    if (nextImageEl && img) {
-      const nextSrc = nextImageEl.currentSrc || nextImageEl.src;
+    const nextImageEl = nextItem?.querySelector("img");
+    if (nextImageEl) {
       const preImg = new Image();
-      preImg.src = nextSrc;
+      preImg.src = nextImageEl.currentSrc || nextImageEl.src;
       try {
         await preImg.decode();
       } catch {
-        // Fallback
+        // The visible image still provides the browser's normal fallback.
       }
     }
 
-    const prevMedia = getActiveLightboxMedia();
-    if (prevMedia) prevMedia.style.viewTransitionName = "gallery-active-media";
+    const prefersReducedMotion = matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReducedMotion) {
+      showImage(nextIndexNormalized);
+      return;
+    }
 
     isTransitioning = true;
-    document.documentElement.classList.add("is-gallery-transition");
-
-    try {
-      const transition = document.startViewTransition(async () => {
-        showImage(newIndex);
-        const nextMedia = getActiveLightboxMedia();
-        if (nextMedia)
-          nextMedia.style.viewTransitionName = "gallery-active-media";
+    const figure = lightbox.querySelector(".lightbox-figure");
+    const waitForFade = () =>
+      new Promise((resolve) => {
+        if (!figure) {
+          resolve();
+          return;
+        }
+        let settled = false;
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          figure.removeEventListener("transitionend", onTransitionEnd);
+          clearTimeout(timeout);
+          resolve();
+        };
+        const onTransitionEnd = (event) => {
+          if (event.target === figure && event.propertyName === "opacity") {
+            finish();
+          }
+        };
+        const timeout = setTimeout(finish, 240);
+        figure.addEventListener("transitionend", onTransitionEnd);
       });
 
-      await transition.finished;
-    } catch {
-      showImage(newIndex);
+    try {
+      figure?.classList.add("is-switching");
+      await waitForFade();
+      showImage(nextIndexNormalized);
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      figure?.classList.remove("is-switching");
+      await waitForFade();
     } finally {
-      await new Promise((r) => requestAnimationFrame(r));
-      const activeMedia = getActiveLightboxMedia();
-      if (activeMedia) activeMedia.style.viewTransitionName = "";
-      if (prevMedia) prevMedia.style.viewTransitionName = "";
-      document.documentElement.classList.remove("is-gallery-transition");
+      figure?.classList.remove("is-switching");
       isTransitioning = false;
     }
   }
@@ -422,7 +437,21 @@ function initGalleryLightbox() {
 
   const onKeyDown = (event) => {
     if (!lightbox.classList.contains("is-open")) return;
-    if (event.key === "Escape") closeLightbox();
+    if (event.key === "Tab") {
+      const controls = [
+        ...lightbox.querySelectorAll("button, video[controls]"),
+      ].filter((element) => element.getClientRects().length > 0);
+      if (!controls.length) return;
+      const first = controls[0];
+      const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    } else if (event.key === "Escape") closeLightbox();
     else if (event.key === "ArrowLeft") navigateLightbox(currentIndex - 1);
     else if (event.key === "ArrowRight") navigateLightbox(currentIndex + 1);
   };
@@ -439,65 +468,66 @@ function initGalleryLightbox() {
   };
 }
 
-// 3. Videos estilo Pinterest: Reproducción automática en scroll y al hacer hover
+// 3. Video previews: load only after deliberate desktop hover. Autoplaying
+// large files on scroll wastes bandwidth and battery, especially on mobile.
 function initPinterestVideoCards() {
   const videoCards = root.querySelectorAll(".masonry-item.is-video");
   if (!videoCards.length) return () => {};
 
+  const canPreview =
+    matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    !navigator.connection?.saveData;
   const listeners = [];
+  let activeVideo = null;
+
+  const pauseVideo = (video) => {
+    if (!video) return;
+    video.pause();
+    video.closest(".masonry-item")?.classList.remove("is-playing");
+  };
 
   videoCards.forEach((card) => {
     const v = card.querySelector("video");
     if (!v) return;
     v.muted = true;
-    v.volume = 0.1;
+    v.volume = 0.75;
 
     const onEnter = () => {
+      if (!canPreview) return;
+      if (activeVideo && activeVideo !== v) pauseVideo(activeVideo);
+      if (!v.src && v.dataset.previewSrc) {
+        v.src = v.dataset.previewSrc;
+        v.load();
+      }
+      activeVideo = v;
       v.muted = true;
-      v.volume = 0.1;
-      v.play().catch(() => {});
+      v.play()
+        .then(() => card.classList.add("is-playing"))
+        .catch(() => {});
+    };
+    const onLeave = () => {
+      pauseVideo(v);
+      if (activeVideo === v) activeVideo = null;
     };
     card.addEventListener("mouseenter", onEnter);
+    card.addEventListener("mouseleave", onLeave);
     listeners.push(() => card.removeEventListener("mouseenter", onEnter));
+    listeners.push(() => card.removeEventListener("mouseleave", onLeave));
   });
 
-  // IntersectionObserver: mientras el usuario scrollea, los videos visibles se reproducen automáticamente
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const card = entry.target;
-        const v = card.querySelector("video");
-        if (!v) return;
-
-        if (entry.isIntersecting && !card.classList.contains("is-hidden")) {
-          v.muted = true;
-          v.volume = 0.1;
-          const playPromise = v.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                card.classList.add("is-playing");
-              })
-              .catch(() => {});
-          }
-        } else {
-          v.pause();
-          card.classList.remove("is-playing");
-        }
-      });
-    },
-    {
-      root: null,
-      rootMargin: "120px 0px 60px 0px",
-      threshold: 0.15,
-    },
-  );
-
-  videoCards.forEach((card) => observer.observe(card));
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      pauseVideo(activeVideo);
+      activeVideo = null;
+    }
+  };
+  document.addEventListener("visibilitychange", onVisibilityChange);
 
   return () => {
+    pauseVideo(activeVideo);
     listeners.forEach((clean) => clean());
-    observer.disconnect();
+    document.removeEventListener("visibilitychange", onVisibilityChange);
   };
 }
 

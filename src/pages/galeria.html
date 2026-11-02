@@ -100,7 +100,7 @@
           {% if isVid %}
           <video
             class="masonry-video-preview"
-            src="{{ (photo.videoSrc | default(photo.src)).replace('.mov', '.mp4') }}"
+            data-preview-src="{{ (photo.videoSrc | default(photo.src)).replace('.mov', '.mp4') }}"
             {% if photo.poster %}poster="{{ photo.poster }}"{% endif %}
             muted
             loop
@@ -115,9 +115,9 @@
             width="{{ photo.width | default(1024) }}"
             height="{{ photo.height | default(1536) }}"
             draggable="false"
-            {% if loop.index <= 6 %}
+            {% if loop.index <= 3 %}
             loading="eager"
-            fetchpriority="{% if loop.index <= 3 %}high{% else %}auto{% endif %}"
+            fetchpriority="{% if loop.index == 1 %}high{% else %}auto{% endif %}"
             {% else %}
             loading="lazy"
             decoding="async"
@@ -161,19 +161,19 @@
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
-    <button class="lightbox-nav lightbox-nav--prev" type="button" aria-label="Foto anterior" data-lightbox-prev>
+    <button class="lightbox-nav lightbox-nav--prev" type="button" aria-label="Elemento anterior" data-lightbox-prev>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
     </button>
-    <button class="lightbox-nav lightbox-nav--next" type="button" aria-label="Siguiente foto" data-lightbox-next>
+    <button class="lightbox-nav lightbox-nav--next" type="button" aria-label="Siguiente elemento" data-lightbox-next>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="9 18 15 12 9 6"></polyline>
       </svg>
     </button>
     <figure class="lightbox-figure">
       <img class="lightbox-image" src="" alt="" data-lightbox-img draggable="false" />
-      <video class="lightbox-video" controls playsinline data-lightbox-video style="display: none;" draggable="false"></video>
+      <video class="lightbox-video" controls controlslist="nodownload" playsinline preload="metadata" data-lightbox-video style="display: none;" draggable="false"></video>
       <div class="lightbox-embed" data-lightbox-embed style="display: none;"></div>
       <figcaption class="lightbox-counter" data-lightbox-counter></figcaption>
     </figure>

@@ -531,8 +531,17 @@ body:has(.gallery-section) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
   -webkit-user-select: none;
   user-select: none;
+}
+.lightbox-figure.is-switching {
+  opacity: 0;
+  transform: scale(0.992);
 }
 .lightbox-image {
   max-width: 86vw;
@@ -920,35 +929,6 @@ html.is-gallery-close::view-transition-new(gallery-active-media) {
   opacity: 0;
 }
 
-/* Navegación entre fotos prev/next: cross-fade ultra sutil */
-html:not(.is-gallery-open):not(.is-gallery-close)::view-transition-old(
-    gallery-active-media
-  ) {
-  animation: 0.25s cubic-bezier(0.32, 0.72, 0, 1) both galleryFadeOut;
-}
-html:not(.is-gallery-open):not(.is-gallery-close)::view-transition-new(
-    gallery-active-media
-  ) {
-  animation: 0.25s cubic-bezier(0.32, 0.72, 0, 1) both galleryFadeIn;
-}
-
-@keyframes galleryFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes galleryFadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
 /* Botones de navegación, cerrar y contador (aparición suave estilo iOS) */
 .gallery-lightbox.is-open .lightbox-close,
 .gallery-lightbox.is-open .lightbox-nav,
@@ -978,5 +958,8 @@ html:not(.is-gallery-open):not(.is-gallery-close)::view-transition-new(
   .gallery-lightbox.is-open .lightbox-nav,
   .gallery-lightbox.is-open .lightbox-counter {
     animation: none !important;
+  }
+  .lightbox-figure {
+    transition: none;
   }
 }

@@ -27,67 +27,33 @@ function initVideoPlayer() {
 
   const video = container.querySelector("#hexodusBrandVideo");
   const playTrigger = container.querySelector("[data-play-trigger]");
-  const soundTrigger = container.querySelector("[data-sound-trigger]");
-  const soundIcon = container.querySelector(".about-video-box__sound-icon");
-  const progressBar = container.querySelector(".about-video-box__progress-bar");
-  const progressFill = container.querySelector("[data-progress-fill]");
 
   if (!video) return () => {};
 
-  const togglePlay = () => {
-    if (video.paused || video.ended) {
-      video
-        .play()
-        .then(() => {
-          container.classList.add("is-playing");
-        })
-        .catch(() => {});
-    } else {
-      video.pause();
-      container.classList.remove("is-playing");
-    }
+  // A useful level is ready if the visitor explicitly enables audio. The
+  // player remains muted initially so opening the page never causes sound.
+  video.volume = 0.75;
+
+  const playVideo = () => {
+    video.play().catch(() => {});
   };
 
-  const toggleSound = (e) => {
-    e.stopPropagation();
-    video.muted = !video.muted;
-    if (soundIcon) {
-      soundIcon.textContent = video.muted ? "🔇" : "🔊";
-    }
+  const onPlay = () => {
+    container.classList.add("is-playing");
   };
 
-  const updateProgress = () => {
-    if (video.duration && progressFill) {
-      const percent = (video.currentTime / video.duration) * 100;
-      progressFill.style.width = `${percent}%`;
-    }
-  };
-
-  const onSeek = (e) => {
-    if (!video.duration || !progressBar) return;
-    const rect = progressBar.getBoundingClientRect();
-    const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    video.currentTime = pos * video.duration;
-  };
-
-  const onVideoEnded = () => {
+  const onPause = () => {
     container.classList.remove("is-playing");
   };
 
-  playTrigger?.addEventListener("click", togglePlay);
-  video.addEventListener("click", togglePlay);
-  soundTrigger?.addEventListener("click", toggleSound);
-  video.addEventListener("timeupdate", updateProgress);
-  video.addEventListener("ended", onVideoEnded);
-  progressBar?.addEventListener("click", onSeek);
+  playTrigger?.addEventListener("click", playVideo);
+  video.addEventListener("play", onPlay);
+  video.addEventListener("pause", onPause);
 
   return () => {
-    playTrigger?.removeEventListener("click", togglePlay);
-    video.removeEventListener("click", togglePlay);
-    soundTrigger?.removeEventListener("click", toggleSound);
-    video.removeEventListener("timeupdate", updateProgress);
-    video.removeEventListener("ended", onVideoEnded);
-    progressBar?.removeEventListener("click", onSeek);
+    playTrigger?.removeEventListener("click", playVideo);
+    video.removeEventListener("play", onPlay);
+    video.removeEventListener("pause", onPause);
   };
 }
 
