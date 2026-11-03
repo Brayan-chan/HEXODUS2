@@ -400,6 +400,35 @@ test("gallery navigation swaps decoded media without a document transition flash
   await page.close();
 });
 
+test("mobile gallery exposes usable previous and next controls", async () => {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await page.goto(new URL("galeria/", url).href);
+  await page.locator(".masonry-item").first().click();
+  await page.waitForFunction(
+    () => document.activeElement?.matches("button[data-lightbox-close]") === true,
+  );
+
+  for (const selector of ["[data-lightbox-prev]", "[data-lightbox-next]"]) {
+    const control = page.locator(selector);
+    assert.equal(await control.isVisible(), true);
+    const box = await control.boundingBox();
+    assert.ok(box.width >= 44 && box.height >= 44);
+    assert.ok(box.x >= 0 && box.x + box.width <= 390);
+  }
+
+  const counter = page.locator("[data-lightbox-counter]");
+  const previousLabel = await counter.textContent();
+  await page.locator("[data-lightbox-next]").click();
+  await page.waitForFunction(
+    (label) =>
+      document.querySelector("[data-lightbox-counter]")?.textContent !== label &&
+      !document.querySelector(".lightbox-figure")?.classList.contains("is-switching"),
+    previousLabel,
+  );
+  assert.notEqual(await counter.textContent(), previousLabel);
+  await page.close();
+});
+
 test("subpage navigation preserves its active state and deep-links home", async () => {
   const page = await browser.newPage({
     viewport: { width: 1440, height: 900 },
