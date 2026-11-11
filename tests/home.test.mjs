@@ -348,7 +348,9 @@ test("full videos use consistent accessible controls and useful audio levels", a
   await page.keyboard.press("Escape");
   await page.waitForFunction(
     () =>
-      !document.querySelector("#gallery-lightbox")?.classList.contains("is-open"),
+      !document
+        .querySelector("#gallery-lightbox")
+        ?.classList.contains("is-open"),
   );
   await page.waitForFunction(
     () => document.activeElement?.matches(".masonry-item.is-video") === true,
@@ -361,7 +363,9 @@ test("full videos use consistent accessible controls and useful audio levels", a
 });
 
 test("gallery navigation swaps decoded media without a document transition flash", async () => {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
   await page.addInitScript(() => {
     window.galleryTransitionCalls = 0;
     const original = document.startViewTransition?.bind(document);
@@ -375,7 +379,8 @@ test("gallery navigation swaps decoded media without a document transition flash
   await page.goto(new URL("galeria/", url).href);
   await page.locator(".masonry-item").first().click();
   await page.waitForFunction(
-    () => document.activeElement?.matches("button[data-lightbox-close]") === true,
+    () =>
+      document.activeElement?.matches("button[data-lightbox-close]") === true,
   );
 
   const before = await page.evaluate(() => window.galleryTransitionCalls);
@@ -384,16 +389,25 @@ test("gallery navigation swaps decoded media without a document transition flash
   await page.keyboard.press("ArrowRight");
   await page.waitForFunction(
     (label) =>
-      document.querySelector("[data-lightbox-counter]")?.textContent !== label &&
-      !document.querySelector(".lightbox-figure")?.classList.contains("is-switching"),
+      document.querySelector("[data-lightbox-counter]")?.textContent !==
+        label &&
+      !document
+        .querySelector(".lightbox-figure")
+        ?.classList.contains("is-switching"),
     previousLabel,
   );
 
-  assert.equal(await page.evaluate(() => window.galleryTransitionCalls), before);
+  assert.equal(
+    await page.evaluate(() => window.galleryTransitionCalls),
+    before,
+  );
   const activeImage = page.locator("[data-lightbox-img]");
   assert.equal(
     await activeImage.evaluate(
-      (image) => image.style.display !== "none" && image.complete && image.naturalWidth > 0,
+      (image) =>
+        image.style.display !== "none" &&
+        image.complete &&
+        image.naturalWidth > 0,
     ),
     true,
   );
@@ -405,7 +419,8 @@ test("mobile gallery exposes usable previous and next controls", async () => {
   await page.goto(new URL("galeria/", url).href);
   await page.locator(".masonry-item").first().click();
   await page.waitForFunction(
-    () => document.activeElement?.matches("button[data-lightbox-close]") === true,
+    () =>
+      document.activeElement?.matches("button[data-lightbox-close]") === true,
   );
 
   for (const selector of ["[data-lightbox-prev]", "[data-lightbox-next]"]) {
@@ -421,8 +436,11 @@ test("mobile gallery exposes usable previous and next controls", async () => {
   await page.locator("[data-lightbox-next]").click();
   await page.waitForFunction(
     (label) =>
-      document.querySelector("[data-lightbox-counter]")?.textContent !== label &&
-      !document.querySelector(".lightbox-figure")?.classList.contains("is-switching"),
+      document.querySelector("[data-lightbox-counter]")?.textContent !==
+        label &&
+      !document
+        .querySelector(".lightbox-figure")
+        ?.classList.contains("is-switching"),
     previousLabel,
   );
   assert.notEqual(await counter.textContent(), previousLabel);

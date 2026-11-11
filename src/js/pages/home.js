@@ -4,12 +4,14 @@ import { initActiveNavigation } from "../components/active-navigation.js";
 import { initCardHighlight } from "../components/card-highlight.js";
 import { initExistingEffects } from "../animations/existing-effects.js";
 import { initHomeAnimations } from "../animations/home-animations.js";
+import { initReviewsCarousel } from "../components/reviews-carousel.js";
 
 const root = document;
 const cleanups = [
   initShared(root),
   initActiveNavigation(root),
   initCardHighlight(root.querySelector(".plans") ?? root),
+  initReviewsCarousel(root),
 ];
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
 let cleanupExistingEffects = initExistingEffects(root);

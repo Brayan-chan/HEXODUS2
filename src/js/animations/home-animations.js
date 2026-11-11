@@ -153,11 +153,12 @@ export async function initHomeAnimations(root) {
                 start: "top 85%",
                 once: true,
               },
-              y: 32,
+              y: 28,
               opacity: 0,
-              duration: 0.9,
-              stagger: 0.08,
-              ease: "power3.out",
+              duration: 0.8,
+              stagger: 0.07,
+              ease: "power2.out",
+              force3D: true,
               clearProps: "transform,opacity",
             }),
           );
@@ -403,9 +404,10 @@ export async function initHomeAnimations(root) {
       const community = root.querySelector(".community");
       if (community) {
         const textItems = community.querySelectorAll(
-          ".community__text .section-index, .community__text h2, .community__text p",
+          ".community__header-main > *, .community__score-badge",
         );
-        const card = community.querySelector(".review-card");
+        const cards = community.querySelectorAll(".community-card");
+        const cta = community.querySelector(".community__cta-box");
 
         if (textItems.length) {
           tweens.push(
@@ -425,17 +427,35 @@ export async function initHomeAnimations(root) {
           );
         }
 
-        if (card) {
+        if (cards.length) {
           tweens.push(
-            gsap.from(card, {
+            gsap.from(cards, {
               scrollTrigger: {
                 trigger: community,
-                start: "top 82%",
+                start: "top 78%",
                 once: true,
               },
               y: 34,
               opacity: 0,
-              duration: 1,
+              duration: 0.9,
+              stagger: 0.08,
+              ease: "power3.out",
+              clearProps: "transform,opacity",
+            }),
+          );
+        }
+
+        if (cta) {
+          tweens.push(
+            gsap.from(cta, {
+              scrollTrigger: {
+                trigger: cta,
+                start: "top 90%",
+                once: true,
+              },
+              y: 24,
+              opacity: 0,
+              duration: 0.85,
               ease: "power3.out",
               clearProps: "transform,opacity",
             }),

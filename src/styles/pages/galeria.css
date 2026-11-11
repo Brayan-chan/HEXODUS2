@@ -20,6 +20,11 @@ body:has(.gallery-section) {
   background: url("/assets/gallery-main-1800.webp") center 35% / cover no-repeat;
   opacity: 0.35;
 }
+@media (max-width: 900px) {
+  .gallery-hero__bg {
+    background-image: url("/assets/gallery-main-900.webp");
+  }
+}
 .gallery-hero__veil {
   position: absolute;
   inset: 0;
