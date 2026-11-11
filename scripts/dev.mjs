@@ -5,7 +5,7 @@ import { render } from "./render.mjs";
 await render();
 const server = await createServer({
   configFile: "vite.config.js",
-  server: { host: "127.0.0.1" },
+  server: { host: "0.0.0.0" },
 });
 await server.listen();
 server.printUrls();

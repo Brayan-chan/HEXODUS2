@@ -1,0 +1,73 @@
+{
+  "rating": 4.5,
+  "totalReviews": "60+",
+  "summary": "Valoración destacada en Campeche por instalaciones 100% climatizadas, maquinaria biomecánica y ambiente de entrenamiento enfocado.",
+  "items": [
+    {
+      "id": "1",
+      "author": "Carlos M. Salazar",
+      "initials": "CS",
+      "rating": 5,
+      "date": "Hace 3 semanas",
+      "badge": "Local Guide",
+      "verified": true,
+      "highlight": "Instalaciones 100% climatizadas",
+      "text": "Excelente gimnasio en Campeche. Las instalaciones 100% climatizadas hacen toda la diferencia con el calor de la ciudad. Las máquinas biomecánicas están en perfecto estado y muy bien cuidadas."
+    },
+    {
+      "id": "2",
+      "author": "Alejandra Pech",
+      "initials": "AP",
+      "rating": 5,
+      "date": "Hace 1 mes",
+      "badge": "Socia activa",
+      "verified": true,
+      "highlight": "Excelente atención y coaches",
+      "text": "Los entrenadores Walter y David son súper atentos a la técnica y siempre dispuestos a orientar sin importar tu nivel. El ambiente es muy respetuoso y motivador para entrenar."
+    },
+    {
+      "id": "3",
+      "author": "Rodrigo E. Castillo",
+      "initials": "RC",
+      "rating": 5,
+      "date": "Hace 2 meses",
+      "badge": "Local Guide",
+      "verified": true,
+      "highlight": "Gran variedad de peso libre y equipo",
+      "text": "El mejor equipamiento de fuerza y peso libre de la zona. Muy amplio, con mancuernas suficientes y máquinas que no encuentras en otros gimnasios de Campeche. Súper recomendado."
+    },
+    {
+      "id": "4",
+      "author": "Mariana Gómez V.",
+      "initials": "MG",
+      "rating": 5,
+      "date": "Hace 2 meses",
+      "badge": "Socia activa",
+      "verified": true,
+      "highlight": "Limpieza y comodidad",
+      "text": "El orden y la limpieza son impecables. Todo el tiempo hay aire acondicionado y el personal de recepción es muy amable. Vale 100% lo que cuesta la mensualidad."
+    },
+    {
+      "id": "5",
+      "author": "Eduardo Canto",
+      "initials": "EC",
+      "rating": 5,
+      "date": "Hace 3 meses",
+      "badge": "Local Guide",
+      "verified": true,
+      "highlight": "Horarios muy convenientes",
+      "text": "Abrir desde las 5:00 a. m. me permite entrenar antes del trabajo con tranquilidad y sin aglomeraciones. La música y el ambiente son ideales para concentrarse."
+    },
+    {
+      "id": "6",
+      "author": "Valeria Chan T.",
+      "initials": "VC",
+      "rating": 5,
+      "date": "Hace 4 meses",
+      "badge": "Socia activa",
+      "verified": true,
+      "highlight": "Recomposición corporal y nutrición",
+      "text": "El plan integral de nutrición y asesoría en entrenamiento es de primer nivel. He visto cambios reales en mi fuerza y disciplina en tan solo tres meses."
+    }
+  ]
+}

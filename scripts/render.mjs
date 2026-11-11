@@ -22,6 +22,7 @@ const dataNames = [
   "routes",
   "seo",
   "gallery",
+  "reviews",
 ];
 const readData = async (name) =>
   JSON.parse(await readFile(join(source, "data", `${name}.json`), "utf8"));

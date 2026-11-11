@@ -1,29 +1,144 @@
-      <section class="community dark">
-        <div class="wrap community__grid">
-          <div>
-            <div class="section-index reveal">
-              <span>06</span> Comunidad Hexodus
+      <section class="community dark" id="comunidad">
+        <div class="community__glow-bg" aria-hidden="true"></div>
+        <div class="wrap">
+          <div class="community__header">
+            <div class="community__header-main">
+              <div class="section-index reveal">
+                <span>06</span> Comunidad Hexodus
+              </div>
+              <h2 class="reveal reveal--clip">La comunidad<br /><em>Hexodus.</em></h2>
+              <p class="reveal">
+                La experiencia de entrenar también se construye entre personas.
+                Opiniones reales de atletas y socios que entrenan todos los días en Campeche.
+              </p>
             </div>
-            <h2 class="reveal reveal--clip">La comunidad<br /><em>Hexodus.</em></h2>
-            <p class="reveal">
-              La experiencia de entrenar también se construye entre personas.
-              Consulta las opiniones publicadas por la comunidad.
-            </p>
+
+            <div class="community__score-badge reveal">
+              <div class="community__score-top">
+                <div class="community__score-brand">
+                  <svg class="google-logo" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.9c2.27-2.09 3.645-5.17 3.645-9.15z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.9-3.05c-1.08.72-2.45 1.16-4.03 1.16-3.12 0-5.77-2.1-6.72-4.94H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.26c-.25-.72-.38-1.49-.38-2.26s.13-1.54.38-2.26V6.61H1.26C.46 8.23 0 10.06 0 12s.46 3.77 1.26 5.39l4.02-3.13z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.26 6.61l4.02 3.13c.95-2.84 3.6-4.99 6.72-4.99z"/>
+                  </svg>
+                  <span class="community__score-platform">Google</span>
+                </div>
+                <div class="community__score-stars" aria-label="Calificación: {{ reviews.rating }} de 5 estrellas">
+                  <span class="community__score-number">{{ reviews.rating }}</span>
+                  <div class="stars-row">
+                    {% for i in range(0, 5) %}
+                    <svg class="star-icon" viewBox="0 0 20 20" width="14" height="14" fill="#fbbf24" aria-hidden="true">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <p class="community__score-label">Más de {{ reviews.totalReviews }} reseñas en Google Maps</p>
+            </div>
           </div>
-          <article class="review-card reveal">
-            <h3>Tu experiencia inspira a alguien más.</h3>
-            <p>
-              Lee las opiniones de la comunidad en Google Maps y comparte la
-              tuya.
-            </p>
-            <a
-              class="button button--dark"
-              href="{{ site.mapsUrl }}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Ver reseñas de Hexodus en Google Maps"
-              >Ver reseñas en Google <span>↗</span></a
-            ><small>{{ site.name }} · Campeche</small>
-          </article>
+
+          <div class="community__carousel-wrap">
+            <button
+              type="button"
+              class="community__arrow community__arrow--side community__arrow--prev"
+              data-reviews-prev
+              aria-label="Reseña anterior"
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+
+            <div class="community__track" data-reviews-track tabindex="0" role="region" aria-label="Carrusel de opiniones de clientes">
+              {% for item in reviews.items %}
+              <article class="community-card reveal{% if loop.first %} is-active{% endif %}" data-review-card="{{ loop.index0 }}">
+                <div class="community-card__header">
+                  <div class="community-card__avatar" aria-hidden="true">
+                    <span>{{ item.initials }}</span>
+                  </div>
+                  <div class="community-card__user">
+                    <h3 class="community-card__author">{{ item.author }}</h3>
+                    <div class="community-card__meta">
+                      <span class="community-card__badge">{{ item.badge }}</span>
+                      <span class="community-card__dot" aria-hidden="true">·</span>
+                      <time class="community-card__date">{{ item.date }}</time>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="community-card__google-corner" title="Reseña verificada en Google Maps" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.9c2.27-2.09 3.645-5.17 3.645-9.15z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.9-3.05c-1.08.72-2.45 1.16-4.03 1.16-3.12 0-5.77-2.1-6.72-4.94H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.26c-.25-.72-.38-1.49-.38-2.26s.13-1.54.38-2.26V6.61H1.26C.46 8.23 0 10.06 0 12s.46 3.77 1.26 5.39l4.02-3.13z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.26 6.61l4.02 3.13c.95-2.84 3.6-4.99 6.72-4.99z"/>
+                  </svg>
+                </div>
+
+                <div class="community-card__rating">
+                  <div class="stars-row">
+                    {% for star in range(0, item.rating) %}
+                    <svg class="star-icon" viewBox="0 0 20 20" width="14" height="14" fill="#fbbf24" aria-hidden="true">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    {% endfor %}
+                  </div>
+                  <span class="community-card__highlight">{{ item.highlight }}</span>
+                </div>
+
+                <blockquote class="community-card__quote">
+                  <p class="community-card__quote-text">"{{ item.text }}"</p>
+                  <button type="button" class="community-card__expand" aria-expanded="false" aria-label="Ver reseña completa">Ver más</button>
+                </blockquote>
+
+                <div class="community-card__footer">
+                  <span class="community-card__verified">
+                    <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Opinión en Google Maps
+                  </span>
+                </div>
+              </article>
+              {% endfor %}
+            </div>
+
+            <button
+              type="button"
+              class="community__arrow community__arrow--side community__arrow--next"
+              data-reviews-next
+              aria-label="Siguiente reseña"
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <div class="community__pagination reveal" aria-label="Indicadores de reseñas">
+            <div class="community__dots" data-reviews-dots>
+              {% for item in reviews.items %}
+              <button type="button" class="community__dot{% if loop.first %} is-active{% endif %}" data-reviews-dot="{{ loop.index0 }}" aria-label="Ir a reseña {{ loop.index }}"></button>
+              {% endfor %}
+            </div>
+            <div class="community__page-counter" aria-live="polite">
+              <span data-reviews-current>01</span><span class="community__page-slash">/</span><span data-reviews-total>06</span>
+            </div>
+          </div>
+
+          <div class="community__cta-box reveal">
+            <div class="community__cta-text">
+              <h3>Tu experiencia inspira a alguien más.</h3>
+              <p>¿Entrenas en Hexodus? Comparte tu opinión en Google Maps y ayuda a más personas a construir su disciplina.</p>
+            </div>
+            <div class="community__cta-actions">
+              <a
+                class="button button--primary"
+                href="{{ site.mapsUrl }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Ver todas las reseñas de Hexodus en Google Maps"
+                >Ver todas en Google Maps <span>↗</span></a
+              >
+            </div>
+          </div>
         </div>
       </section>
