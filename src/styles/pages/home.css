@@ -353,100 +353,232 @@
   color: var(--muted);
 }
 .memberships {
-  padding-bottom: 84px;
+  --plan-secondary: color-mix(in srgb, var(--white) 82%, var(--navy));
+  --plan-divider: color-mix(in srgb, var(--white) 26%, transparent);
+  --plan-shadow: color-mix(in srgb, var(--ink) 65%, transparent);
+  --plan-padding: clamp(24px, 2.3vw, 32px);
+  color: var(--white);
+  min-height: 900px;
+  padding-block: 76px;
+}
+.memberships .section-head {
+  margin-top: 0;
+  align-items: center;
+  gap: 32px;
+}
+.memberships .section-head p {
+  max-width: 400px;
+  color: var(--plan-secondary);
+  font-size: 16px;
 }
 .plans {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   margin-top: 40px;
 }
-.plan {
+.memberships .plan {
+  --plan-surface: #17263b;
+  --plan-ink: var(--white);
+  --plan-secondary: var(--white);
+  --plan-divider: #3a506a;
+  --plan-price: var(--white);
+  --plan-button-hover-surface: color-mix(in srgb, var(--white) 8%, #17263b);
+  --plan-button-hover-ink: var(--white);
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  padding: 32px;
+  padding: 44px var(--plan-padding) var(--plan-padding);
   min-height: 510px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--plan-divider);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--plan-surface);
+  color: var(--plan-ink);
+  box-shadow: none;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
-.plan--featured {
-  border-color: var(--red);
-  box-shadow:
-    0 12px 40px rgba(0, 71, 186, 0.22),
-    0 0 24px rgba(234, 0, 41, 0.14);
-  transform: translateY(-10px);
+.memberships .plan--featured {
+  --plan-surface: #1d2d45;
+  --plan-button-hover-surface: color-mix(in srgb, var(--white) 8%, #1d2d45);
+  border-top: 3px solid var(--red);
 }
-.plan__tag {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background: var(--red);
-  padding: 8px 12px;
+.memberships .plan__tag {
+  align-self: flex-start;
+  margin: -12px 0 12px;
+  color: var(--white);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  line-height: 16px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  box-shadow: 0 0 16px rgba(234, 0, 41, 0.4);
 }
-.plan .eyebrow {
-  color: var(--muted);
+.memberships .plan__title {
+  margin: 0;
+  color: var(--plan-ink);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
-.price {
+.memberships .plan__pricing {
+  min-height: 164px;
+  padding-block: 20px;
+}
+.memberships .plan .price {
+  color: var(--plan-price);
   font:
-    800 72px/1 Barlow Condensed,
+    800 clamp(40px, 4vw, 56px) / 1.08 Inter,
     sans-serif;
-  margin-top: 34px;
+  margin: 0;
+  font-variant-numeric: lining-nums tabular-nums;
 }
-.price sup {
-  font-size: 32px;
+.memberships .plan .price sup {
+  font-size: inherit;
+  vertical-align: baseline;
 }
-.plan small {
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 0.12em;
+.memberships .plan small {
+  display: block;
+  margin-top: 6px;
+  color: var(--plan-secondary);
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
 }
-.plan ul {
-  list-style: none;
-  padding: 28px 0;
-  margin: 24px 0 auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  width: 100%;
-  color: #d3d9e4;
+.memberships .plan__rate {
+  margin: 8px 0 0;
+  color: var(--plan-ink);
   font-size: 13px;
-  line-height: 2.5;
+  font-weight: 600;
+  line-height: 20px;
 }
-.plan li:before {
-  content: "+";
-  color: var(--red);
-  margin-right: 12px;
+.memberships .plan ul {
+  list-style: none;
+  padding: 20px 0 28px;
+  margin: 0 0 auto;
+  border-top: 1px solid var(--plan-divider);
+  width: 100%;
+  color: var(--plan-secondary);
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.memberships .plan li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.memberships .plan li:before {
+  content: "";
+  width: 7px;
+  height: 12px;
+  margin-top: 4px;
+  align-self: flex-start;
+  flex-shrink: 0;
+  border-right: 2px solid var(--red-neon);
+  border-bottom: 2px solid var(--red-neon);
+  transform: rotate(45deg);
+}
+.memberships .plan .button {
+  width: 100%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.memberships .plan .button--outline {
+  border-color: var(--muted);
+  background: transparent;
+  color: var(--plan-ink);
+}
+.memberships .plan .button--outline:is(:hover, :focus-visible) {
+  background: var(--plan-button-hover-surface);
+  color: var(--plan-button-hover-ink);
+}
+.memberships .plan .button:focus-visible {
+  outline: 2px solid var(--plan-ink);
+  outline-offset: 4px;
+}
+.memberships .plan .button--primary {
+  background: var(--red);
+  color: var(--white);
+}
+.memberships .plan .button--primary:is(:hover, :focus-visible) {
+  background: var(--red-hover);
+}
+@media (hover: hover) and (pointer: fine) {
+  .memberships .plan:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px var(--plan-shadow);
+  }
+}
+.memberships .plan .button:active {
+  transform: translateY(1px);
+}
+@media (max-width: 600px) {
+  .memberships .plan {
+    min-height: 0;
+  }
 }
 .short-passes {
-  margin-top: 44px;
+  margin-top: 32px;
+  padding-block: 20px;
+  border-block: 1px solid var(--plan-divider);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+  align-items: center;
 }
 .short-passes > p {
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.13em;
+  margin: 0;
+  color: var(--plan-secondary);
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 500;
 }
 .short-passes > div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 0;
 }
-.short-passes span {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 22px;
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.1em;
+.short-passes a {
+  padding-inline: 20px;
+  min-height: 44px;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
   display: flex;
+  gap: 12px;
+  align-items: center;
   justify-content: space-between;
+  transition: color 0.2s;
+}
+.short-passes a + a {
+  border-left: 1px solid var(--plan-divider);
+}
+.short-passes a:is(:hover, :focus-visible) {
+  color: var(--blue-electric);
+}
+.short-passes a:focus-visible {
+  outline: 2px solid var(--blue-electric);
+  outline-offset: 2px;
 }
 .short-passes b {
   font:
     700 26px/1 Barlow Condensed,
     sans-serif;
-  color: #fff;
+  white-space: nowrap;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.short-passes small {
+  font:
+    500 10px/1 Inter,
+    sans-serif;
+  color: var(--plan-secondary);
 }
 .philosophy {
   background: var(--white);
@@ -492,7 +624,7 @@
   max-width: 480px;
 }
 .philosophy__btn {
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   padding: 0 28px;
   box-shadow: 0 8px 24px rgba(234, 0, 41, 0.32);
 }
@@ -1304,14 +1436,6 @@
 .community__cta-actions {
   flex-shrink: 0;
 }
-.community__cta-actions .button span {
-  display: inline-block;
-  transition: transform 0.2s ease;
-  margin-left: 4px;
-}
-.community__cta-actions .button:hover span {
-  transform: translate(3px, -3px);
-}
 .faq-grid {
   display: grid;
   grid-template-columns: 400px 1fr;
@@ -1391,7 +1515,8 @@
 .final-cta__bg {
   position: absolute;
   inset: -6%;
-  background: url("/assets/hero-back.png") right 28% / cover no-repeat;
+  background: url("/assets/gallery/HEXODUS_INFLUENCERS-9.webp") right 65% /
+    cover no-repeat;
   opacity: 0.95;
 }
 .final-cta__veil {
@@ -1475,7 +1600,7 @@
   flex-wrap: wrap;
 }
 .final-cta__btn-wa {
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   padding: 0 32px;
   height: 54px;
   font-size: 13px;
@@ -1484,7 +1609,7 @@
   box-shadow:
     0 10px 30px rgba(234, 0, 41, 0.5),
     0 0 20px rgba(234, 0, 41, 0.3);
-  background: linear-gradient(135deg, var(--red) 0%, var(--red-neon) 100%);
+  background: linear-gradient(135deg, var(--red-hover) 0%, var(--red) 100%);
 }
 .final-cta__btn-wa:hover {
   box-shadow:
@@ -1493,7 +1618,7 @@
   transform: translateY(-2px);
 }
 .final-cta__btn-plans {
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   padding: 0 30px;
   height: 54px;
   font-size: 13px;
@@ -1620,39 +1745,6 @@ footer .wrap {
 .section > .wrap {
   position: relative;
   z-index: 1;
-}
-.plan {
-  transition:
-    transform 0.5s var(--ease),
-    border-color 0.35s,
-    background 0.35s,
-    box-shadow 0.5s var(--ease);
-}
-@media (hover: hover) and (pointer: fine) {
-  .plan:hover {
-    z-index: 2;
-    transform: translateY(-16px) scale(1.018);
-    border-color: rgba(73, 139, 255, 0.78);
-    background: linear-gradient(
-      145deg,
-      rgba(0, 71, 186, 0.12),
-      rgba(255, 255, 255, 0.025)
-    );
-    box-shadow:
-      0 28px 70px rgba(0, 0, 0, 0.38),
-      0 0 0 1px rgba(0, 71, 186, 0.22);
-  }
-  .plan--featured:hover {
-    border-color: var(--red);
-    box-shadow:
-      0 30px 75px rgba(0, 0, 0, 0.42),
-      0 0 32px rgba(234, 0, 41, 0.14);
-  }
-  .plan:hover .button {
-    border-color: var(--red);
-    background: var(--red);
-    color: var(--white);
-  }
 }
 :focus-visible {
   outline: 3px solid #ffcc00;
@@ -1814,29 +1906,15 @@ footer .wrap {
   .plans {
     grid-template-columns: 1fr;
   }
-  .plan--featured {
-    transform: none;
-  }
   .plan.is-scroll-active {
-    z-index: 2;
-    transform: translateY(-10px) scale(1.012);
-    border-color: rgba(73, 139, 255, 0.88);
-    background: linear-gradient(
-      145deg,
-      rgba(0, 71, 186, 0.16),
-      rgba(255, 255, 255, 0.03)
-    );
-    box-shadow:
-      0 24px 55px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(0, 71, 186, 0.24);
+    box-shadow: 0 16px 32px var(--plan-shadow);
   }
-  .plan.is-scroll-active .button {
-    border-color: var(--red);
-    background: var(--red);
-    color: var(--white);
+  .short-passes {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .plan--featured:not(.is-scroll-active) {
-    border-color: rgba(255, 255, 255, 0.16);
+  .short-passes a:first-child {
+    padding-left: 0;
   }
   .philosophy__grid,
   .team-grid,
@@ -1978,11 +2056,18 @@ footer .wrap {
     gap: 16px;
   }
   .plan {
-    min-height: 480px;
-    padding: 26px;
+    min-height: 0;
+    padding: 44px var(--plan-padding) var(--plan-padding);
   }
   .short-passes > div {
     grid-template-columns: 1fr;
+  }
+  .short-passes a {
+    padding: 12px 0;
+  }
+  .short-passes a + a {
+    border-left: 0;
+    border-top: 1px solid var(--plan-divider);
   }
   .philosophy {
     padding: 64px 0;

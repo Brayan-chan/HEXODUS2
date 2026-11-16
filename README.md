@@ -2,11 +2,28 @@
 
 Sitio comercial de alto rendimiento para **Hexodus Fitness Center** (San Francisco de Campeche, México), migrado desde WordPress/Elementor a una arquitectura estática moderna en **Vanilla HTML/CSS/JavaScript**, compilado con **Vite** y pre-renderizado con **Nunjucks**.
 
-## Estado actual — 2 de noviembre de 2026
+## Estado actual — 16 de noviembre de 2026
 
-El sitio incluye Inicio, Membresías, Nosotros, Galería y Contacto. Esta entrega incorpora las páginas dedicadas, los ajustes del header y la barra de promociones, las fuentes locales, el patrón de marca de Membresías y la configuración de animaciones restaurada.
+El sitio incluye Inicio, Membresías, Nosotros, Galería y Contacto. Esta entrega mejora las cards de membresías del Inicio sobre el fondo azul oscuro, unifica los botones redondeados y el hover del menú, reorganiza Contacto y añade los enlaces de Facebook e Instagram al footer con sus colores de marca. También actualiza las fotografías del Inicio y reduce la espera de entrada y los recálculos del carrusel de reseñas.
 
 El detalle de archivos, comportamiento, verificación de SEO y pruebas está en [CHANGELOG.md](CHANGELOG.md). Las mediciones de rendimiento de la sección 2 corresponden a una versión y un entorno anteriores; no representan una nueva medición de esta entrega.
+
+### Fotografías, iconos y rutas de edición
+
+Los archivos de `public/` se sirven desde la raíz: `public/assets/...` corresponde a `/assets/...` en HTML y CSS. Se deben respetar las mayúsculas de los nombres para desplegar en Linux.
+
+| Uso | Archivo público | Referencia en el código |
+|---|---|---|
+| Card «Orientación» del Inicio | `public/assets/gallery/Orientacion.webp` | `src/sections/home/experience.html` |
+| Foto «La fuerza no se improvisa» | `public/assets/gallery/LaFuerza.webp` | `src/sections/home/philosophy.html` |
+| Fondo «Hoy decides» | `public/assets/gallery/HEXODUS_INFLUENCERS-9.webp` | `.final-cta__bg` en `src/styles/pages/home.css` |
+| Portada de Contacto | `public/assets/location-1800.webp` y `location-900.webp` | `src/pages/contacto.html` |
+| Instagram del footer | `public/assets/icons/instagram.svg` | `src/components/footer.html` |
+| Enlaces de redes sociales | `src/data/site.json`, propiedad `socialLinks` | `src/components/footer.html` |
+
+`Orientacion.webp` reemplaza el nombre `Hexodus71.webp` y `LaFuerza.webp` reemplaza `Hexodus36.webp`. Sus referencias también se actualizan en `src/data/gallery.json`. La foto panorámica de «Hoy decides» ya pertenece a la galería del repositorio; se reutiliza sin duplicarla. La licencia del icono de Instagram se incluye en `public/assets/icons/LICENSE-SuperTinyIcons.txt`.
+
+Las páginas mantienen sus rutas: `/`, `/membresias/`, `/nosotros/`, `/galeria/` y `/contacto/`. Para revisar los bloques modificados se pueden abrir `/#membresias`, `/#comunidad`, `/#hoy-decides`, `/#footer` y `/contacto/#contacto`. El listado de páginas se mantiene en `src/data/routes.json`.
 
 ---
 

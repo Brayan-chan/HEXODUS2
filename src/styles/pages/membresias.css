@@ -586,9 +586,9 @@
   width: 100%;
   min-height: 52px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 24px;
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -603,12 +603,7 @@
 }
 
 .hexodus-plan-card__btn span {
-  font-size: 18px;
-  transition: transform 0.3s;
-}
-
-.hexodus-plan-card__btn:hover span {
-  transform: translateX(4px);
+  font: inherit;
 }
 
 .hexodus-plan-card__btn--outline {
@@ -631,8 +626,8 @@
 }
 
 .hexodus-plan-card__btn--primary:hover {
-  background: #ff1744;
-  border-color: #ff1744;
+  background: var(--red-hover);
+  border-color: var(--red-hover);
   box-shadow: 0 12px 30px rgba(234, 0, 41, 0.55);
 }
 
@@ -807,9 +802,9 @@
   width: 100%;
   min-height: 48px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 20px;
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
@@ -825,18 +820,13 @@
 }
 
 .hx-b3-flex-card__btn span {
-  font-size: 16px;
-  transition: transform 0.3s;
+  font: inherit;
 }
 
 .hx-b3-flex-card__btn:hover {
   background: var(--blue-neon);
   border-color: var(--blue-neon);
   box-shadow: 0 8px 20px var(--blue-glow);
-}
-
-.hx-b3-flex-card__btn:hover span {
-  transform: translateX(4px);
 }
 
 /* --------------------------------------------------------------------------
@@ -999,12 +989,12 @@
 }
 
 .memberships-help-section__btn-primary {
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   box-shadow: 0 8px 24px rgba(234, 0, 41, 0.4);
 }
 
 .memberships-help-section__btn-outline {
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   border-color: rgba(255, 255, 255, 0.35);
 }
 

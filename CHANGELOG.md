@@ -1,5 +1,51 @@
 # Registro de cambios
 
+## 2026-11-16 — Cards, Contacto, redes sociales y fotografías del Inicio
+
+### Cards y navegación
+
+- Las membresías del Inicio conservan el fondo azul oscuro compartido con las secciones de la marca. Las cards usan superficies azul pizarra, bordes y esquinas redondeadas; Gym Partners destaca con acento superior rojo y botón rojo.
+- Los precios, nombres y beneficios se muestran en blanco. Los beneficios de estas cards usan palomitas rojas y Partners indica el precio por persona. Los estilos nuevos de las cards se limitan a `.memberships .plan` del Inicio.
+- Los botones de acción comparten un radio de 12 px, con etiquetas centradas y sin las flechas decorativas de enlace. Los controles funcionales de navegación conservan sus iconos.
+- El menú del header cambia el subrayado animado por una superficie azul redondeada en hover y estado activo, con foco de teclado visible.
+- Los ajustes de contraste incluyen los estados hover y foco de los botones secundarios y de los botones rojos.
+
+### Contacto y footer
+
+- `/contacto/` reúne una portada azul oscuro con fotografía, acceso a WhatsApp, llamada y enlace de indicaciones. La sección siguiente organiza dirección, referencia de llegada y horarios junto al mapa interactivo de Google Maps.
+- El diseño de Contacto se adapta a una columna en móvil; conserva los datos del negocio de `src/data/site.json`, las alternativas para movimiento reducido y la entrada del título sin recortes.
+- El footer añade Facebook e Instagram debajo del texto de marca, con enlaces configurables en `site.socialLinks`, etiquetas accesibles, foco visible y apertura externa con `noopener noreferrer`.
+- Facebook utiliza azul de marca; Instagram usa un SVG con su degradado y cámara centrada. Se incluye su licencia de SuperTinyIcons.
+
+### Fotografías y referencias
+
+| Cambio | Ruta pública actual | Lugar de uso |
+|---|---|---|
+| Renombre de `Hexodus71.webp` | `/assets/gallery/Orientacion.webp` | Card de Orientación y entrada `gallery-71` de `src/data/gallery.json` |
+| Renombre de `Hexodus36.webp` | `/assets/gallery/LaFuerza.webp` | Filosofía del Inicio y entrada `gallery-36` de `src/data/gallery.json` |
+| Reutilización de foto panorámica existente, 6000 × 4000 px | `/assets/gallery/HEXODUS_INFLUENCERS-9.webp` | Fondo del CTA «Hoy decides», con encuadre adaptable |
+| Nuevo icono | `/assets/icons/instagram.svg` | Redes sociales del footer |
+
+Los dos renombres incluyen los archivos de imagen y sus referencias para evitar enlaces rotos al clonar o desplegar. El fondo de «Hoy decides» se configura en `.final-cta__bg` de `src/styles/pages/home.css`; la imagen del hero inicial conserva su referencia independiente.
+
+Se añaden las anclas `/#hoy-decides`, `/#footer` y `/contacto/#contacto`. Las cinco rutas de página existentes se mantienen; no se incorpora una página nueva.
+
+### Carga del carrusel de reseñas
+
+- Se elimina la entrada escalonada que ocultaba las cards al llegar a Comunidad. Se conservan la presentación visual y las animaciones de los demás elementos de la sección.
+- La card inicial y su indicador se posicionan juntos antes del siguiente pintado. Las posiciones se calculan al iniciar y al cambiar el ancho, en lugar de leer las dimensiones de cada card durante todo el desplazamiento.
+- Los controles se actualizan solo cuando cambia la reseña activa. Al redimensionar se conserva la selección; se cancelan los frames y se desconectan los observadores durante la limpieza del componente.
+- El desplazamiento respeta `prefers-reduced-motion`. Se verificaron flechas, puntos, teclado y la expansión de reseñas en móvil.
+- En pruebas locales con Chromium y CPU ralentizada 4×, la card activa alcanzó opacidad completa en aproximadamente 0,3 s frente a 1,4 s antes, a 1440 y 390 px. Durante un avance, las lecturas de dimensiones de cards pasaron de 194–218 a 0 y las mutaciones de atributos de 122–138 a 10. Son mediciones del componente en ese entorno, no métricas de carga global ni garantías de Core Web Vitals.
+
+### Validación y revisión
+
+- `npm run check` completado correctamente: ESLint, formato, compilación, validación de enlaces y recursos estáticos y las 21 pruebas de Playwright.
+- Se comprobaron además 160 referencias a recursos en plantillas, estilos y datos, respetando las mayúsculas de sus rutas, sin archivos faltantes.
+- La revisión visual cubre las cards, las fotografías, Contacto y los iconos del footer en móvil y escritorio.
+- Los resultados locales de pruebas, compilados, dependencias y reportes de `.taste-skill/` quedan fuera del repositorio.
+- La entrega se prepara en una rama nueva y un pull request hacia `main`; abrirlo no hace merge ni despliega el sitio.
+
 ## 2026-11-02 — Páginas, navegación y ajustes visuales
 
 Esta entrega reúne las páginas de Membresías y Nosotros que ya estaban en la rama local y los ajustes posteriores de navegación, presentación y pruebas. El destino es un pull request hacia `main`; su apertura no integra ni publica los cambios.

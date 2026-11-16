@@ -8,6 +8,7 @@
   --blue-glow: rgba(0, 102, 255, 0.35);
   --cyan-glow: rgba(0, 210, 255, 0.2);
   --red: #ea0029;
+  --red-hover: color-mix(in srgb, var(--red) 88%, var(--navy));
   --red-neon: #ff1744;
   --red-glow: rgba(234, 0, 41, 0.35);
   --white: #fff;
@@ -15,6 +16,10 @@
   --gray: #525b68;
   --muted: #a4adba;
   --line: #dde0e5;
+  --radius-button: 12px;
+  --radius-pill: 999px;
+  --nav-hover: color-mix(in srgb, var(--blue) 24%, var(--navy));
+  --nav-current: color-mix(in srgb, var(--blue) 12%, var(--navy));
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --wrap: min(1264px, calc(100% - 48px));
 }
