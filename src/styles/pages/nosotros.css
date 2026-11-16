@@ -206,8 +206,9 @@
   color: #fff;
 }
 
-.about-hero__btn-ghost:hover {
+.about-hero__btn-ghost:is(:hover, :focus-visible) {
   border-color: var(--blue-electric);
+  background: var(--navy);
   color: var(--blue-electric);
   box-shadow: 0 0 20px rgba(0, 210, 255, 0.25);
 }

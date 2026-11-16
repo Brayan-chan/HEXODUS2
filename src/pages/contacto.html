@@ -1,118 +1,150 @@
 {% extends "layouts/base.html" %} {% block pageStyles %}
 <link rel="stylesheet" href="/src/styles/pages/contact.css" />
 {% endblock %} {% block content %}
-<section class="contact-page__hero dark">
-  <div class="wrap">
-    <p class="eyebrow contact-hero__eyebrow">Contacto · {{ site.city }}</p>
-    <h1 class="contact-hero__title">
-      <span class="contact-hero__line"><b>HABLEMOS DE</b></span>
-      <span class="contact-hero__line"
-        ><b class="contact-hero__title-accent">TU PRÓXIMA META.</b></span
-      >
-    </h1>
-    <p class="contact-hero__copy">
-      ¿Tienes dudas o quieres conocer el gimnasio? Escríbenos o visítanos en
-      Campeche.
-    </p>
-  </div>
-</section>
-
-<section class="section contact" id="contacto">
-  <div class="wrap">
-    <div class="section-index">
-      <span>01</span> Aquí empieza la conversación
-    </div>
-    <div class="section-head">
-      <h2>Cuéntanos<br /><em>qué buscas.</em></h2>
-      <p>
-        Resuelve tus dudas sobre membresías, horarios y servicios. Te ayudamos a
-        preparar tu primera visita.
-      </p>
-    </div>
-    <div class="contact-grid">
-      <figure class="contact-photo">
-        <picture>
-          <source
-            media="(max-width: 600px)"
-            srcset="/assets/location-900.webp"
-          />
-          <img
-            src="/assets/location-1800.webp"
-            alt="Instalaciones de Hexodus en Campeche"
-            width="1800"
-            height="1171"
-            decoding="async"
-          />
-        </picture>
-        <figcaption>
-          <b>{{ site.name }}</b><span>{{ site.landmark }}</span>
-        </figcaption>
-      </figure>
-      <div class="contact-data">
-        <article>
-          <b>WhatsApp</b>
-          <a class="phone" href="{{ site.whatsappUrl }}"
-            >{{ site.phoneDisplay }}</a
+<div class="contact-page">
+  <section class="contact-page__hero dark" aria-labelledby="contact-title">
+    <div class="wrap contact-hero__layout">
+      <div class="contact-hero__content">
+        <h1 class="contact-hero__title" id="contact-title">
+          <span class="contact-hero__line"><b>HABLEMOS DE</b></span>
+          <span class="contact-hero__line"
+            ><b class="contact-hero__title-accent">TU PRÓXIMA META.</b></span
           >
-          <p>Consulta directamente con el equipo de Hexodus.</p>
+        </h1>
+        <p class="contact-hero__copy">
+          ¿Tienes dudas sobre tu membresía o quieres conocer el gimnasio? Habla
+          con nuestro equipo y prepara tu primera visita.
+        </p>
+        <div class="contact-hero__actions">
           <a
-            class="button button--dark"
+            class="button button--primary"
             href="{{ site.whatsappUrl }}"
             target="_blank"
             rel="noopener noreferrer"
-            >Escribir por WhatsApp <span>↗</span></a
+            >Escribir por WhatsApp</a
           >
-        </article>
-        <article>
-          <b>Horarios</b>
-          <dl>
-            <div>
-              <dt>Lunes a viernes</dt>
-              <dd>{{ site.hours.weekdays.display }}</dd>
-            </div>
-            <div>
-              <dt>Sábados</dt>
-              <dd>{{ site.hours.saturday.display }}</dd>
-            </div>
-            <div>
-              <dt>Domingos</dt>
-              <dd>{{ site.hours.sunday.display }}</dd>
-            </div>
-          </dl>
-        </article>
+          <a
+            class="button button--outline"
+            href="{{ site.mapsUrl }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Cómo llegar</a
+          >
+        </div>
+        <p class="contact-hero__phone">
+          También puedes llamarnos al
+          <a href="tel:{{ site.phoneE164 }}">{{ site.phoneDisplay }}</a>
+        </p>
       </div>
+      <picture class="contact-hero__photo">
+        <source media="(max-width: 600px)" srcset="/assets/location-900.webp" />
+        <img
+          src="/assets/location-1800.webp"
+          alt="Área de entrenamiento de {{ site.name }}"
+          width="1800"
+          height="1171"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section contact-page__map">
-  <div class="wrap">
-    <div class="section-index"><span>02</span> Visítanos en Campeche</div>
-    <div class="section-head">
-      <h2>Tu espacio<br /><em>para entrenar.</em></h2>
-      <div class="contact-page__address">
-        <strong>{{ site.name }}</strong>
-        <address>
-          {% for line in site.addressLines %}{{ line }}{% if not loop.last %}<br />{%
-          endif %}{% endfor %}
-        </address>
-        <p>{{ site.landmark }}</p>
-        <a
-          class="button button--dark"
-          href="{{ site.mapsUrl }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Cómo llegar <span>↗</span></a
-        >
+  <section
+    class="contact-page__visit"
+    id="contacto"
+    aria-labelledby="contact-visit-title"
+  >
+    <div class="wrap">
+      <div class="contact-visit__heading">
+        <h2 id="contact-visit-title">Ubicación y <em>horarios.</em></h2>
+        <p>
+          Encuéntranos en {{ site.city }}. Planea tu visita con la dirección y
+          los horarios a la mano.
+        </p>
+      </div>
+
+      <div class="contact-visit__grid">
+        <div class="contact-visit__details">
+          <article
+            class="contact-visit__address"
+            id="ubicacion"
+            aria-labelledby="contact-address-title"
+          >
+            <h3 id="contact-address-title">Nuestra dirección</h3>
+            <address>
+              {% for line in site.addressLines %}
+              <span>{{ line }}</span>
+              {% endfor %}
+            </address>
+            <p class="contact-visit__landmark">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg>
+              {{ site.landmark }}
+            </p>
+            <a
+              class="button button--dark contact-visit__directions"
+              href="{{ site.mapsUrl }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir ruta en Google Maps</a
+            >
+          </article>
+
+          <article
+            class="contact-visit__hours"
+            aria-labelledby="contact-hours-title"
+          >
+            <h3 id="contact-hours-title">Horarios de entrenamiento</h3>
+            <dl>
+              <div>
+                <dt>Lunes a viernes</dt>
+                <dd>{{ site.hours.weekdays.display }}</dd>
+              </div>
+              <div>
+                <dt>Sábados</dt>
+                <dd>{{ site.hours.saturday.display }}</dd>
+              </div>
+              <div>
+                <dt>Domingos</dt>
+                <dd>{{ site.hours.sunday.display }}</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+
+        <div class="contact-map">
+          <div class="contact-map__toolbar">
+            <span>{{ site.name }}</span>
+            <a
+              href="{{ site.mapsUrl }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Abrir Google Maps</a
+            >
+          </div>
+          <iframe
+            class="contact-page__map-frame"
+            src="{{ site.mapsEmbedUrl }}"
+            title="Mapa de ubicación de {{ site.name }} en Campeche"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
       </div>
     </div>
-    <iframe
-      class="contact-page__map-frame"
-      src="{{ site.mapsEmbedUrl }}"
-      title="Mapa de ubicación de {{ site.name }} en Campeche"
-      loading="lazy"
-      referrerpolicy="strict-origin-when-cross-origin"
-    ></iframe>
-  </div>
-</section>
+  </section>
+</div>
 {% endblock %}

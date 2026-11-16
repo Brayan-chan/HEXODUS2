@@ -1,8 +1,11 @@
-<article class="plan{% if plan.featured %} plan--featured{% endif %} reveal">
+<article class="plan plan--{{ plan.id }}{% if plan.featured %} plan--featured{% endif %} reveal" aria-labelledby="home-plan-{{ plan.id }}">
   {% if plan.tag %}<div class="plan__tag">{{ plan.tag }}</div>{% endif %}
-  <p class="eyebrow">{{ plan.name }}</p>
-  <div class="price"><sup>$</sup>{{ plan.amount | number }}</div>
-  <small>{{ plan.unit }}</small>
+  <h3 class="plan__title" id="home-plan-{{ plan.id }}">{{ plan.name }}</h3>
+  <div class="plan__pricing">
+    <div class="price"><sup>$</sup>{{ plan.amount | number }}</div>
+    <small>{{ plan.unit }}</small>
+    {% if plan.id == "partners" %}<p class="plan__rate">${{ (plan.amount / 2) | number }} por persona al mes</p>{% endif %}
+  </div>
   <ul>{% for feature in plan.features %}<li>{{ feature }}</li>{% endfor %}</ul>
-  <a class="button {% if plan.featured %}button--primary{% else %}button--outline{% endif %}" href="{% if plan.whatsappUrl %}{{ plan.whatsappUrl }}{% else %}{{ site.whatsappUrl }}{% endif %}" target="_blank" rel="noopener noreferrer">{{ plan.action }} <span>↗</span></a>
+  <a class="button {% if plan.featured %}button--primary{% else %}button--outline{% endif %}" href="{% if plan.whatsappUrl %}{{ plan.whatsappUrl }}{% else %}{{ site.whatsappUrl }}{% endif %}" target="_blank" rel="noopener noreferrer" aria-label="{{ plan.action }}: {{ plan.name }}">{{ plan.action }}</a>
 </article>

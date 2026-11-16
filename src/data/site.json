@@ -3,6 +3,10 @@
   "city": "Campeche, México",
   "phoneE164": "+529811787040",
   "phoneConfirmed": true,
+  "socialLinks": {
+    "facebook": "https://www.facebook.com/hexodus.fitness.center/",
+    "instagram": "https://www.instagram.com/hexodusfitness/"
+  },
   "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=Hexodus+Fitness+Center%2C+Calle+Zafiro%2C+Mza.+1%2C+Lote+8%2C+entre+Calle+Plata+y+Brillante%2C+Colonia+Minas%2C+Campeche%2C+Campeche",
   "mapsEmbedUrl": "https://maps.google.com/maps?iwloc=near&output=embed&q=Hexodus+Fitness+Center%2C+Calle+Zafiro%2C+Mza.+1%2C+Lote+8%2C+entre+Calle+Plata+y+Brillante%2C+Colonia+Minas%2C+Campeche%2C+Campeche&t=m&z=16",
   "mapsUrlConfirmed": true,

@@ -406,7 +406,6 @@ export async function initHomeAnimations(root) {
         const textItems = community.querySelectorAll(
           ".community__header-main > *, .community__score-badge",
         );
-        const cards = community.querySelectorAll(".community-card");
         const cta = community.querySelector(".community__cta-box");
 
         if (textItems.length) {
@@ -420,24 +419,6 @@ export async function initHomeAnimations(root) {
               y: 28,
               opacity: 0,
               duration: 0.85,
-              stagger: 0.08,
-              ease: "power3.out",
-              clearProps: "transform,opacity",
-            }),
-          );
-        }
-
-        if (cards.length) {
-          tweens.push(
-            gsap.from(cards, {
-              scrollTrigger: {
-                trigger: community,
-                start: "top 78%",
-                once: true,
-              },
-              y: 34,
-              opacity: 0,
-              duration: 0.9,
               stagger: 0.08,
               ease: "power3.out",
               clearProps: "transform,opacity",

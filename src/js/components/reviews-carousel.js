@@ -12,6 +12,12 @@ export function initReviewsCarousel(root) {
   if (!track || !cards.length) return () => {};
 
   const listeners = [];
+  const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
+  let activeIndex = -1;
+  let trackWidth = 0;
+  let cardCenters = [];
+  let scrollFrame = 0;
+  let resizeFrame = 0;
 
   // ── "Ver más / Ver menos" expand logic ───────────────────────────────────
   cards.forEach((card) => {
@@ -48,13 +54,18 @@ export function initReviewsCarousel(root) {
   });
 
   // ── Carousel core ─────────────────────────────────────────────────────────
+  // Measure once per resize, rather than reading every card on each scroll frame.
+  const measureCards = () => {
+    trackWidth = track.clientWidth;
+    cardCenters = cards.map((card) => card.offsetLeft + card.offsetWidth / 2);
+  };
+
   const getActiveIndex = () => {
-    const trackCenter = track.scrollLeft + track.clientWidth / 2;
+    const trackCenter = track.scrollLeft + trackWidth / 2;
     let closestIndex = 0;
     let minDistance = Infinity;
 
-    cards.forEach((card, index) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+    cardCenters.forEach((cardCenter, index) => {
       const distance = Math.abs(trackCenter - cardCenter);
       if (distance < minDistance) {
         minDistance = distance;
@@ -66,7 +77,9 @@ export function initReviewsCarousel(root) {
   };
 
   const updateControlsState = () => {
-    const activeIndex = getActiveIndex();
+    const nextIndex = getActiveIndex();
+    if (nextIndex === activeIndex) return;
+    activeIndex = nextIndex;
 
     cards.forEach((card, i) => {
       const isActive = i === activeIndex;
@@ -77,10 +90,6 @@ export function initReviewsCarousel(root) {
     if (currentIndicator) {
       currentIndicator.textContent = String(activeIndex + 1).padStart(2, "0");
     }
-    if (totalIndicator) {
-      totalIndicator.textContent = String(cards.length).padStart(2, "0");
-    }
-
     if (prevBtn) {
       const isStart = activeIndex === 0;
       prevBtn.disabled = isStart;
@@ -100,13 +109,12 @@ export function initReviewsCarousel(root) {
     });
   };
 
-  const scrollToCard = (index, behavior = "smooth") => {
+  const scrollToCard = (
+    index,
+    behavior = motionPreference.matches ? "instant" : "smooth",
+  ) => {
     const clamped = Math.max(0, Math.min(cards.length - 1, index));
-    const targetCard = cards[clamped];
-    if (!targetCard) return;
-
-    const targetScroll =
-      targetCard.offsetLeft - (track.clientWidth - targetCard.offsetWidth) / 2;
+    const targetScroll = cardCenters[clamped] - trackWidth / 2;
 
     track.scrollTo({
       left: Math.max(0, targetScroll),
@@ -162,39 +170,45 @@ export function initReviewsCarousel(root) {
   track.addEventListener("keydown", onKeyDown);
   listeners.push(() => track.removeEventListener("keydown", onKeyDown));
 
-  let ticking = false;
   const onScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateControlsState();
-        ticking = false;
+    if (!scrollFrame) {
+      scrollFrame = requestAnimationFrame(() => {
+        scrollFrame = 0;
+        if (!resizeFrame) updateControlsState();
       });
-      ticking = true;
     }
   };
   track.addEventListener("scroll", onScroll, { passive: true });
   listeners.push(() => track.removeEventListener("scroll", onScroll));
 
-  const onResize = () => updateControlsState();
+  const onResize = () => {
+    if (resizeFrame || track.clientWidth === trackWidth) return;
+    resizeFrame = requestAnimationFrame(() => {
+      resizeFrame = 0;
+      measureCards();
+      scrollToCard(activeIndex, "instant");
+      updateControlsState();
+    });
+  };
   window.addEventListener("resize", onResize, { passive: true });
   listeners.push(() => window.removeEventListener("resize", onResize));
+  const resizeObserver = new ResizeObserver(onResize);
+  resizeObserver.observe(track);
 
   // ── Start on card index 2 (3rd card — Rodrigo E. Castillo) ───────────────
-  // Use "instant" scroll so there's no animation flash on first load.
-  // Falls back gracefully if fewer than 3 cards exist.
+  // Position and highlight together before the next paint to avoid a loading flash.
   const START_INDEX = Math.min(2, cards.length - 1);
-  if (START_INDEX > 0) {
-    // Wait one frame so layout is ready, then jump without animation
-    requestAnimationFrame(() => {
-      scrollToCard(START_INDEX, "instant");
-      // Update controls state after the instant jump
-      requestAnimationFrame(updateControlsState);
-    });
-  } else {
-    updateControlsState();
+  if (totalIndicator) {
+    totalIndicator.textContent = String(cards.length).padStart(2, "0");
   }
+  measureCards();
+  scrollToCard(START_INDEX, "instant");
+  updateControlsState();
 
   return () => {
+    resizeObserver.disconnect();
+    cancelAnimationFrame(scrollFrame);
+    cancelAnimationFrame(resizeFrame);
     listeners.forEach((remove) => remove());
   };
 }
